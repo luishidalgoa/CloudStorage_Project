@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>readme.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="proyecto-music-downloader">Proyecto Music Downloader</h1>
+<h1 id="proposito-del-proyecto">Proposito del proyecto</h1>
+<p>El objetivo de este proyecto es desarrollar un microservicio que en principio seria consumido por una futura aplicacion web.
+Esta api permitira a los usuarios descargar canciones de youtube de forma mas rapida y sencilla, almacenando estas mismas canciones dentro del propio almacenamiento en la nube del usuario que estara descargando la musica.</p>
+<h2 id="enfoque-del-proyecto">Enfoque del proyecto</h2>
+<p>Este microservicio va a <u>consumir algunos microservicios (<em>'MS'</em>)</u> como <code>Auth MS</code>, <code>Nextcloud MS</code> y <code>Subscription MS</code>.</p>
+<p>Cuando un usuario desee descargar una canción, se llamara al endpoint /download del microservicio &quot;<code>MusicDownloader</code>&quot; Este endpoint se encargara de realizar algunas validaciones previas a la ejecucion de la logica del microservicio. Algunas de las validaciones son:</p>
+<ul>
+<li>El usuario debe estar autenticado</li>
+<li>El usuario debe tener un plan de subscripción activo</li>
+<li>El usuario debe tener suficiente espacio en su almacenamiento para descargar las canciones</li>
+<li>La ruta de descarga debe ser correcta</li>
+</ul>
+<p>Una vez todas esas validaciones pasen, se realizara la descarga de la cancion utilizando la herramienta <code>yt-dlp</code> que se encargara de descargar la cancion y almacenarla en la ruta indicada por el usuario.</p>
+<h2 id="endpoints">Endpoints</h2>
+<h3 id="urlmusicdownloaderapiv1download"><code>{{url}}/MusicDownloader/api/v1/download</code>:</h3>
+<blockquote>
+<p>Devuelve el link de la carpeta donde se almacenaron las canciones descargadas.</p>
+</blockquote>
+<p><code>Header</code>:</p>
+<pre class="hljs"><code><div>Authorization<span class="hljs-punctuation">:</span> Basic bHVpc2hpZGFsZ29hOkNvbnRyYXNlbmFFamVtcGxv
+</div></code></pre>
+<p><code>Body</code>:</p>
+<pre class="hljs"><code><div><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;user&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;uid&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;string&quot;</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;externalUrl&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;https://www.youtube.com/watch?v=QH2_TGUlwu4&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-comment">//Url de la cancion</span>
+    <span class="hljs-attr">&quot;DirectoryPath&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;/new%folder&quot;</span> <span class="hljs-comment">//Ruta de descarga indicada por el usuario</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</div></code></pre>
+<p><code>Errors</code>:</p>
+<ul>
+<li>401: Credenciales invalidas.</li>
+<li>404: El enlace de descarga no existe.</li>
+<li>1001: El usuario no tiene un plan activo</li>
+<li>1002: El usuario no tiene suficiente espacio en su almacenamiento para descargar la cancion</li>
+<li>1003: La ruta de descarga no existe</li>
+</ul>
+<h1 id="tecnolog%C3%ADas">Tecnologías</h1>
+<ul>
+<li>Docker</li>
+<li>Spring Boot</li>
+<li>Java 21</li>
+<li>maven</li>
+<li>Git</li>
+<li>Postman</li>
+</ul>
+<h2 id="tools">Tools</h2>
+<ul>
+<li>IntelliJ</li>
+</ul>
+<h2 id="plugins-intellij">Plugins intellij</h2>
+<ul>
+<li>CodeIUM</li>
+<li>Prettier</li>
+<li>maven</li>
+</ul>
+<h1 id="arquitectura-del-proyecto">Arquitectura del proyecto</h1>
+<p>lorem hipsus</p>
+<h1 id="diagramas">Diagramas</h1>
+<h2 id="diagrama-arquitectura-microservicios">Diagrama arquitectura microservicios</h2>
+<p><img src="../Diagrama_Microservicios.png" alt="Diagrama"></p>
+<h2 id="diagrama-de-secuencia">Diagrama de secuencia</h2>
+<p><img src="./Diagrama_secuencia.png" alt="Diagrama"></p>
+<h1 id="microservicios-consumidos">Microservicios consumidos</h1>
+<h2 id="auth-microservice"><strong>Auth microservice</strong>:</h2>
+<h3 id="urlauthapiv1me"><code>{{url}}/auth/api/v1/me</code>:</h3>
+<p><code>descripción</code>:</p>
+<blockquote>
+<p>Obtiene la información del usuario autenticado.</p>
+</blockquote>
+<p><code>Method</code>: GET</p>
+<p><code>Header</code>:</p>
+<pre class="hljs"><code><div>Authorization<span class="hljs-punctuation">:</span> Basic bHVpc2hpZGFsZ29hOkNvbnRyYXNlbmFFamVtcGxv
+</div></code></pre>
+<p><code>Response</code>:`</p>
+<pre class="hljs"><code><div><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;valid&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;userId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;string&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;roles&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;string&quot;</span><span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</div></code></pre>
+<hr>
+<h3 id="urlauthapiv1verify-token"><code>{{url}}/auth/api/v1/verify-token</code></h3>
+<p><code>descripción</code>:</p>
+<blockquote>
+<p>Verifica si el token es valido.</p>
+</blockquote>
+<p><code>Header</code>:</p>
+<pre class="hljs"><code><div>Authorization<span class="hljs-punctuation">:</span> Basic bHVpc2hpZGFsZ29hOkNvbnRyYXNlbmFFamVtcGxv
+</div></code></pre>
+<p><code>Response</code>:</p>
+<pre class="hljs"><code><div><span class="hljs-literal"><span class="hljs-keyword">true</span></span>
+</div></code></pre>
+<h2 id="nextcloud">NextCloud</h2>
+<h3 id="nextcloudapiv1directory-list"><code>/nextcloud/api/v1/directory-list</code>:</h3>
+<p><code>Descripción</code>:</p>
+<blockquote>
+<p>Devuelve los elementos hijos dentro del directorio indicado del usuarío dueño del token.</p>
+</blockquote>
+<p><code>Header</code>:</p>
+<pre class="hljs"><code><div>Authorization<span class="hljs-punctuation">:</span> Basic bHVpc2hpZGFsZ29hOkNvbnRyYXNlbmFFamVtcGxv
+</div></code></pre>
+<pre class="hljs"><code><div>    <span class="hljs-attr">&quot;user&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">&quot;uid&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;string&quot;</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-string">&quot;path&quot;</span>= <span class="hljs-string">&quot;/&quot;</span> <span class="hljs-comment">//Indica el directorio raiz del usuario</span>
+</div></code></pre>
+<p><code>Response</code>:</p>
+<pre class="hljs"><code><div><span class="hljs-punctuation">{</span>
+    <span class="hljs-punctuation">[</span>
+        <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">&quot;href&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;/nextcloud/remote.php/dav/files/luishidalgoa/&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;propstat&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">&quot;prop&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;getlastmodified&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Wed, 11 Dec 2024 15:27:54 GMT&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;resourcetype&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+              <span class="hljs-attr">&quot;collection&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-punctuation">}</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;quota-used-bytes&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">365435363</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;quota-available-bytes&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">214382929437</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;getetag&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;\&quot;6759af7a33f89\&quot;&quot;</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;status&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;HTTP/1.1 200 OK&quot;</span>
+        <span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">&quot;href&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;/nextcloud/remote.php/dav/files/luishidalgoa/Arquitectura.excalidraw&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;propstat&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">&quot;prop&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;getlastmodified&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Wed, 04 Dec 2024 23:04:44 GMT&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;getcontentlength&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">197240</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;resourcetype&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;getetag&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;\&quot;7704b908aa6f925fb31a67f700401aac\&quot;&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;getcontenttype&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;application/vnd.excalidraw+json&quot;</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;status&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;HTTP/1.1 200 OK&quot;</span>
+        <span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">&quot;href&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;/nextcloud/remote.php/dav/files/luishidalgoa/Nueva%20carpeta/&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;propstat&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">&quot;prop&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">&quot;getlastmodified&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Wed, 11 Dec 2024 09:48:13 GMT&quot;</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;resourcetype&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+              <span class="hljs-attr">&quot;collection&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-punctuation">}</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;quota-used-bytes&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1678</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;quota-available-bytes&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">214382929437</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;getetag&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;\&quot;67595fdd6cb14\&quot;&quot;</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">&quot;status&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;HTTP/1.1 200 OK&quot;</span>
+        <span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</div></code></pre>
+<hr>
+<h3 id="nextcloudapiv1downloadcheck"><code>/nextcloud/api/v1/downloadCheck</code>:</h3>
+<p><code>descripción</code>:</p>
+<blockquote>
+<p>Verifica si la ruta de descarga indicada es correcta y si hay suficiente espacio disponible en el almacenamiento del usuario. devolviendo un true o false en base a si hay o no suficiente espacio y si la ruta es correcta.</p>
+</blockquote>
+<p><code>Header</code>:</p>
+<pre class="hljs"><code><div>Authorization<span class="hljs-punctuation">:</span> Basic bHVpc2hpZGFsZ29hOkNvbnRyYXNlbmFFamVtcGxv
+</div></code></pre>
+<p><code>Body</code>:</p>
+<pre class="hljs"><code><div><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;user&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">&quot;uid&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;string&quot;</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;path&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;/new%folder&quot;</span> <span class="hljs-comment">//Ruta de descarga indicada por el usuario</span>
+    <span class="hljs-attr">&quot;size&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4194304</span> <span class="hljs-comment">//tamaño en bytes del archivo</span>
+<span class="hljs-punctuation">}</span>
+</div></code></pre>
+<p><code>Response</code>:</p>
+<pre class="hljs"><code><div><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;success&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span>
+<span class="hljs-punctuation">}</span>
+</div></code></pre>
+<p><code>Errors</code>:</p>
+<ul>
+<li>1002: Almacenamiento insuficiente</li>
+<li>1003: Ruta de descarga incorrecta</li>
+</ul>
+<hr>
+
+</body>
+</html>
