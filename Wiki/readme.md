@@ -25,6 +25,13 @@ Un enfoque que deseamos darle a este proyecto es ofrecerla la comodidad al usuar
     - Development // pruebas reales con otros microservicios
     - Production // pruebas en el despliegue
 - Manejo de errores
+- Usaremos ``application.yml`` en lugar de ``application.properties``
+- Usaremos DTOs para los datos que recibimos de otros microservicios
+- Usaremos propiedades como estas, para los modelos
+    - ``@Data`` // para crear getters y setters
+    - ``@AllArgsConstructor`` // para crear constructores con parametros
+    - ``@NoArgsConstructor`` // para crear constructores sin parametros
+    - ``@Builder`` // para crear constructores con parametros opcionales
 
 # Tecnologías
 - Docker
