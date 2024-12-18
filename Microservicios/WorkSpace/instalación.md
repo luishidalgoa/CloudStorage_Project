@@ -1,38 +1,13 @@
-## Levantar el entorno de desarrollo
-En el directorio Microservicios/WorkSpace encontraras un script de ps1 (`POWERSHELL`) 
-para levantar el entorno de desarrollo para la aplicacion en cuestion de segundos y 
-con todo  <u>*pre-configurado*</u>
+# Pasos de instalación del entorno de desarrollo
+## Requisitos previos
+- Instalar docker desktop en window o docker-core en linux
 
-### <u>Este entorno incluye</u>:
-- `Python` + `eyed3` + `yt-dlp` + `ffmpeg`
-- `MySQL/Mariadb`
-- `Apache2` + `php8.2` + `Nextcloud`
+## Ejecución
 
-Cuando levantes el contenedor. Podras tener acceso a una version del servidor Nextcloud
-y de la base de datos que utiliza el servidor nextcloud.
-
-## Pre-requisitos
-Solo hay un unico pre-requisito que es tener habilitada la caracteristica `Window Subsystem for Linux (WSL)`
-
-- [Como habilitar WSL en window](https://tutowindow.com/como-habilitar-wsl2-en-windows-11/?expand_article=1)
-
-## Instalar el contenedor
-1. Descarga el fichero <u>*`cloud-storage-dev-container`*</u> a traves del siguiente enlace:
-
-    [Descargar imagen del contenedor](https://1drv.ms/u/s!AuA970VMKOuw1NI6YqT90SGBc6Tdpg?e=aVAJeJ)
-
-1. Ubica el fichero en la carpeta `.\Microservicios\WorkSpace\`
-1. Abre un terminal `Powershell`
-1. Ubicate en el directorio del proyecto `.\Microservicios\WorkSpace`
-    ````sh
-    cd ruta\del\proyecto\Microservicios\WorkSpace
-    ````
-    > Encontraras un fichero llamado <u>*`dev-container-install.ps1`*</u>
-
-1. Ejecutalo desde la consola de powershell.
-    ````bash
-    powershell.exe .\dev-container-install.ps1
-    ````
+1. Hacer un docker run de la imagen publicada en docker hub:
+````sh
+docker compose up -d
+````
 
 # ¡Pruebalo!
 

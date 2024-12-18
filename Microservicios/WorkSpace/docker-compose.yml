@@ -1,0 +1,26 @@
+services:
+  cloud-storage-db:
+    image: luishidalgoa/cloud-storage-db
+    container_name: cloud-storage-db
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: nextcloud
+      MARIADB_USER: nextclouduser
+      MARIADB_PASSWORD: 1234
+    ports:
+      - "3306:3306"
+    networks:
+      - cloud-storage-network
+
+  cloud-storage-dev:
+    image: luishidalgoa/cloud-storage-dev
+    container_name: cloud-storage-dev
+    ports:
+      - "22:22"
+      - "80:80"
+    networks:
+      - cloud-storage-network
+
+networks:
+  cloud-storage-network:
+    driver: bridge
