@@ -235,8 +235,8 @@
     },
     {
       "type": "text",
-      "version": 1070,
-      "versionNonce": 272825109,
+      "version": 1083,
+      "versionNonce": 197978437,
       "isDeleted": false,
       "id": "sAFQUGHyYjjhm32fj91gz",
       "fillStyle": "solid",
@@ -249,7 +249,7 @@
       "y": 448.58899927197524,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
-      "width": 170.75985717773438,
+      "width": 51.95994567871094,
       "height": 25,
       "seed": 1797748116,
       "groupIds": [
@@ -259,16 +259,16 @@
       "frameId": "aRHLFJbafBnR1Kwbw0znT",
       "roundness": null,
       "boundElements": [],
-      "updated": 1733923381227,
+      "updated": 1734738881690,
       "link": null,
       "locked": false,
       "fontSize": 20,
       "fontFamily": 1,
-      "text": "Music Downloader",
+      "text": "Music",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "Music Downloader",
+      "originalText": "Music",
       "lineHeight": 1.25,
       "baseline": 17
     },
@@ -646,6 +646,50 @@
         1,
         1
       ]
+    },
+    {
+      "id": "wZkw4GnlGqoKdcaLxVBjX",
+      "type": "line",
+      "x": 452.58297758452954,
+      "y": 273.227905371665,
+      "width": 0,
+      "height": 51.3333740234375,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": "aRHLFJbafBnR1Kwbw0znT",
+      "roundness": {
+        "type": 2
+      },
+      "seed": 1866275845,
+      "version": 18,
+      "versionNonce": 751951051,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1734738895714,
+      "link": null,
+      "locked": false,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          51.3333740234375
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": null,
+      "endBinding": null,
+      "startArrowhead": null,
+      "endArrowhead": null
     },
     {
       "type": "frame",
