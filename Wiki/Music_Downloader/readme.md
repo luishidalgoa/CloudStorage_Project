@@ -54,11 +54,11 @@ Authorization: Basic {{base64_username:password}}
 # Diagramas
 ## Diagrama arquitectura microservicios
 
-![Diagrama](../Diagrama_Microservicios.png)
+![Diagrama](../Arquitectura/Diagrama_Microservicios.png)
 
 ## Diagrama de secuencia
 
-![Diagrama](./Diagrama_secuencia.png)
+![Diagrama](../Arquitectura/Diagrama_secuencia.png)
 
 # Microservicios consumidos
 
