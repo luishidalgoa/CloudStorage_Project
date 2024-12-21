@@ -8,6 +8,9 @@
 ### Diagrama de secuencia
 ![Diagrama](./Diagrama_secuencia.png)
 
+### Diagrama de clases
+![Diagrama](./Diagrama_UML.png)
+
 ## Propósito del microservicio
 
 El objetivo es desarrollar un microservicio que en principio sería consumido por múltiples aplicaciones con propósitos distintos. La función principal de esta API es ofrecer herramientas para crear aplicaciones que sean **Galerías de música** con la música propiedad de los usuarios. De modo que puedan:
