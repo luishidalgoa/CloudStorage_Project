@@ -7,7 +7,7 @@ Un enfoque que deseamos darle a este proyecto es ofrecerla la comodidad al usuar
 # Diagramas
 ## Diagrama arquitectura microservicios
 
-![Diagrama](Diagrama_Microservicios.png)
+![Diagrama](./Arquitectura/Diagrama_Microservicios.png)
 
 # Arquitectura del proyecto
 ### Reglas de trabajo:
