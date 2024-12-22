@@ -21,6 +21,38 @@ services:
     networks:
       - cloud-storage-network
 
+  # Monitoreo
+  grafana:
+    container_name: monitoring-grafana
+    image: grafana/grafana:latest
+    hostname: rpi-grafana
+    restart: unless-stopped
+    user: "472"
+    networks:
+      - monitoring
+    ports:
+      - "3000:3000"
+
+  prometheus:
+    container_name: monitoring-prometheus
+    image: prom/prometheus:latest
+    hostname: rpi-prometheus
+    restart: unless-stopped
+    user: "nobody"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=1y'
+    networks:
+      - monitoring
+    ports:
+      - "9090:9090"
+    expose:
+      - 9090
+    volumes:
+      - ./Monitoring/Prometheus/data:/prometheus
+      - ./Monitoring/Prometheus:/etc/prometheus/
+
 networks:
   cloud-storage-network:
     driver: bridge
