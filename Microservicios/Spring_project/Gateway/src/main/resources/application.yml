@@ -1,0 +1,24 @@
+server:
+  port: 8080 # Puerto del servicio de monitoreo
+
+spring:
+  application:
+    name: Gateway
+
+# Cambiar, no deseamos que se registre en el descubrimiento por que entre otras cosas no lo vamos a monitorear
+eureka:
+  instance:
+    hostname: ${GATEWAY_HOST_NAME:localhost}
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka
+
+# Quitar esto
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+  endpoint:
+    prometheus:
+      enabled: true

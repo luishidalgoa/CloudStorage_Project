@@ -8,13 +8,14 @@ server:
   port: 8761
 eureka:
     instance:
-        hostname: localhost
+        hostname: ${EUREKA_HOST:localhost} # Nombre del host
     client:
         register-with-eureka: false # No se registra a si mismo en el descubrimiento
         fetch-registry: false # Los servicios que se conecten no se descargan del descubrimiento
         serverUrl:
-          defaultZone: http://localhost:8761/eureka/
+          defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
 
+# metricas con actuator
 management:
   endpoints:
     web:
