@@ -1,0 +1,41 @@
+services:
+# Monitoreo
+  grafana:
+    container_name: monitoring-grafana
+    image: grafana/grafana:latest
+    hostname: rpi-grafana
+    restart: unless-stopped
+    user: "472"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana:/var/lib/grafana
+    networks:
+      - monitoring
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+
+  prometheus:
+    container_name: monitoring-prometheus
+    image: prom/prometheus:latest
+    hostname: rpi-prometheus
+    restart: unless-stopped
+    user: "nobody"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=1y'
+    networks:
+      - monitoring
+    ports:
+      - "9090:9090"
+    expose:
+      - 9090
+    volumes:
+      - ./Prometheus/data:/prometheus
+      - ./Prometheus:/etc/prometheus/
+
+networks:
+  monitoring:
+    driver: bridge

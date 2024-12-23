@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: Eureka
+  config:
+    import: optional:configserver:${CONFIG_SERVER_URI}
+
+server:
+  port: ${EUREKA_SERVER_PORT:8761}
+eureka:
+    instance:
+        hostname: ${EUREKA_HOST} # Nombre del host
+    client:
+        register-with-eureka: false # No se registra a si mismo en el descubrimiento
+        fetch-registry: false # Los servicios que se conecten no se descargan del descubrimiento
+        serverUrl:
+          defaultZone: ${EUREKA_URI} # URL del servidor de descubrimiento

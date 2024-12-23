@@ -1,0 +1,34 @@
+server:
+  port: ${GATEWAY_SERVER_PORT:8080}
+
+spring:
+  application:
+    name: Gateway
+  config:
+    import: optional:configserver:${CONFIG_SERVER_URI}
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: monitoring
+          uri: 'lb://auth:8081'
+          predicates:
+            - Path=/api/auth/**
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI}
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+# metricas con actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus,info
+  endpoint:
+    prometheus:
+      enabled: true
