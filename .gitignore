@@ -1,3 +1,6 @@
 Microservicios/WorkSpace/cloud-storage-dev-container
 Microservicios/WorkSpace/Debian/ext4.vhdx
-Microservicios/WorkSpace/Monitoring/
+.env
+.env.*
+*.env
+Microservicios/Spring_project/Monitoring/Prometheus/data/
