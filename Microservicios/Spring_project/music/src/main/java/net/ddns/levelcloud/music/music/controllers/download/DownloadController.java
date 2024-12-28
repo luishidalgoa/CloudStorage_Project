@@ -61,7 +61,6 @@ public class DownloadController {
 
         try {
             ProcessBuilder pb = new ProcessBuilder(
-                    "/env/bin/python3","-m",
                     "yt-dlp",
                     "-o", filePath,
                     "--extract-audio",
