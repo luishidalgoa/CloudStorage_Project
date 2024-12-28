@@ -123,7 +123,7 @@ Authorization: Basic {{base64_username:password}}
 
 ---
 
-### `{{url}}/nextcloud/api/v1/download/request`
+### `{{url}}/api/nextcloud/upload/status`
 
 **Descripción:**
 
@@ -138,9 +138,6 @@ Authorization: Basic {{base64_username:password}}
 
 ```json
 {
-    "user": {
-        "uid": "string"
-    },
     "path": "/new%folder", // Ruta de descarga indicada por el usuario
     "size": 4194304 // Tamaño en bytes del archivo
 }
@@ -158,3 +155,13 @@ Authorization: Basic {{base64_username:password}}
 
 - **1002**: Almacenamiento insuficiente.
 - **1003**: Ruta de descarga incorrecta.
+
+### `{{url}}/api/nextcloyd/upload`
+
+**Response:**
+
+```json
+{
+  "url": "https://cloud.example.com/remote.php/dav/files/luishidalgoa/My%20Folder/My%20File.mp3"
+}
+```

@@ -3,7 +3,7 @@
 ## Diagramas
 ### Diagrama arquitectura microservicios
 
-![Diagrama](../Arquitectura/Diagrama_Microservicios.png)
+![Diagrama](../../Arquitectura/Diagrama_Microservicios.png)
 
 ### Diagrama de secuencia
 ![Diagrama](./Diagrama_secuencia.png)
@@ -62,12 +62,12 @@ Una vez todos los requisitos previos se cumplan, se realizará la descarga de la
 ---
 #### [[^3]]()
 - Nextcloud: 
-Llamaremos al endpoint `{{url}}/nextcloud/api/v1/upload/` y le indicaremos la ruta del fichero temporal y la ruta donde se almacenara el fichero del usuario
+Llamaremos al endpoint `{{url}}/api/nextcloud/upload/` y le indicaremos la ruta del fichero temporal y la ruta donde se almacenara el fichero del usuario
 - Local: Devolveremos en la respuesta http el fichero
 ### Requisitos obligatorios
 - [ ❌ ] **Servicio FTP**: Se ha creado un servicio FTP que se encargara de crear un enlace de descarga del fichero a partir de la ruta donde se descargo en el servidor
 - [ ❌ ] **Descarga con streaming**: Utilizamos `StreamingResponseBody` para enviar el contenido descargado en fragmentos al cliente.
-- [ ❌ ] **Progreso con SSE**: Utilizamos un canal SSE vinculado a un ID único para informar el progreso al cliente.
+- [ ✅ ] **Progreso con SSE**: Utilizamos un canal SSE vinculado a un ID único para informar el progreso al cliente.
 - [ ❌ ] **Limpieza automática**: Borramos los archivos temporales cuando la descarga finaliza o si expiran.
 ---
 ## Endpoints
@@ -122,9 +122,6 @@ Llamaremos al endpoint `{{url}}/nextcloud/api/v1/upload/` y le indicaremos la ru
 
 ```json
 {
-  "user": {
-    "uid": "string"
-  }, //opcional
   "data": {
     "externalUrl": "https://www.youtube.com/watch?v=QH2_TGUlwu4", // Url de la canción
     "DirectoryPath": "/new%folder" // Opcional, si el usuario elige el servicio cloud
@@ -190,6 +187,7 @@ La conexión se cerrará automáticamente cuando el progreso llegue al 100%.
 **Errores:**
 
 - **401**: Credenciales inválidas.
+- **404**: El ID de descarga no existe.
 
 ### `{{url}}/api/music/download/{id}` 
 

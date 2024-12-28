@@ -1,14 +1,9 @@
-# Microservicio Gateway & Auth
+# Microservicio Auth
 
 ## Objetivo
-El funcionamiento principal de este microservicio sera actuar como gateway principal entre los microservicios,
-esto quiere decir que como si de un router se tratase, todas las llamadas que se hagan a la aplicación desde el exterior,
-deben ser al gateway y este mismo las redireccionara a los distintos microservicios de la aplicación.
-
-Ademas al implementar un sistema de authenticación Basic-Auth (debido a las limitaciones de la api de nextcloud). El Servidor de autenticación sera el propio gateway, ya que a traves de el capturaremos las autoridades de los encabezados "Authentication" y si son correctas, se habilitara el flujo logico de la aplicación entre los microservicios de recursos de la aplicación.
+El objetivo princiapl de este microservicio es implementar un sistema de authenticación Basic-Auth. El Servidor de autenticación se encargara de capturar las credenciales de los encabezados "Authentication" y si son correctas y el usuario tiene los permisos necesarios, se informara al microservicio Gateway para que este continue con el flujo de la aplicación en base a la solicitud recibida
 
 ## Dependencias
-- Gateway
 - Spring Web
 - Spring Security
 - OpenFeign
@@ -24,11 +19,12 @@ Ademas al implementar un sistema de authenticación Basic-Auth (debido a las lim
 
 - [ ❌ ] Se consume para recibir las credenciales de los usuarios, el microservicio User el cual contiene toda la informacion de los usuarios
 
-- [ ✅ ] Esta usando la configuracion del servidor Config
+- [ ❌ ] Esta usando la configuracion del servidor Config
 
 ### [[^1]]()
 - Rutas sin autenticacion:
   - /auth/register
+  - /music/**
 
 ## Endpoints
 
