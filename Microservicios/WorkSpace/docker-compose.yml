@@ -17,7 +17,10 @@ services:
     container_name: cloud-storage-dev
     ports:
       - "22:22"
-      - "80:80"
+      - "8084:8084"
+      - "8085:8085"
+      - "8081:8081"
+      - "8080:8080"
     networks:
       - cloud-storage-network
 
