@@ -1,0 +1,22 @@
+# metricas con actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus,info
+  endpoint:
+    prometheus:
+      enabled: true
+spring:
+  cloud:
+    discovery:
+      enabled: false
+  config:
+    activate:
+      on-profile: local # Aquí está el formato correcto
+server:
+  port: ${MUSIC_SERVER_PORT}
+
+eureka:
+  client:
+    enabled: false

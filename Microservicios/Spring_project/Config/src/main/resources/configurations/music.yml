@@ -1,6 +1,10 @@
 server:
   port: ${MUSIC_SERVER_PORT}
 
+spring:
+  profile:
+    activate:
+      on-profile: default # Aquí está el formato correcto
 
 eureka:
   client:
