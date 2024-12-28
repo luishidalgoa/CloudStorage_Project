@@ -1,0 +1,26 @@
+{
+  "name": "Cloud Storage Development Environment",
+  "context": "..",
+  "dockerComposeFile": [
+    "docker-compose.yml"
+  ],
+  "service": "cloud-storage-dev",
+  "workspaceFolder": "/workspace",
+  "extensions": [
+    "ms-vscode-remote.vscode-remote-extensionpack",
+    "ms-azuretools.vscode-docker"
+  ],
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  "postCreateCommand": "echo 'Devcontainer is ready!'",
+  "forwardPorts": [
+    22,
+    8080,
+    8081,
+    8084,
+    8085
+  ],
+  "remoteUser": "vscode",
+  "shutdownAction": "none"
+}
