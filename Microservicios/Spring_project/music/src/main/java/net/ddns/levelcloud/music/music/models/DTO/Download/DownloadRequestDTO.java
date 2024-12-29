@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class DownloadRequestDTO {
+    private String id;
     private DownloadDataDTO data;
 
     @Data
