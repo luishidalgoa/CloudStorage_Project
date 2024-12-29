@@ -13,7 +13,7 @@ class DownloadRequestDTOTest {
         // JSON de ejemplo
         String json = """
         {
-          "id": "123",
+          "downloadType": "Local",
           "data": {
             "externalUrl": "https://www.youtube.com/watch?v=QH2_TGUlwu4",
             "DirectoryPath": "/new/folder"
@@ -30,7 +30,7 @@ class DownloadRequestDTOTest {
         // Validaciones
         assertNotNull(request);
         assertNotNull(request.getData());
-        assertEquals("123", request.getId());
+        assertEquals("Local", request.getDownloadType());
         assertEquals("https://www.youtube.com/watch?v=QH2_TGUlwu4", request.getData().getExternalUrl());
         assertEquals("/new/folder", request.getData().getDirectoryPath());
     }

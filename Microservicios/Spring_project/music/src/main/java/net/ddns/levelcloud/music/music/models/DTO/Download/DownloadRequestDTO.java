@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.ddns.levelcloud.music.music.models.Enum.DownloadType;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class DownloadRequestDTO {
     private String id;
     private DownloadDataDTO data;
+    public DownloadType downloadType = DownloadType.Local;
 
     @Data
     @Builder
