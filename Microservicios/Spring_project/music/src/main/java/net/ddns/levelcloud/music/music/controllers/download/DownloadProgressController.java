@@ -1,6 +1,7 @@
 package net.ddns.levelcloud.music.music.controllers.download;
 
 import net.ddns.levelcloud.music.music.Exceptions.DownloadIdNotFoundException;
+import net.ddns.levelcloud.music.music.models.DTO.Download.ProgressDto;
 import net.ddns.levelcloud.music.music.models.Enum.DownloadType;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ import java.util.concurrent.Executors;
 @RestController
 @RequestMapping("/api/music/download")
 public class DownloadProgressController {
-    private final Map<String, Integer> progressMap = new ConcurrentHashMap<>();
+    private final Map<String, ProgressDto> progressMap = new ConcurrentHashMap<>();
     /**
      * Crea una conexion unidireccional SSE que devuelve continuamente el estado del
      * progreso al cliente que lo consume
@@ -33,11 +34,12 @@ public class DownloadProgressController {
         SseEmitter emitter = new SseEmitter();
         Executors.newSingleThreadExecutor().execute(() -> {
             try {
-                while (progressMap.getOrDefault(id, 0) < 100) {
-                    int progress = progressMap.getOrDefault(id, 0);
-                    emitter.send(SseEmitter.event().name("progress").data(progress + "%"));
+                ProgressDto object = progressMap.getOrDefault(id,ProgressDto.builder().progress(0).build());
+                while (object.getProgress() < 100) {
+                    emitter.send(SseEmitter.event().name("progress").data(object.getProgress() + "%"));
                     Thread.sleep(500);
                 }
+                object.getProcess().waitFor();
                 emitter.complete();
             } catch (Exception e) {
                 emitter.completeWithError(e);
@@ -48,6 +50,11 @@ public class DownloadProgressController {
     }
 
     public void updateProgress(String id, int progress) {
-        progressMap.put(id, progress);
+        progressMap.get(id).setProgress(progress);
+    }
+
+    public void setProcess(String id, Process process) {
+        progressMap.put(id, ProgressDto.builder().progress(0).process(process).build());
     }
 }
+

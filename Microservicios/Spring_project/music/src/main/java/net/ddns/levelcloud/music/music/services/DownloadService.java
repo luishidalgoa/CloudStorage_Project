@@ -70,16 +70,18 @@ public class DownloadService {
                     "yt-dlp",
                     "-o", directoryPath+File.separator+"%(title)s.%(ext)s",
                     "--extract-audio",
-                    "--audio-format", "mp3",
+                    "--embed-thumbnail","--add-metadata",
                     url
             );
             pb.redirectErrorStream(true);
             Process process = pb.start();
+            downloadProgressController.setProcess(downloadId,process);
 
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
                 String line;
+                int progress = 0;
                 while ((line = reader.readLine()) != null) {
-                    int progress = extractProgressFromLine(line);
+                    progress = extractProgressFromLine(line)>-1?extractProgressFromLine(line):progress;
                     downloadProgressController.updateProgress(downloadId, progress);
                 }
             }
@@ -91,8 +93,20 @@ public class DownloadService {
     }
 
     private int extractProgressFromLine(String line) {
-        return 0;
+        if (line.contains("[download]") && !line.contains("[download] Destination:")) {
+            String regex = "\\d+\\.\\d+%|\\d+%"; // Captura valores como 100%, 99.9%, etc.
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(line);
+
+            if (matcher.find()) { // Si hay una coincidencia
+                String match = matcher.group(); // Obtiene el valor con %
+                int progress = (int) Math.round(Double.parseDouble(match.replace("%", "")));
+                return progress; // Retorna el valor como entero
+            }
+        }
+        return -1; // Retorna 0 si no se cumple la condición
     }
+
 
     // ------------------------ FileSize
     public long fileSizeCalculate(String url){
