@@ -13,7 +13,7 @@ services:
       - cloud-storage-network
 
   cloud-storage-dev:
-    image: luishidalgoa/cloud-storage-dev
+    image: luishidalgoa/cloud-storage-dev:latest
     container_name: cloud-storage-dev
     ports:
       - "22:22"
@@ -22,6 +22,8 @@ services:
       - "8085:8085"
       - "8081:8081"
       - "8080:8080"
+    volumes:
+      - C:\Users\luish\Downloads\cloud-storage-dev:/tmp/MusicDownload  # Volumen para acceso desde Windows
     networks:
       - cloud-storage-network
 

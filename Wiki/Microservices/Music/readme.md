@@ -69,7 +69,7 @@ Llamaremos al endpoint `{{url}}/api/nextcloud/upload/` y le indicaremos la ruta 
 
 - [ ❌ ] **Descarga en nextcloud**: Enviaremos a nextcloud la cancion descargada.
 
-- [ 🟧 ] **Progreso con SSE**: Utilizamos un canal SSE vinculado a un ID único para informar el progreso al cliente.
+- [ ✅ ] **Progreso con SSE**: Utilizamos un canal SSE vinculado a un ID único para informar el progreso al cliente.
 
 - [ 🟧 ] **Limpieza automática**: Borramos los archivos temporales cuando la descarga finaliza o si expiran.
 
