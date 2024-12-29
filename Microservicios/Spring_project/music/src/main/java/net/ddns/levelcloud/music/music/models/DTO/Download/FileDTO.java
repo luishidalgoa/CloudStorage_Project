@@ -14,6 +14,6 @@ import java.io.File;
 @NoArgsConstructor
 public class FileDTO{
     private String directoryPath;
-    private File fileChildren;
+    private String fileChildrenName;
     private InputStreamResource resource;
 }

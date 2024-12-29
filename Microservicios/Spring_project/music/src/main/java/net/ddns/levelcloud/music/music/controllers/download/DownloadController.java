@@ -53,7 +53,7 @@ public class DownloadController {
         FileDTO resource = this.downloadService.upload(id, directoryPath);
 
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + resource.getFileChildren().getName())
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + resource.getFileChildrenName())
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(resource.getResource());
     }

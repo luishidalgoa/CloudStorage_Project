@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.*;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -192,7 +193,7 @@ public class DownloadService {
 
             return FileDTO.builder()
                     .directoryPath(root.getAbsolutePath())
-                    .fileChildren(file)
+                    .fileChildrenName(this.encodeFileName(file.getName()))
                     .resource(resource)
                     .build();
 
@@ -226,5 +227,18 @@ public class DownloadService {
 
         throw new RuntimeException("No se pudo eliminar el directorio temporal en el servidor.");
     }
+    //----------- GENERIC
 
+    /**
+     * Codifica el nombre del archivo en UTF-8 y lo convierte en un formato compatible con HTTP.
+     * @param fileName
+     * @return
+     */
+    private String encodeFileName(String fileName) {
+        // Codifica el nombre del archivo en UTF-8 y lo convierte en un formato compatible con HTTP.
+        return URLEncoder.encode(fileName, StandardCharsets.UTF_8)
+                .replaceAll("\\+", "%20") // Reemplaza los "+" con "%20" ya que "+" no es un carácter válido en los nombres de archivo.
+                .replaceAll("%28", "(")    // Reemplaza paréntesis codificados en %28 y %29
+                .replaceAll("%29", ")");
+    }
 }
