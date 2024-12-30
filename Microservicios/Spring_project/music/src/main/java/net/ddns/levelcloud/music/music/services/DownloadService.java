@@ -68,9 +68,10 @@ public class DownloadService {
         try {
             ProcessBuilder pb = new ProcessBuilder(
                     "yt-dlp",
-                    "-o", directoryPath+File.separator+"%(title)s.%(ext)s",
-                    "--extract-audio",
-                    "--embed-thumbnail","--add-metadata",
+                    "-f", "bestaudio[ext=m4a]",
+                    "-o", directoryPath + File.separator + "%(title)s.%(ext)s",
+                    "--embed-thumbnail",
+                    "--add-metadata",
                     url
             );
             pb.redirectErrorStream(true);
