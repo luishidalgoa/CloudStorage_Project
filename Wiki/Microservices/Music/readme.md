@@ -3,7 +3,7 @@
 ## Diagramas
 ### Diagrama arquitectura microservicios
 
-![Diagrama](../Arquitectura/Diagrama_Microservicios.png)
+![Diagrama](../../Arquitectura/Diagrama_Microservicios.png)
 
 ### Diagrama de secuencia
 ![Diagrama](./Diagrama_secuencia.png)
@@ -62,13 +62,18 @@ Una vez todos los requisitos previos se cumplan, se realizará la descarga de la
 ---
 #### [[^3]]()
 - Nextcloud: 
-Llamaremos al endpoint `{{url}}/nextcloud/api/v1/upload/` y le indicaremos la ruta del fichero temporal y la ruta donde se almacenara el fichero del usuario
+Llamaremos al endpoint `{{url}}/api/nextcloud/upload/` y le indicaremos la ruta del fichero temporal y la ruta donde se almacenara el fichero del usuario
 - Local: Devolveremos en la respuesta http el fichero
-### Requisitos obligatorios
-- [ ❌ ] **Servicio FTP**: Se ha creado un servicio FTP que se encargara de crear un enlace de descarga del fichero a partir de la ruta donde se descargo en el servidor
-- [ ❌ ] **Descarga con streaming**: Utilizamos `StreamingResponseBody` para enviar el contenido descargado en fragmentos al cliente.
-- [ ❌ ] **Progreso con SSE**: Utilizamos un canal SSE vinculado a un ID único para informar el progreso al cliente.
-- [ ❌ ] **Limpieza automática**: Borramos los archivos temporales cuando la descarga finaliza o si expiran.
+### Requisitos obligatoriosruta donde se descargo en el servidor
+- [ ✅ ] **Descarga con streaming**: Utilizamos `InputStreamingResource` para enviar el contenido descargado en fragmentos al cliente.
+
+- [ ❌ ] **Descarga en nextcloud**: Enviaremos a nextcloud la cancion descargada.
+
+- [ ✅ ] **Progreso con SSE**: Utilizamos un canal SSE vinculado a un ID único para informar el progreso al cliente.
+
+- [ 🟧 ] **Limpieza automática**: Borramos los archivos temporales cuando la descarga finaliza o si expiran.
+
+- [ ❌ ] **Descarga de Playlists**: El servicio debe ser capaz de descargar playlists enteras
 ---
 ## Endpoints
 
@@ -115,16 +120,13 @@ Llamaremos al endpoint `{{url}}/nextcloud/api/v1/upload/` y le indicaremos la ru
 > Solo si se ha usado la opción del servicio cloud
 ```json
 "Authorization": "Basic {{base64_username:password}}"
-"DownloadOption": "Local | LevelCloud"
 ```
 
 **Body:**
 
 ```json
 {
-  "user": {
-    "uid": "string"
-  }, //opcional
+  "downloadType": "Local | LevelCloud", // Opciones de descarga
   "data": {
     "externalUrl": "https://www.youtube.com/watch?v=QH2_TGUlwu4", // Url de la canción
     "DirectoryPath": "/new%folder" // Opcional, si el usuario elige el servicio cloud
@@ -159,7 +161,7 @@ Llamaremos al endpoint `{{url}}/nextcloud/api/v1/upload/` y le indicaremos la ru
 > Solo si se ha usado la opción del servicio cloud
 ```json
 "Authorization": "Basic {{base64_username:password}}"
-"DownloadOption": "Local | LevelCloud"
+"DownloadType": "Local | LevelCloud"
 ```
 
 **Response:**
@@ -190,10 +192,11 @@ La conexión se cerrará automáticamente cuando el progreso llegue al 100%.
 **Errores:**
 
 - **401**: Credenciales inválidas.
+- **404**: El ID de descarga no existe.
 
 ### `{{url}}/api/music/download/{id}` 
 
-> Si la descarga el usuario la solicito mediante el servicio cloud. El metodo le enviara al microservicio nextcloud, el enlace de descarga via FTP, para que el servicio Nextcloud lo almacene y devolveremos en enlace de donde se almacena en nextcloud. Si el usuario lo solicito en local, el servidor se limitara a enviar el enlace FTP
+> Si la descarga el usuario la solicito mediante el servicio cloud. El metodo le creara una conexion streaming con el microservicio nextcloud, enviando de este modo el fichero, para que el servicio Nextcloud lo almacene y devolveremos en enlace de donde se almacena en nextcloud. Si el usuario lo solicito en local, el servidor creara una conexion con el cliente y le enviara el fichero
 
 **Type**
 
@@ -203,23 +206,20 @@ La conexión se cerrará automáticamente cuando el progreso llegue al 100%.
 > Solo si se ha usado la opción del servicio cloud
 ```json
 "Authorization": "Basic {{base64_username:password}}"
-"DownloadOption": "Local | LevelCloud"
-```
-
-**Body:**
-
-```json
-{
-  "downloadId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-}
+"DownloadType": "Local | LevelCloud"
 ```
 **Response:**
 
-```json
-{
-  "url": "https://LevelCloud.com/downloads/yourfile.mp3 | https://LevelCloud/index.php/apps/files/files/540035?dir=/Musica"
-}
+```http
+HTTP/1.1 200 OK
+Content-Disposition: attachment; filename="example.mp3"
+Content-Type: application/octet-stream
 ```
+
+**Errores:**
+
+- **500**: No existe el ID de descarga en el servidor.
+- **500**: No se pudo eliminar el directorio temporal en el servidor.
 
 # Sprint 2
 Hacer que el sistema de descarga, si descarga una playlist lo comprima en un rar para enviarlo comprimido
