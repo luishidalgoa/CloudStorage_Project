@@ -1,4 +1,4 @@
-package net.ddns.levelcloud.music.music.models.DTO.Download;
+package net.ddns.levelcloud.music.Features.Download.models.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

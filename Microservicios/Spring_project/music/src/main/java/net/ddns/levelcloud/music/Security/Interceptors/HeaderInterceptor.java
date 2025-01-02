@@ -1,4 +1,4 @@
-package net.ddns.levelcloud.music.music.Interceptors;
+package net.ddns.levelcloud.music.Security.Interceptors;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

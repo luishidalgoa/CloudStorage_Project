@@ -1,4 +1,4 @@
-package net.ddns.levelcloud.music.music.Interceptors;
+package net.ddns.levelcloud.music.Security.Interceptors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

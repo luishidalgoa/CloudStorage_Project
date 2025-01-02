@@ -1,11 +1,11 @@
-package net.ddns.levelcloud.music.music.models.DTO.Download;
+package net.ddns.levelcloud.music.Features.Download.models.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.ddns.levelcloud.music.music.models.Enum.DownloadType;
+import net.ddns.levelcloud.music.Features.Download.models.Enum.DownloadType;
 
 @AllArgsConstructor
 @NoArgsConstructor

@@ -1,8 +1,8 @@
-package net.ddns.levelcloud.music.music.controllers.download;
+package net.ddns.levelcloud.music.Features.Download.controllers;
 
-import net.ddns.levelcloud.music.music.Exceptions.DownloadIdNotFoundException;
-import net.ddns.levelcloud.music.music.models.DTO.Download.ProgressDto;
-import net.ddns.levelcloud.music.music.models.Enum.DownloadType;
+import net.ddns.levelcloud.music.Features.Download.Exceptions.DownloadIdNotFoundException;
+import net.ddns.levelcloud.music.Features.Download.models.DTO.ProgressDto;
+import net.ddns.levelcloud.music.Features.Download.models.Enum.DownloadType;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;

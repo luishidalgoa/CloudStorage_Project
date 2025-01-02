@@ -1,16 +1,14 @@
-package net.ddns.levelcloud.music.music.services.download;
+package net.ddns.levelcloud.music.Features.Download.controllers;
 
 import lombok.AllArgsConstructor;
-import net.ddns.levelcloud.music.music.controllers.download.DownloadProgressController;
-import net.ddns.levelcloud.music.music.models.DTO.Download.DownloadRequestDTO;
-import net.ddns.levelcloud.music.music.models.DTO.Download.FileDTO;
+import net.ddns.levelcloud.music.Features.Download.models.DTO.DownloadRequestDTO;
+import net.ddns.levelcloud.music.Features.Download.models.DTO.FileDTO;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.*;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;

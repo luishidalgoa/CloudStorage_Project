@@ -1,10 +1,9 @@
-package net.ddns.levelcloud.music.music.controllers.download;
+package net.ddns.levelcloud.music.Features.Download.controllers;
 
 import lombok.AllArgsConstructor;
-import net.ddns.levelcloud.music.music.models.DTO.Download.DownloadRequestDTO;
-import net.ddns.levelcloud.music.music.models.DTO.Download.FileDTO;
-import net.ddns.levelcloud.music.music.models.Enum.DownloadType;
-import net.ddns.levelcloud.music.music.services.download.DownloadService;
+import net.ddns.levelcloud.music.Features.Download.models.DTO.DownloadRequestDTO;
+import net.ddns.levelcloud.music.Features.Download.models.DTO.FileDTO;
+import net.ddns.levelcloud.music.Features.Download.models.Enum.DownloadType;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

@@ -1,7 +1,7 @@
 package net.ddns.levelcloud.music.music.models.DTO;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.ddns.levelcloud.music.music.models.DTO.Download.DownloadRequestDTO;
+import net.ddns.levelcloud.music.Features.Download.models.DTO.DownloadRequestDTO;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

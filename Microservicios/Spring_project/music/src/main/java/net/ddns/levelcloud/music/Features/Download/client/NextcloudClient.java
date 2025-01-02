@@ -1,7 +1,7 @@
-package net.ddns.levelcloud.music.music.client.Download;
+package net.ddns.levelcloud.music.Features.Download.client;
 
-import net.ddns.levelcloud.music.music.models.DTO.Download.DownloadRequestDTO;
-import net.ddns.levelcloud.music.music.models.DTO.Download.NextcloudUploadDTO;
+import net.ddns.levelcloud.music.Features.Download.models.DTO.DownloadRequestDTO;
+import net.ddns.levelcloud.music.Features.Download.models.DTO.NextcloudUploadDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
