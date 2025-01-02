@@ -1,4 +1,4 @@
-package net.ddns.levelcloud.music.music.services;
+package net.ddns.levelcloud.music.music.services.download;
 
 import lombok.AllArgsConstructor;
 import net.ddns.levelcloud.music.music.controllers.download.DownloadProgressController;
@@ -14,6 +14,8 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,13 +23,14 @@ import java.util.regex.Pattern;
 @AllArgsConstructor
 public class DownloadService {
     private final DownloadProgressController downloadProgressController;
+    private final ExecutorService executorService = Executors.newFixedThreadPool(5);
 
     public void download(DownloadRequestDTO request) {
         String url = request.getData().externalUrl;
         String downloadId = request.getId();
 
         // tamaño total de la descarga
-        long filesize= this.fileSizeCalculate(url);
+        long filesize = this.fileSizeCalculate(url);
         if (filesize == -1)
             throw new IllegalArgumentException("Could not calculate file size");
 
@@ -51,9 +54,9 @@ public class DownloadService {
     private void processDownload(String downloadId, String url) {
         String tempDir = System.getProperty("java.io.tmpdir");
         // Directorio raiz donde se descargaran todas las sesiones de descargas
-        String rootPath = tempDir+File.separator+"MusicDownload";
+        String rootPath = tempDir + File.separator + "MusicDownload";
         // Directorio donde se guardaran los ficheros de la sesion actual
-        String directoryPath = rootPath+ File.separator + downloadId;
+        String directoryPath = rootPath + File.separator + downloadId;
         //creamos el directorio MusicDownload
         {
             File root = new File(rootPath);
@@ -76,19 +79,23 @@ public class DownloadService {
             );
             pb.redirectErrorStream(true);
             Process process = pb.start();
-            downloadProgressController.setProcess(downloadId,process);
 
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-                String line;
-                int progress = 0;
-                while ((line = reader.readLine()) != null) {
-                    progress = extractProgressFromLine(line)>-1?extractProgressFromLine(line):progress;
-                    downloadProgressController.updateProgress(downloadId, progress);
+            executorService.submit(() -> {
+
+                downloadProgressController.setProcess(downloadId, process);
+
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                    String line;
+                    int progress = 0;
+                    while ((line = reader.readLine()) != null) {
+                        progress = extractProgressFromLine(line) > -1 ? extractProgressFromLine(line) : progress;
+                        downloadProgressController.updateProgress(downloadId, progress);
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-            }
-
-            process.waitFor();
-        } catch (Exception e) {
+            });
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
@@ -110,7 +117,7 @@ public class DownloadService {
 
 
     // ------------------------ FileSize
-    public long fileSizeCalculate(String url){
+    public long fileSizeCalculate(String url) {
         ProcessBuilder pb = new ProcessBuilder(
                 "yt-dlp",
                 "-F", url
@@ -216,12 +223,13 @@ public class DownloadService {
             throw new RuntimeException("No se encontró el archivo: " + file.getPath(), e);
         }
     }
+
     private FileDTO getZipFile(File root) {
         return null;
     }
 
     private boolean deleteDirectory(String directoryPath) {
-        if(!new File(directoryPath).exists())
+        if (!new File(directoryPath).exists())
             throw new IllegalArgumentException("No existe el ID de descarga en el servidor.");
 
         ProcessBuilder pb = new ProcessBuilder(
@@ -246,6 +254,7 @@ public class DownloadService {
 
     /**
      * Codifica el nombre del archivo en UTF-8 y lo convierte en un formato compatible con HTTP.
+     *
      * @param fileName
      * @return
      */

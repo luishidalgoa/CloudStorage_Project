@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f5055963-3d3d-4c7b-ac45-a0bcea5e0acb" name="Changes" comment="local mode:&#10;&#10;El microservicio music ahora puede funcionar de forma independiente al resto de microservicios">
-      <change afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/models/DTO/Download/ProgressDto.java" afterDir="false" />
+    <list default="true" id="f5055963-3d3d-4c7b-ac45-a0bcea5e0acb" name="Changes" comment="Version previa, Permite descargar en local pero aun falta refactorizar para hacerlo mas generico y reutilizable.&#10;&#10;El proximo paso es permitir la descarga en la nube y la descarga de playlists de youtube">
+      <change afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/config/Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/controllers/download/DownloadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/controllers/download/DownloadController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/controllers/download/DownloadProgressController.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/controllers/download/DownloadProgressController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/services/DownloadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/services/DownloadService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/controllers/prueba.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/services/DownloadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/services/download/DownloadService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/music/controllers/download/DownloadControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/music/controllers/download/DownloadControllerTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,36 +61,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
-    "JUnit.DownloadRequestDTOTest.testDeserializeDownloadRequestDTO.executor": "Debug",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.ConfigApplication.executor": "Run",
-    "Spring Boot.EurekaApplication.executor": "Run",
-    "Spring Boot.MusicApplication.executor": "Run",
-    "com.codeium.enabled": "true",
-    "git-widget-placeholder": "1-musicdownloaderservice",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/WorkSpace/CloudStorage_Project/Microservicios/Spring_project",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.12798874",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DownloadRequestDTOTest.testDeserializeDownloadRequestDTO.executor&quot;: &quot;Debug&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ConfigApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.EurekaApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.MusicApplication.executor&quot;: &quot;Run&quot;,
+    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;1-musicdownloaderservice&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/WorkSpace/CloudStorage_Project/Microservicios/Spring_project/music&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.12798874&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RdControllerToolWindowsLayoutState" isNewUi="true">
     <layout>
       <window_info id="Bookmarks" side_tool="true" />
@@ -94,8 +98,8 @@
       <window_info id="Commit_Guest" show_stripe_button="false" />
       <window_info id="Pull Requests" />
       <window_info id="Learn" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20580888" />
-      <window_info id="Commit" order="1" weight="0.17161459" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.28263587" />
+      <window_info active="true" id="Commit" order="1" visible="true" weight="0.28263587" />
       <window_info id="Welcome to GitHub Copilot" order="2" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Database Changes" />
@@ -103,15 +107,15 @@
       <window_info anchor="bottom" id="Profiler" />
       <window_info anchor="bottom" id="TODO" />
       <window_info anchor="bottom" id="File Transfer" />
-      <window_info anchor="bottom" id="Find" />
-      <window_info anchor="bottom" id="Version Control" order="0" />
+      <window_info anchor="bottom" id="Version Control" order="0" weight="0.3034709" />
       <window_info anchor="bottom" id="Problems" order="1" />
-      <window_info anchor="bottom" id="Problems View" order="2" weight="0.3303985" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="3" visible="true" weight="0.3034709" />
+      <window_info anchor="bottom" id="Problems View" order="2" weight="0.3034709" />
+      <window_info anchor="bottom" id="Terminal" order="3" weight="0.3034709" />
       <window_info anchor="bottom" id="Build" order="4" weight="0.3034709" />
       <window_info anchor="bottom" id="Run" order="5" weight="0.29981464" />
       <window_info anchor="bottom" id="Debug" order="6" weight="0.3034709" />
-      <window_info anchor="bottom" id="Services" order="6" weight="0.3034709" />
+      <window_info anchor="bottom" id="Find" order="7" weight="0.3034709" />
+      <window_info anchor="bottom" id="Services" order="8" weight="0.3034709" />
       <window_info anchor="right" id="Endpoints" />
       <window_info anchor="right" id="Coverage" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Notifications" order="0" weight="0.25" />
@@ -136,6 +140,9 @@
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\luish\Nextcloud2\Documentos\WorkSpace\CloudStorage_Project\Microservicios\Spring_project\Monitoring\Prometheus" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="net.ddns.levelcloud.music.music.services.download" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -267,6 +274,8 @@
       <workItem from="1735420901025" duration="5630000" />
       <workItem from="1735465366807" duration="18568000" />
       <workItem from="1735505393180" duration="7274000" />
+      <workItem from="1735551088260" duration="21871000" />
+      <workItem from="1735822211796" duration="5539000" />
     </task>
     <servers />
   </component>
@@ -289,15 +298,21 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="local mode:&#10;&#10;El microservicio music ahora puede funcionar de forma independiente al resto de microservicios" />
-    <option name="LAST_COMMIT_MESSAGE" value="local mode:&#10;&#10;El microservicio music ahora puede funcionar de forma independiente al resto de microservicios" />
+    <MESSAGE value="Version previa, Permite descargar en local pero aun falta refactorizar para hacerlo mas generico y reutilizable.&#10;&#10;El proximo paso es permitir la descarga en la nube y la descarga de playlists de youtube" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version previa, Permite descargar en local pero aun falta refactorizar para hacerlo mas generico y reutilizable.&#10;&#10;El proximo paso es permitir la descarga en la nube y la descarga de playlists de youtube" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/services/DownloadService.java</url>
-          <line>201</line>
-          <option name="timeStamp" value="24" />
+          <url>file://$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/controllers/download/DownloadController.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/controllers/download/DownloadProgressController.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="30" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

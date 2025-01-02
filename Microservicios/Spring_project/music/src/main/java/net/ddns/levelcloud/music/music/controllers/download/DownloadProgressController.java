@@ -39,6 +39,7 @@ public class DownloadProgressController {
                     emitter.send(SseEmitter.event().name("progress").data(object.getProgress() + "%"));
                     Thread.sleep(500);
                 }
+                emitter.send(SseEmitter.event().name("progress").data("100%"));
                 object.getProcess().waitFor();
                 emitter.complete();
             } catch (Exception e) {

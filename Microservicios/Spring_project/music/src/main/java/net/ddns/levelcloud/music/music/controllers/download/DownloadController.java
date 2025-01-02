@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import net.ddns.levelcloud.music.music.models.DTO.Download.DownloadRequestDTO;
 import net.ddns.levelcloud.music.music.models.DTO.Download.FileDTO;
 import net.ddns.levelcloud.music.music.models.Enum.DownloadType;
-import net.ddns.levelcloud.music.music.services.DownloadService;
+import net.ddns.levelcloud.music.music.services.download.DownloadService;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -12,30 +12,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @RestController
 @RequestMapping("/api/music/download")
 @AllArgsConstructor
 public class DownloadController {
-    private final ExecutorService executorService = Executors.newFixedThreadPool(5);
-    private final DownloadProgressController downloadProgressController;
 
     private DownloadService downloadService;
 
-    @RequestMapping("/request")
-    public ResponseEntity<String> download(@RequestHeader(value = "Authorization",required = false) String auth,
-                                           @RequestBody DownloadRequestDTO request) {
+    @PostMapping("/request")
+    public ResponseEntity<Map<String,String>> download(@RequestHeader(value = "Authorization",required = false) String auth,
+                                                       @RequestBody DownloadRequestDTO request) {
 
         request.setId(UUID.randomUUID().toString());
 
-        executorService.submit(() -> {
-            this.downloadService.download(request);
-        });
+        this.downloadService.download(request);
 
-        return ResponseEntity.ok(request.getId());
+        Map<String, String> response = new HashMap<>();
+        response.put("downloadId", request.getId());
+
+        return ResponseEntity.ok(response);  // Devuelve un JSON con el ID
     }
 
     /**
@@ -54,6 +53,7 @@ public class DownloadController {
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + resource.getFileChildrenName())
+                .header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, HttpHeaders.CONTENT_DISPOSITION) // Exponer el encabezado
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(resource.getResource());
     }

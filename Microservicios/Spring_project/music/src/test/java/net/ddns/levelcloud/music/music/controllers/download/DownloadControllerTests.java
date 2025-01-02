@@ -1,7 +1,6 @@
 package net.ddns.levelcloud.music.music.controllers.download;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.ddns.levelcloud.music.music.controllers.prueba;
 import net.ddns.levelcloud.music.music.models.DTO.Download.DownloadRequestDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,7 @@ import java.util.Base64;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(controllers = {DownloadController.class, prueba.class})
+@WebMvcTest(controllers = {DownloadController.class})
 class DownloadControllerTests {
 
 	@Autowired
