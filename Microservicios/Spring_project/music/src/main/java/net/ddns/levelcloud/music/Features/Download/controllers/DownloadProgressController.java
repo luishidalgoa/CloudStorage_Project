@@ -1,0 +1,86 @@
+package net.ddns.levelcloud.music.Features.Download.controllers;
+
+import net.ddns.levelcloud.music.Features.Download.Exceptions.DownloadIdNotFoundException;
+import net.ddns.levelcloud.music.Features.Download.models.DTO.DownloadRequestDTO;
+import net.ddns.levelcloud.music.Features.Download.models.DTO.ProgressDto;
+import net.ddns.levelcloud.music.Features.Download.models.Enum.DownloadType;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
+
+@RestController
+@RequestMapping("/api/music/download")
+public class DownloadProgressController {
+    private final Map<String, ProgressDto> progressMap = new ConcurrentHashMap<>();
+    /**
+     * Crea una conexion unidireccional SSE que devuelve continuamente el estado del
+     * progreso al cliente que lo consume
+     * @param auth (opcional) Token de autorización
+     * @param downloadType Tipo de descarga
+     * @return
+     */
+    @RequestMapping(value = "/progress/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public SseEmitter progress(@RequestHeader(value = "Authorization", required = false) String auth,
+                               @RequestHeader(value = "DownloadType", required = false, defaultValue = "Local") DownloadType downloadType,
+                               @PathVariable("id") String id) {
+
+        if (!progressMap.containsKey(id)) {
+            throw new DownloadIdNotFoundException(id);
+        }
+
+        SseEmitter emitter = new SseEmitter();
+        Executors.newSingleThreadExecutor().execute(() -> {
+            ProgressDto object = progressMap.get(id);
+            if (object == null)
+                throw new DownloadIdNotFoundException(id);
+
+            try {
+                int lastIndex = -1;
+                while (object.getProgress() < 100) {
+                    if (object.getCurrentIndex() >= object.getRequest().getData().getTotalFiles())
+                        break;
+
+                    emitter.send(SseEmitter.event().name("progress").data(object.getProgress()));
+                    if (lastIndex != object.getCurrentIndex()) {
+                        emitter.send(SseEmitter.event().name("total").data(object.getCurrentIndex()+" / "+object.getRequest().getData().getTotalFiles()));
+                        lastIndex = object.getCurrentIndex();
+                    }
+                    Thread.sleep(500);
+                }
+                emitter.send(SseEmitter.event().name("progress").data(100));
+                emitter.send(SseEmitter.event().name("total").data(object.getCurrentIndex()+" / "+object.getRequest().getData().getTotalFiles()));
+                object.getProcess().waitFor();
+                emitter.complete();
+            } catch (Exception e) {
+                emitter.completeWithError(e);
+            }
+        });
+
+        return emitter;
+    }
+
+    public boolean removeProgress(String id) {
+        progressMap.remove(id);
+        return progressMap.getOrDefault(id, null) == null;
+    }
+
+    public void updateProgress(String id, double progress) {
+        progressMap.get(id).calculateProgress(progress);
+    }
+
+    public void setProcess(String id, Process process, DownloadRequestDTO request) {
+        progressMap.put(id, new ProgressDto(process,request));
+    }
+
+    public void setProgressDto(String id, ProgressDto progressDto) {
+        progressMap.put(id, progressDto);
+    }
+    public ProgressDto getProgress(String id) {
+        return progressMap.get(id);
+    }
+}
+

@@ -20,6 +20,7 @@
         <module>Eureka</module>
         <module>Gateway</module>
         <module>Config</module>
+        <module>music</module>
     </modules>
 
     <properties>
