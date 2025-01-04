@@ -1,0 +1,30 @@
+server:
+  port: ${MUSIC_SERVER_PORT}
+
+spring:
+  profile:
+    activate:
+      on-profile: default # Aquí está el formato correcto
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI}
+    register-with-eureka: true
+
+# metricas con actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus,info
+  endpoint:
+    prometheus:
+      enabled: true
+
+test:
+  api:
+    nextcloud:
+        uri: ${NEXTCLOUD_URI}
+        username: ${TEST_NEXTCLOUD_USERNAME}
+        password: ${TEST_NEXTCLOUD_PASSWORD}
