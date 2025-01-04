@@ -1,6 +1,7 @@
 package net.ddns.levelcloud.music.Features.Download.controllers;
 
 import net.ddns.levelcloud.music.Features.Download.Exceptions.DownloadIdNotFoundException;
+import net.ddns.levelcloud.music.Features.Download.models.DTO.DownloadRequestDTO;
 import net.ddns.levelcloud.music.Features.Download.models.DTO.ProgressDto;
 import net.ddns.levelcloud.music.Features.Download.models.Enum.DownloadType;
 import org.springframework.http.MediaType;
@@ -33,13 +34,25 @@ public class DownloadProgressController {
 
         SseEmitter emitter = new SseEmitter();
         Executors.newSingleThreadExecutor().execute(() -> {
+            ProgressDto object = progressMap.get(id);
+            if (object == null)
+                throw new DownloadIdNotFoundException(id);
+
             try {
-                ProgressDto object = progressMap.getOrDefault(id,ProgressDto.builder().progress(0).build());
+                int lastIndex = -1;
                 while (object.getProgress() < 100) {
-                    emitter.send(SseEmitter.event().name("progress").data(object.getProgress() + "%"));
+                    if (object.getCurrentIndex() >= object.getRequest().getData().getTotalFiles())
+                        break;
+
+                    emitter.send(SseEmitter.event().name("progress").data(object.getProgress()));
+                    if (lastIndex != object.getCurrentIndex()) {
+                        emitter.send(SseEmitter.event().name("total").data(object.getCurrentIndex()+" / "+object.getRequest().getData().getTotalFiles()));
+                        lastIndex = object.getCurrentIndex();
+                    }
                     Thread.sleep(500);
                 }
-                emitter.send(SseEmitter.event().name("progress").data("100%"));
+                emitter.send(SseEmitter.event().name("progress").data(100));
+                emitter.send(SseEmitter.event().name("total").data(object.getCurrentIndex()+" / "+object.getRequest().getData().getTotalFiles()));
                 object.getProcess().waitFor();
                 emitter.complete();
             } catch (Exception e) {
@@ -50,12 +63,24 @@ public class DownloadProgressController {
         return emitter;
     }
 
-    public void updateProgress(String id, int progress) {
-        progressMap.get(id).setProgress(progress);
+    public boolean removeProgress(String id) {
+        progressMap.remove(id);
+        return progressMap.getOrDefault(id, null) == null;
     }
 
-    public void setProcess(String id, Process process) {
-        progressMap.put(id, ProgressDto.builder().progress(0).process(process).build());
+    public void updateProgress(String id, double progress) {
+        progressMap.get(id).calculateProgress(progress);
+    }
+
+    public void setProcess(String id, Process process, DownloadRequestDTO request) {
+        progressMap.put(id, new ProgressDto(process,request));
+    }
+
+    public void setProgressDto(String id, ProgressDto progressDto) {
+        progressMap.put(id, progressDto);
+    }
+    public ProgressDto getProgress(String id) {
+        return progressMap.get(id);
     }
 }
 

@@ -1,5 +1,6 @@
 package net.ddns.levelcloud.music.Features.Download.models.DTO;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,22 +10,36 @@ import net.ddns.levelcloud.music.Features.Download.models.Enum.DownloadType;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL) // Excluye campos con valor null
 public class DownloadRequestDTO {
     private String id;
-    private DownloadDataDTO data;
+    private DownloadRequestMusicData data;
     public DownloadType downloadType = DownloadType.Local;
 
     @Data
     @Builder
-    public static class DownloadDataDTO {
+    @JsonInclude(JsonInclude.Include.NON_NULL) // Excluye campos con valor null dentro de este objeto también
+    @NoArgsConstructor
+    public static class DownloadRequestMusicData {
         public String externalUrl;
-        public String DirectoryPath;
+        public String directoryPath;
+        public Long downloadSyze;
+        private int totalFiles;
 
-        public DownloadDataDTO(@JsonProperty("externalUrl") String externalUrl, @JsonProperty("DirectoryPath") String DirectoryPath) {
+
+        public DownloadRequestMusicData(@JsonProperty("externalUrl") String externalUrl, @JsonProperty("DirectoryPath") String DirectoryPath,Long downloadSyze,int totalFiles) {
             this.externalUrl = externalUrl;
-            this.DirectoryPath = DirectoryPath;
+            this.directoryPath = DirectoryPath;
+            this.downloadSyze = downloadSyze;
+            this.totalFiles = totalFiles;
+        }
+
+        public DownloadRequestMusicData(@JsonProperty("externalUrl") String externalUrl, @JsonProperty("DirectoryPath") String DirectoryPath,Long downloadSyze) {
+            this.externalUrl = externalUrl;
+            this.directoryPath = DirectoryPath;
+            this.downloadSyze = downloadSyze;
+            this.totalFiles = 1;
         }
     }
 }

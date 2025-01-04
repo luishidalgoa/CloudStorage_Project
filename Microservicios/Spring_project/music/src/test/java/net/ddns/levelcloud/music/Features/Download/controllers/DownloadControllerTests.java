@@ -1,8 +1,8 @@
-package net.ddns.levelcloud.music.music.controllers.download;
+package net.ddns.levelcloud.music.Features.Download.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.ddns.levelcloud.music.Features.Download.controllers.DownloadController;
 import net.ddns.levelcloud.music.Features.Download.models.DTO.DownloadRequestDTO;
+import net.ddns.levelcloud.music.Features.Download.models.Enum.DownloadType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,12 +27,10 @@ class DownloadControllerTests {
 	@Test
 	void uploadOffline() throws Exception {
 		// Body para la solicitud
-		DownloadRequestDTO.DownloadDataDTO downloadDataDTO = DownloadRequestDTO.DownloadDataDTO.builder()
+		DownloadRequestDTO.DownloadRequestMusicData downloadDataDTO = DownloadRequestDTO.DownloadRequestMusicData.builder()
 				.externalUrl("https://www.youtube.com/watch?v=QH2_TGUlwu4")
 				.build();
-		String requestBody = DownloadRequestDTO.builder()
-				.data(downloadDataDTO)
-				.build().toString();
+		String requestBody = new DownloadRequestDTO(null,downloadDataDTO, DownloadType.Local).toString();
 
 		// Ejecutar la solicitud
 		mockMvc.perform(post("/api/music/download/request")
@@ -56,13 +54,11 @@ class DownloadControllerTests {
 
 
 		// Body para la solicitud
-		DownloadRequestDTO.DownloadDataDTO downloadDataDTO = DownloadRequestDTO.DownloadDataDTO.builder()
+		DownloadRequestDTO.DownloadRequestMusicData downloadDataDTO = DownloadRequestDTO.DownloadRequestMusicData.builder()
 				.externalUrl("https://www.youtube.com/watch?v=QH2_TGUlwu4")
-				.DirectoryPath("/new/folder")
+				.directoryPath("/new/folder")
 				.build();
-		String requestBody = DownloadRequestDTO.builder()
-				.data(downloadDataDTO)
-				.build().toString();
+		String requestBody = new DownloadRequestDTO(null,downloadDataDTO, DownloadType.LevelCloud).toString();
 
 		// Ejecutar la solicitud
 		mockMvc.perform(post("/api/music/download/request")

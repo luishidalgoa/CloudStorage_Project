@@ -10,8 +10,7 @@ import org.springframework.core.io.InputStreamResource;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
-public class FileDTO{
-    private String directoryPath;
+public class LocalUploadDTO {
     private String fileChildrenName;
     private InputStreamResource resource;
 }

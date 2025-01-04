@@ -1,18 +1,17 @@
 package net.ddns.levelcloud.music.Features.Download.controllers;
 
 import lombok.AllArgsConstructor;
+import net.ddns.levelcloud.music.Features.Download.Services.DownloadService;
 import net.ddns.levelcloud.music.Features.Download.models.DTO.DownloadRequestDTO;
-import net.ddns.levelcloud.music.Features.Download.models.DTO.FileDTO;
+import net.ddns.levelcloud.music.Features.Download.models.DTO.LocalUploadDTO;
+import net.ddns.levelcloud.music.Features.Download.models.DTO.NextcloudUploadDTO;
 import net.ddns.levelcloud.music.Features.Download.models.Enum.DownloadType;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -23,17 +22,14 @@ public class DownloadController {
     private DownloadService downloadService;
 
     @PostMapping("/request")
-    public ResponseEntity<Map<String,String>> download(@RequestHeader(value = "Authorization",required = false) String auth,
+    public ResponseEntity<DownloadRequestDTO> download(@RequestHeader(value = "Authorization",required = false) String auth,
                                                        @RequestBody DownloadRequestDTO request) {
 
         request.setId(UUID.randomUUID().toString());
 
-        this.downloadService.download(request);
+        request = this.downloadService.download(request);
 
-        Map<String, String> response = new HashMap<>();
-        response.put("downloadId", request.getId());
-
-        return ResponseEntity.ok(response);  // Devuelve un JSON con el ID
+        return ResponseEntity.ok(request);  // Devuelve un JSON con el ID
     }
 
     /**
@@ -45,11 +41,9 @@ public class DownloadController {
      * @return Enlace de descarga
      */
     @RequestMapping("/{id}")
-    public ResponseEntity<InputStreamResource> uploadFile(@RequestHeader(value = "Authorization",required = false) String header,@RequestHeader(value = "DownloadType",required = false,defaultValue = "Local") DownloadType downloadType, @PathVariable String id) {
-        String directoryPath = System.getProperty("java.io.tmpdir") + File.separator + "MusicDownload" + File.separator + id;
+    public ResponseEntity<?> uploadFile(@RequestHeader(value = "Authorization",required = false) String header,@RequestHeader(value = "DownloadType",required = false,defaultValue = "Local") DownloadType downloadType, @PathVariable String id) {
 
-        FileDTO resource = this.downloadService.upload(id, directoryPath);
-
+        LocalUploadDTO resource = this.downloadService.upload(id);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + resource.getFileChildrenName())
                 .header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, HttpHeaders.CONTENT_DISPOSITION) // Exponer el encabezado

@@ -1,6 +1,5 @@
-package net.ddns.levelcloud.music.music.controllers.download;
+package net.ddns.levelcloud.music.Features.Download.controllers;
 
-import net.ddns.levelcloud.music.Features.Download.controllers.DownloadProgressController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

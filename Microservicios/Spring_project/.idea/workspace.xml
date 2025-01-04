@@ -4,26 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f5055963-3d3d-4c7b-ac45-a0bcea5e0acb" name="Changes" comment="Version previa, Permite descargar en local pero aun falta refactorizar para hacerlo mas generico y reutilizable.&#10;&#10;El proximo paso es permitir la descarga en la nube y la descarga de playlists de youtube">
-      <change afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Player/prueba.java" afterDir="false" />
+    <list default="true" id="f5055963-3d3d-4c7b-ac45-a0bcea5e0acb" name="Changes" comment="Restructuracion directorios microservicio para mayor claridad">
+      <change afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/logic/DownloadLevelCloud.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/logic/DownloadLocal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/logic/abs/AbstractDownloadStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/util/ZipFile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/Features/Download/interceptors/InterceptorConfigTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/Features/Download/models/DTO/ProgressDtoTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/Exceptions/DownloadIdNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Download/Exceptions/DownloadIdNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/Interceptors/HeaderInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Download/Interceptors/HeaderInterceptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/Interceptors/InterceptorConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Download/Interceptors/InterceptorConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/MusicApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/MusicApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/client/Download/NextcloudClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Download/client/NextcloudClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/config/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Download/config/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/controllers/download/DownloadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Download/controllers/DownloadController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/controllers/download/DownloadProgressController.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Download/controllers/DownloadProgressController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/models/DTO/Download/DownloadRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Download/models/DTO/DownloadRequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/models/DTO/Download/FileDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Download/models/DTO/FileDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/models/DTO/Download/NextcloudUploadDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Download/models/DTO/NextcloudUploadDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/models/DTO/Download/ProgressDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Download/models/DTO/ProgressDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/models/Enum/DownloadType.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Download/models/Enum/DownloadType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/music/services/download/DownloadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Download/controllers/DownloadService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/music/controllers/download/DownloadControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/music/controllers/download/DownloadControllerTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/music/controllers/download/DownloadProgressControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/music/controllers/download/DownloadProgressControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/music/models/DTO/DownloadRequestDTOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/music/models/DTO/DownloadRequestDTOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/controllers/DownloadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/controllers/DownloadController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/controllers/DownloadProgressController.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/controllers/DownloadProgressController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/controllers/DownloadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/Services/DownloadService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/models/DTO/DownloadRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/models/DTO/DownloadRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/models/DTO/FileDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/models/DTO/LocalUploadDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/models/DTO/ProgressDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/models/DTO/ProgressDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Security/Interceptors/InterceptorConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Security/Interceptors/InterceptorConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/music/Interceptors/InterceptorConfigTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/music/controllers/download/DownloadControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/Features/Download/controllers/DownloadControllerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/music/controllers/download/DownloadProgressControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/Features/Download/controllers/DownloadProgressControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/music/models/DTO/DownloadRequestDTOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/Features/Download/models/DTO/DownloadRequestDTOTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +35,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="JUnit5 Test Class" />
         <option value="Class" />
       </list>
     </option>
@@ -54,12 +54,12 @@
     &quot;assignee&quot;: &quot;luishidalgoa&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/luishidalgoa/CloudStorage_Project.git",
-    "accountId": "1535a63a-5d6e-4aa3-ac6b-42b37d2e7764"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/luishidalgoa/CloudStorage_Project.git&quot;,
+    &quot;accountId&quot;: &quot;1535a63a-5d6e-4aa3-ac6b-42b37d2e7764&quot;
   }
-}]]></component>
+}</component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -75,36 +75,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
-    "JUnit.DownloadRequestDTOTest.testDeserializeDownloadRequestDTO.executor": "Debug",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.ConfigApplication.executor": "Run",
-    "Spring Boot.EurekaApplication.executor": "Run",
-    "Spring Boot.MusicApplication.executor": "Run",
-    "com.codeium.enabled": "true",
-    "git-widget-placeholder": "#8 on 1-musicdownloaderservice",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/WorkSpace/CloudStorage_Project/Microservicios/Spring_project/music/src/main/java/net/ddns/levelcloud/music/music/download",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.12798874",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DownloadRequestDTOTest.testDeserializeDownloadRequestDTO.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProgressDtoTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProgressDtoTest.testProgressMaximum.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProgressDtoTest.testProgressMinimum.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ConfigApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.EurekaApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.MusicApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;#8 on 1-musicdownloaderservice&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/WorkSpace/CloudStorage_Project/Microservicios/Spring_project/music/src/main/java/net/ddns/levelcloud/music/Features/Download/Logic/abstract&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.12798874&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RdControllerToolWindowsLayoutState" isNewUi="true">
     <layout>
       <window_info id="Bookmarks" side_tool="true" />
@@ -112,7 +117,7 @@
       <window_info id="Commit_Guest" show_stripe_button="false" />
       <window_info id="Pull Requests" />
       <window_info id="Learn" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28263587" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21143036" />
       <window_info id="Commit" order="1" weight="0.28263587" />
       <window_info id="Welcome to GitHub Copilot" order="2" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
@@ -124,17 +129,17 @@
       <window_info anchor="bottom" id="Version Control" order="0" weight="0.3034709" />
       <window_info anchor="bottom" id="Problems" order="1" />
       <window_info anchor="bottom" id="Problems View" order="2" weight="0.3034709" />
-      <window_info anchor="bottom" id="Terminal" order="3" weight="0.3034709" />
+      <window_info anchor="bottom" id="Terminal" order="3" weight="0.28283304" />
       <window_info anchor="bottom" id="Build" order="4" weight="0.3034709" />
-      <window_info anchor="bottom" id="Run" order="5" weight="0.29981464" />
+      <window_info anchor="bottom" id="Run" order="5" weight="0.3034709" />
       <window_info anchor="bottom" id="Debug" order="6" weight="0.3034709" />
       <window_info anchor="bottom" id="Find" order="7" weight="0.3034709" />
-      <window_info anchor="bottom" id="Services" order="8" weight="0.3034709" />
+      <window_info active="true" anchor="bottom" id="Services" order="8" visible="true" weight="0.3034709" />
       <window_info anchor="right" id="Endpoints" />
       <window_info anchor="right" id="Coverage" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Notifications" order="0" weight="0.25" />
       <window_info anchor="right" id="AIAssistant" order="1" weight="0.25" />
-      <window_info anchor="right" id="Database" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="2" weight="0.25015616" />
       <window_info anchor="right" id="Gradle" order="3" weight="0.25" />
       <window_info anchor="right" id="Maven" order="4" weight="0.32994792" />
       <window_info anchor="right" id="github.copilotToolWindow" order="5" />
@@ -155,10 +160,18 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\luish\Nextcloud2\Documentos\WorkSpace\CloudStorage_Project\Microservicios\Spring_project\Monitoring\Prometheus" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="net.ddns.levelcloud.music.Features.Download.controllers" />
+      <recent name="net.ddns.levelcloud.music.Features.Download.models.DTO" />
       <recent name="net.ddns.levelcloud.music" />
       <recent name="net.ddns.levelcloud.music.music.download.models.DTO" />
       <recent name="net.ddns.levelcloud.music.music.services.download" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="net.ddns.levelcloud.music.Features.Download.models.DTO" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -171,18 +184,65 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.DownloadRequestDTOTest.testDeserializeDownloadRequestDTO">
+  <component name="RunManager" selected="JUnit.ProgressDtoTest">
     <configuration name="DownloadRequestDTOTest.testDeserializeDownloadRequestDTO" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="music" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="net.ddns.levelcloud.music.music.models.DTO.*" />
+          <option name="PATTERN" value="net.ddns.levelcloud.music.Features.Download.models.DTO.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="net.ddns.levelcloud.music.music.models.DTO" />
-      <option name="MAIN_CLASS_NAME" value="net.ddns.levelcloud.music.music.models.DTO.DownloadRequestDTOTest" />
+      <option name="PACKAGE_NAME" value="net.ddns.levelcloud.music.Features.Download.models.DTO" />
+      <option name="MAIN_CLASS_NAME" value="net.ddns.levelcloud.music.Features.Download.models.DTO.DownloadRequestDTOTest" />
       <option name="METHOD_NAME" value="testDeserializeDownloadRequestDTO" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProgressDtoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="music" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="net.ddns.levelcloud.music.Features.Download.models.DTO.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="net.ddns.levelcloud.music.Features.Download.models.DTO" />
+      <option name="MAIN_CLASS_NAME" value="net.ddns.levelcloud.music.Features.Download.models.DTO.ProgressDtoTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProgressDtoTest.testProgressMaximum" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="music" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="net.ddns.levelcloud.music.Features.Download.models.DTO.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="net.ddns.levelcloud.music.Features.Download.models.DTO" />
+      <option name="MAIN_CLASS_NAME" value="net.ddns.levelcloud.music.Features.Download.models.DTO.ProgressDtoTest" />
+      <option name="METHOD_NAME" value="testProgressMaximum" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProgressDtoTest.testProgressMinimum" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="music" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="net.ddns.levelcloud.music.Features.Download.models.DTO.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="net.ddns.levelcloud.music.Features.Download.models.DTO" />
+      <option name="MAIN_CLASS_NAME" value="net.ddns.levelcloud.music.Features.Download.models.DTO.ProgressDtoTest" />
+      <option name="METHOD_NAME" value="testProgressMinimum" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -252,14 +312,20 @@
     </configuration>
     <list>
       <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
+      <item itemvalue="JUnit.ProgressDtoTest" />
+      <item itemvalue="JUnit.ProgressDtoTest.testProgressMaximum" />
+      <item itemvalue="JUnit.ProgressDtoTest.testProgressMinimum" />
       <item itemvalue="JUnit.DownloadRequestDTOTest.testDeserializeDownloadRequestDTO" />
       <item itemvalue="Spring Boot.ConfigApplication" />
+      <item itemvalue="Spring Boot.EurekaApplication" />
       <item itemvalue="Spring Boot.GatewayApplication" />
       <item itemvalue="Spring Boot.MusicApplication" />
-      <item itemvalue="Spring Boot.EurekaApplication" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ProgressDtoTest" />
+        <item itemvalue="JUnit.ProgressDtoTest.testProgressMinimum" />
+        <item itemvalue="JUnit.ProgressDtoTest.testProgressMaximum" />
         <item itemvalue="JUnit.DownloadRequestDTOTest.testDeserializeDownloadRequestDTO" />
         <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
       </list>
@@ -291,7 +357,10 @@
       <workItem from="1735465366807" duration="18568000" />
       <workItem from="1735505393180" duration="7274000" />
       <workItem from="1735551088260" duration="21871000" />
-      <workItem from="1735822211796" duration="6363000" />
+      <workItem from="1735822211796" duration="23625000" />
+      <workItem from="1735859546139" duration="10765000" />
+      <workItem from="1735896891141" duration="29541000" />
+      <workItem from="1735987630457" duration="8187000" />
     </task>
     <task id="LOCAL-00001" summary="Version previa, Permite descargar en local pero aun falta refactorizar para hacerlo mas generico y reutilizable.&#10;&#10;El proximo paso es permitir la descarga en la nube y la descarga de playlists de youtube">
       <option name="closed" value="true" />
@@ -301,7 +370,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735827813229</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Restructuracion directorios microservicio para mayor claridad">
+      <option name="closed" value="true" />
+      <created>1735828778091</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1735828778091</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -324,28 +401,14 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="local mode:&#10;&#10;El microservicio music ahora puede funcionar de forma independiente al resto de microservicios" />
     <MESSAGE value="Version previa, Permite descargar en local pero aun falta refactorizar para hacerlo mas generico y reutilizable.&#10;&#10;El proximo paso es permitir la descarga en la nube y la descarga de playlists de youtube" />
-    <option name="LAST_COMMIT_MESSAGE" value="Version previa, Permite descargar en local pero aun falta refactorizar para hacerlo mas generico y reutilizable.&#10;&#10;El proximo paso es permitir la descarga en la nube y la descarga de playlists de youtube" />
+    <MESSAGE value="Restructuracion directorios microservicio para mayor claridad" />
+    <option name="LAST_COMMIT_MESSAGE" value="Restructuracion directorios microservicio para mayor claridad" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Download/controllers/DownloadController.java</url>
-          <line>49</line>
-          <option name="timeStamp" value="29" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Download/controllers/DownloadProgressController.java</url>
-          <line>29</line>
-          <option name="timeStamp" value="30" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="SpringBootApplicationConfigurationType">
-        <watch expression="reader.readLine()" language="JAVA" />
-        <watch expression="new File(&quot;/tmp/MusicDownload/21eb4d4c-4944-485f-9fdd-cdbbfdc79ae0/¿Qué\ va\ a\ ocurrir\ ahora\ con\ Total\ War？.mp3&quot;).exists()" language="JAVA" />
-        <watch expression="new File(&quot;/tmp/MusicDownload/21eb4d4c-4944-485f-9fdd-cdbbfdc79ae0/¿Qué\ va\ a\ ocurrir\ ahora\ con\ Total\ War？.mp3&quot;).exists()" language="JAVA" />
+        <watch expression="object.getCurrentIndex() " language="JAVA" />
+        <watch expression="object.getRequest().getData().getTotalFiles()-1" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>

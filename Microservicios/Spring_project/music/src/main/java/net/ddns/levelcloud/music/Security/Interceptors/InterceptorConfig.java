@@ -14,7 +14,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(headerInterceptor)
-                .addPathPatterns("/**") // Aplica a todos los endpoints
+                .addPathPatterns("") // Aplica a todos los endpoints
                 .excludePathPatterns("/api/music/download/**","/api/music/download/{id}"); // Excluir endpoints específicos
     }
 
