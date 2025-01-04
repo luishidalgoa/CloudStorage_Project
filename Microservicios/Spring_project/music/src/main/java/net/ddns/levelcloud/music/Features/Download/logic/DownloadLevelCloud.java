@@ -42,6 +42,11 @@ public class DownloadLevelCloud extends AbstractDownloadStrategy<NextcloudUpload
 
     }
 
+    @Override
+    public boolean cancelProcess(String id) {
+        return false;
+    }
+
     /**
      * Checkea si en el servicio en la nube hay espacio suficiente para subir el archivo
      * @param directoryPath

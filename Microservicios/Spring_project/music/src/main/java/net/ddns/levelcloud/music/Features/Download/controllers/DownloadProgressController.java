@@ -63,9 +63,9 @@ public class DownloadProgressController {
         return emitter;
     }
 
-    public boolean removeProgress(String id) {
+    public boolean remove(String id) {
         progressMap.remove(id);
-        return progressMap.getOrDefault(id, null) == null;
+        return progressMap.remove(id) == null;
     }
 
     public void updateProgress(String id, double progress) {

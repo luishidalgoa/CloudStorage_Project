@@ -249,5 +249,26 @@ Content-Type: application/octet-stream
 - **500**: No existe el ID de descarga en el servidor.
 - **500**: No se pudo eliminar el directorio temporal en el servidor.
 
+### `{{url}}/api/music/download/cancel/{id}` 
+
+> Cancela la descarga en curso y elimina los archivos temporales
+
+**Type**
+
+`GET`
+
+**Header:**
+> Solo si se ha usado la opción del servicio cloud
+```json
+"Authorization": "Basic {{base64_username:password}}"
+"DownloadType": "Local | LevelCloud"
+```
+**Response:**
+
+```http
+1 // Cancelado o 0 No cancelado
+```
+
+
 # Sprint 2
 Hacer que el sistema de descarga, si descarga una playlist lo comprima en un rar para enviarlo comprimido
