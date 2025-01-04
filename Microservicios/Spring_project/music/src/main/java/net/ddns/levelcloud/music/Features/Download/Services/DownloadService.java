@@ -3,6 +3,7 @@ package net.ddns.levelcloud.music.Features.Download.Services;
 import lombok.AllArgsConstructor;
 import net.ddns.levelcloud.music.Features.Download.controllers.DownloadProgressController;
 import net.ddns.levelcloud.music.Features.Download.logic.DownloadLocal;
+import net.ddns.levelcloud.music.Features.Download.logic.abs.AbstractDownloadStrategy;
 import net.ddns.levelcloud.music.Features.Download.models.DTO.DownloadRequestDTO;
 import net.ddns.levelcloud.music.Features.Download.models.DTO.LocalUploadDTO;
 import org.springframework.http.HttpStatus;
@@ -42,6 +43,16 @@ public class DownloadService {
         return request;
     }
 
+
+    public boolean cancel(String id){
+        switch (downloadProgressController.getProgress(id).getRequest().getDownloadType()){
+            case Local:
+                return new DownloadLocal(downloadProgressController).cancelProcess(id);
+            case LevelCloud:
+                break;
+        }
+        return false;
+    }
 
     // ------------------------ downloadCalculate
 
@@ -107,73 +118,11 @@ public class DownloadService {
         }
         return 0;
     }
-    private long extractFileSize(String line) {
-        // Expresión regular para buscar el tamaño del archivo en formato MiB o KiB
-        String regex = "\\s(\\d+(\\.\\d+)?[KM]?iB)\\s"; // Captura valores como 1.10MiB, 49k, etc.
-        if (line.contains("audio only") && line.contains("webm") && line.contains("251")) {
-            // Buscar el tamaño de archivo usando la expresión regular
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(line);
-
-            if (matcher.find()) {
-                // El tamaño del archivo estará en el primer grupo
-                return fileSizeToBytes(matcher.group(1));
-            }
-        }
-        return -1;
-    }
-
-    private long fileSizeToBytes(String fileSize) {
-        // Expresión regular para buscar el tamaño del archivo en formato MiB o KiB
-        String regex = "(\\d+(\\.\\d+)?)([KM])?iB"; // Captura valores como 1.10MiB, 49k, etc.
-        // Buscar el tamaño de archivo usando la expresión regular
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(fileSize);
-
-        if (matcher.find()) {
-            // El tamaño del archivo estará en el primer grupo
-            double size = Double.parseDouble(matcher.group(1));
-            String unit = matcher.group(3);
-
-            switch (unit) {
-                case "K":
-                    return (long) (size * 1024);
-                case "M":
-                    return (long) (size * 1024 * 1024);
-                default:
-                    return (long) size;
-            }
-        }
-        return 0;
-    }
 
 
     // ------------------------ Upload file
 
     public LocalUploadDTO upload(String id) {
         return new DownloadLocal(downloadProgressController).upload(id);
-    }
-
-    private boolean deleteDirectory(String directoryPath) {
-        if (!new File(directoryPath).exists())
-            throw new IllegalArgumentException("No existe el ID de descarga en el servidor.");
-
-        ProcessBuilder pb = new ProcessBuilder(
-                "rm",
-                "-rf",
-                directoryPath
-        );
-
-        try {
-            Process process = pb.start();
-            int exitCode = process.waitFor(); // Espera a que el proceso termine y obtiene el código de salida
-
-            // Si el código de salida es 0, el comando se ejecutó correctamente
-            return exitCode == 0;
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        throw new RuntimeException("No se pudo eliminar el directorio temporal en el servidor.");
     }
 }

@@ -50,5 +50,13 @@ public class DownloadController {
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(resource.getResource());
     }
+
+    @RequestMapping("/cancel/{id}")
+    public ResponseEntity<?> cancel(@PathVariable String id) {
+        if (this.downloadService.cancel(id))
+            return ResponseEntity.ok().build();
+        else
+            return ResponseEntity.badRequest().build();
+    }
 }
 

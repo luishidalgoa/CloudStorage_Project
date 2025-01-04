@@ -1,19 +1,16 @@
 package net.ddns.levelcloud.music.Features.Download.logic;
 
-import net.ddns.levelcloud.music.Features.Download.controllers.DownloadController;
 import net.ddns.levelcloud.music.Features.Download.controllers.DownloadProgressController;
 import net.ddns.levelcloud.music.Features.Download.logic.abs.AbstractDownloadStrategy;
 import net.ddns.levelcloud.music.Features.Download.models.DTO.DownloadRequestDTO;
 import net.ddns.levelcloud.music.Features.Download.models.DTO.LocalUploadDTO;
 import net.ddns.levelcloud.music.util.ZipFile;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 import java.util.Objects;
 
 public class DownloadLocal extends AbstractDownloadStrategy<LocalUploadDTO> {
@@ -118,11 +115,16 @@ public class DownloadLocal extends AbstractDownloadStrategy<LocalUploadDTO> {
 
     }
 
+    @Override
+    public boolean cancelProcess(String id) {
+        return false;
+    }
+
     private boolean cleanMemory(File root){
         if (ZipFile.deleteOtherFilesDirectory(root)){
             String id = root.getName();
             if (root.delete()){
-                return this.getDownloadProgressController().removeProgress(id);
+                return this.getDownloadProgressController().remove(id);
             }else {
                 throw new RuntimeException("No se pudo eliminar el directorio de descarga.");
             }

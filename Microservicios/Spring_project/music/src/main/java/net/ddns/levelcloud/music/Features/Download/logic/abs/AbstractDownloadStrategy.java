@@ -1,6 +1,5 @@
 package net.ddns.levelcloud.music.Features.Download.logic.abs;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import net.ddns.levelcloud.music.Features.Download.controllers.DownloadProgressController;
 import net.ddns.levelcloud.music.Features.Download.models.DTO.DownloadRequestDTO;
@@ -185,4 +184,22 @@ public abstract class AbstractDownloadStrategy<T> {
      */
     public abstract void endDownload(DownloadRequestDTO request,String directoryPath);
 
+    private boolean cancelHandle(String id){
+        if (downloadProgressController.getProgress(id)!=null){
+            this.downloadProgressController.getProgress(id).getProcess().destroy();
+            this.downloadProgressController.remove(id);
+            this.cancelProcess(id);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Lo que sucedera despues de cancelarse el proceso de descarga. Por defecto no hace falta encargarse de destruir el
+     * proceso ni borrarlo de la memoria interna ya que el metodo cancelHandle se encargara de ello. Este metodo sera llamado
+     * despues de que se haya limpiado la memoria interna
+     * @param id id de la descarga
+     * @return true si se ha cancelado correctamente
+     */
+    public abstract boolean cancelProcess(String id);
 }
