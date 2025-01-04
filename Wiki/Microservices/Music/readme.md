@@ -128,8 +128,8 @@ Llamaremos al endpoint `{{url}}/api/nextcloud/upload/` y le indicaremos la ruta 
 {
   "downloadType": "Local | LevelCloud", // Opciones de descarga
   "data": {
-    "externalUrl": "https://www.youtube.com/watch?v=QH2_TGUlwu4", // Url de la canción
-    "DirectoryPath": "/new%folder" // Opcional, si el usuario elige el servicio cloud
+    "externalUrl": "https://www.youtube.com/watch?v=Dh0SuNtMtYk", // Url de la canción
+    "directoryPath": "/new%folder" // Opcional, si el usuario elige el servicio cloud
   }
 }
 ```
@@ -137,7 +137,14 @@ Llamaremos al endpoint `{{url}}/api/nextcloud/upload/` y le indicaremos la ruta 
 
 ```json
 {
-  "downloadId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+    "id": "f63229b4-07b0-4632-8b6c-f6eca8d02b48",
+    "data": {
+        "externalUrl": "https://www.youtube.com/watch?v=Dh0SuNtMtYk",
+        "directoryPath": "/new%folder",
+        "totalFiles": 0
+    },
+    "downloadSyze": 3418357,
+    "downloadType": "Local"
 }
 ```
 
@@ -175,11 +182,32 @@ data: <progreso>%
 Ejemplo de eventos enviados:
 
 ```text
-event: progress
-data: 0%
+event:progress
+data:0.0
 
-event: progress
-data: 50%
+event:total
+data:0 / 3
+
+event:progress
+data:10.100000000000001
+
+event:progress
+data:33.333333333333336
+
+event:total
+data:1 / 3
+
+event:progress
+data:59.96666666666667
+
+event:total
+data:2 / 3
+
+event:progress
+data:100
+
+event:total
+data:3 / 3
 
 event: progress
 data: 100%
