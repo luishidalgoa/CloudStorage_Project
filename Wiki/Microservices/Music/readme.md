@@ -71,9 +71,9 @@ Llamaremos al endpoint `{{url}}/api/nextcloud/upload/` y le indicaremos la ruta 
 
 - [ ✅ ] **Progreso con SSE**: Utilizamos un canal SSE vinculado a un ID único para informar el progreso al cliente.
 
-- [ 🟧 ] **Limpieza automática**: Borramos los archivos temporales cuando la descarga finaliza o si expiran.
+- [ ✅ ] **Limpieza automática**: Borramos los archivos temporales cuando la descarga finaliza o si expiran.
 
-- [ ❌ ] **Descarga de Playlists**: El servicio debe ser capaz de descargar playlists enteras
+- [ ✅ ] **Descarga de Playlists**: El servicio debe ser capaz de descargar playlists enteras
 ---
 ## Endpoints
 
