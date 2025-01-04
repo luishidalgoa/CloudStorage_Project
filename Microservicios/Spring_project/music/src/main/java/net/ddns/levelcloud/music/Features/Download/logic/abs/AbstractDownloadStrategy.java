@@ -4,6 +4,7 @@ import lombok.Data;
 import net.ddns.levelcloud.music.Features.Download.controllers.DownloadProgressController;
 import net.ddns.levelcloud.music.Features.Download.models.DTO.DownloadRequestDTO;
 import net.ddns.levelcloud.music.Features.Download.models.DTO.ProgressDto;
+import net.ddns.levelcloud.music.util.ZipFile;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -184,22 +185,36 @@ public abstract class AbstractDownloadStrategy<T> {
      */
     public abstract void endDownload(DownloadRequestDTO request,String directoryPath);
 
-    private boolean cancelHandle(String id){
+
+    /**
+     * Cancela el proceso de descarga limpiando el proceso interno en memoria y limpiando el directorio de descarga temporal
+     * @param id id de la descarga
+     * @return true si se ha cancelado correctamente
+     */
+    protected boolean cancelProcess(String id){
         if (downloadProgressController.getProgress(id)!=null){
             this.downloadProgressController.getProgress(id).getProcess().destroy();
             this.downloadProgressController.remove(id);
-            this.cancelProcess(id);
-            return true;
+            return cleanMemory(new File(System.getProperty("java.io.tmpdir") + File.separator + "MusicDownload" + File.separator + id));
         }
         return false;
     }
 
     /**
-     * Lo que sucedera despues de cancelarse el proceso de descarga. Por defecto no hace falta encargarse de destruir el
-     * proceso ni borrarlo de la memoria interna ya que el metodo cancelHandle se encargara de ello. Este metodo sera llamado
-     * despues de que se haya limpiado la memoria interna
-     * @param id id de la descarga
-     * @return true si se ha cancelado correctamente
+     * Limpia la memoria de la descarga del directorio temporal
+     * @param root
+     * @return
      */
-    public abstract boolean cancelProcess(String id);
+    public boolean cleanMemory(File root){
+        if (ZipFile.deleteOtherFilesDirectory(root)){
+            String id = root.getName();
+            if (root.delete()){
+                return this.getDownloadProgressController().remove(id);
+            }else {
+                throw new RuntimeException("No se pudo eliminar el directorio de descarga.");
+            }
+
+        }
+        return false;
+    }
 }
