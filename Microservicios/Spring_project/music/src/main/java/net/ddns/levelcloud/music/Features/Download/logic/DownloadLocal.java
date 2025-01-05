@@ -1,19 +1,17 @@
 package net.ddns.levelcloud.music.Features.Download.logic;
 
-import net.ddns.levelcloud.music.Features.Download.controllers.DownloadController;
 import net.ddns.levelcloud.music.Features.Download.controllers.DownloadProgressController;
 import net.ddns.levelcloud.music.Features.Download.logic.abs.AbstractDownloadStrategy;
 import net.ddns.levelcloud.music.Features.Download.models.DTO.DownloadRequestDTO;
 import net.ddns.levelcloud.music.Features.Download.models.DTO.LocalUploadDTO;
 import net.ddns.levelcloud.music.util.ZipFile;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 import java.util.Objects;
 
 public class DownloadLocal extends AbstractDownloadStrategy<LocalUploadDTO> {
@@ -55,7 +53,7 @@ public class DownloadLocal extends AbstractDownloadStrategy<LocalUploadDTO> {
             InputStreamResource resource = new InputStreamResource(fileInputStream);
 
             //eliminamos el directorio
-            this.cleanMemory(root);
+            super.cleanMemory(root);
 
             return LocalUploadDTO.builder()
                     .fileChildrenName(file.getName())
@@ -72,7 +70,8 @@ public class DownloadLocal extends AbstractDownloadStrategy<LocalUploadDTO> {
         try {
             InputStreamResource zip=ZipFile.zip(root);
 
-            cleanMemory(root);
+            if (!super.cleanMemory(root))
+                LoggerFactory.getLogger(DownloadLocal.class).error("No se pudo eliminar el directorio temporal.");
 
             return LocalUploadDTO.builder()
                     .fileChildrenName(root.getName()+".zip")
@@ -118,18 +117,12 @@ public class DownloadLocal extends AbstractDownloadStrategy<LocalUploadDTO> {
 
     }
 
-    private boolean cleanMemory(File root){
-        if (ZipFile.deleteOtherFilesDirectory(root)){
-            String id = root.getName();
-            if (root.delete()){
-                return this.getDownloadProgressController().removeProgress(id);
-            }else {
-                throw new RuntimeException("No se pudo eliminar el directorio de descarga.");
-            }
-
-        }
-        return false;
+    @Override
+    public boolean cancelProcess(String id) {
+        return super.cancelProcess(id);
     }
+
+
 
 
 }
