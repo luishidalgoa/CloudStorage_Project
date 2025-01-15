@@ -108,7 +108,7 @@ Llamaremos al endpoint `{{url}}/api/nextcloud/upload/` y le indicaremos la ruta 
 
 # Ejemplos de los endpoints
 
-### `{{url}}/api/music/download/request` 
+### `{{url}}/api/music/download/request?DownloadType=Local` 
 
 > Inicia el proceso de descarga en el servidor con yt-dlp y devuelve un ID
 
@@ -121,12 +121,13 @@ Llamaremos al endpoint `{{url}}/api/nextcloud/upload/` y le indicaremos la ruta 
 ```json
 "Authorization": "Basic {{base64_username:password}}"
 ```
+**Params:**
+`DownloadType` : Local | LevelCloud
 
 **Body:**
 
 ```json
 {
-  "downloadType": "Local | LevelCloud", // Opciones de descarga
   "data": {
     "externalUrl": "https://www.youtube.com/watch?v=Dh0SuNtMtYk", // Url de la canción
     "directoryPath": "/new%folder" // Opcional, si el usuario elige el servicio cloud
@@ -156,7 +157,7 @@ Llamaremos al endpoint `{{url}}/api/nextcloud/upload/` y le indicaremos la ruta 
 - **1002**: El usuario no tiene suficiente espacio en su almacenamiento para descargar la canción.
 - **1003**: La ruta de descarga no existe.
 
-### `{{url}}/api/music/download/progress/{id}` 
+### `{{url}}/api/music/download/progress/{id}?DownloadType=Local` 
 
 > Crea una conexion unidireccional `SSE` que devuelve continuamente el estado del progreso al cliente que lo consume
 
@@ -168,8 +169,9 @@ Llamaremos al endpoint `{{url}}/api/nextcloud/upload/` y le indicaremos la ruta 
 > Solo si se ha usado la opción del servicio cloud
 ```json
 "Authorization": "Basic {{base64_username:password}}"
-"DownloadType": "Local | LevelCloud"
 ```
+**Params:**
+`DownloadType` : Local | LevelCloud
 
 **Response:**
 La respuesta es un flujo continuo de eventos `SSE` (Server-Sent Events) que envía actualizaciones del progreso hasta alcanzar el 100%. Cada evento tiene el siguiente formato:
@@ -222,7 +224,7 @@ La conexión se cerrará automáticamente cuando el progreso llegue al 100%.
 - **401**: Credenciales inválidas.
 - **404**: El ID de descarga no existe.
 
-### `{{url}}/api/music/download/{id}` 
+### `{{url}}/api/music/download/{id}?DownloadType=Local` 
 
 > Si la descarga el usuario la solicito mediante el servicio cloud. El metodo le creara una conexion streaming con el microservicio nextcloud, enviando de este modo el fichero, para que el servicio Nextcloud lo almacene y devolveremos en enlace de donde se almacena en nextcloud. Si el usuario lo solicito en local, el servidor creara una conexion con el cliente y le enviara el fichero
 
@@ -234,14 +236,20 @@ La conexión se cerrará automáticamente cuando el progreso llegue al 100%.
 > Solo si se ha usado la opción del servicio cloud
 ```json
 "Authorization": "Basic {{base64_username:password}}"
-"DownloadType": "Local | LevelCloud"
 ```
+**Params:**
+`DownloadType` : Local | LevelCloud
 **Response:**
 
 ```http
-HTTP/1.1 200 OK
-Content-Disposition: attachment; filename="example.mp3"
-Content-Type: application/octet-stream
+HTTP/1.1 206 Partial Content
+Content-Disposition: attachment; filename="archivo.rar"
+Content-Type: application/x-rar-compressed
+Accept-Ranges: bytes
+Access-Control-Expose-Headers: Content-Disposition
+Content-Range: bytes 0-1572863/4096000
+
+<contenido_binario>
 ```
 
 **Errores:**
@@ -249,7 +257,7 @@ Content-Type: application/octet-stream
 - **500**: No existe el ID de descarga en el servidor.
 - **500**: No se pudo eliminar el directorio temporal en el servidor.
 
-### `{{url}}/api/music/download/cancel/{id}` 
+### `{{url}}/api/music/download/cancel/{id} 
 
 > Cancela la descarga en curso y elimina los archivos temporales
 
@@ -261,8 +269,8 @@ Content-Type: application/octet-stream
 > Solo si se ha usado la opción del servicio cloud
 ```json
 "Authorization": "Basic {{base64_username:password}}"
-"DownloadType": "Local | LevelCloud"
 ```
+
 **Response:**
 
 ```http

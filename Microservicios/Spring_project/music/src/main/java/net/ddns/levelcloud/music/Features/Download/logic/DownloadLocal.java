@@ -53,7 +53,7 @@ public class DownloadLocal extends AbstractDownloadStrategy<LocalUploadDTO> {
             InputStreamResource resource = new InputStreamResource(fileInputStream);
 
             //eliminamos el directorio
-            super.cleanMemory(root);
+            //super.cleanMemory(root);
 
             return LocalUploadDTO.builder()
                     .fileChildrenName(file.getName())
@@ -70,9 +70,9 @@ public class DownloadLocal extends AbstractDownloadStrategy<LocalUploadDTO> {
         try {
             InputStreamResource zip=ZipFile.zip(root);
 
-            if (!super.cleanMemory(root))
+            /*if (!super.cleanMemory(root))
                 LoggerFactory.getLogger(DownloadLocal.class).error("No se pudo eliminar el directorio temporal.");
-
+            */
             return LocalUploadDTO.builder()
                     .fileChildrenName(root.getName()+".zip")
                     .resource(zip)
