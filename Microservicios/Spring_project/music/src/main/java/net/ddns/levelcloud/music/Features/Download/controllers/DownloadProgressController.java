@@ -25,7 +25,7 @@ public class DownloadProgressController {
      */
     @RequestMapping(value = "/progress/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter progress(@RequestHeader(value = "Authorization", required = false) String auth,
-                               @RequestHeader(value = "DownloadType", required = false, defaultValue = "Local") DownloadType downloadType,
+                               @RequestParam(value = "DownloadType", required = false, defaultValue = "Local") DownloadType downloadType,
                                @PathVariable("id") String id) {
 
         if (!progressMap.containsKey(id)) {

@@ -28,10 +28,12 @@ public class DownloadController {
 
     @PostMapping("/request")
     public ResponseEntity<DownloadRequestDTO> download(@RequestHeader(value = "Authorization", required = false) String auth,
+                                                       @RequestParam(value = "DownloadType", required = false, defaultValue = "Local") DownloadType downloadType,
                                                        @RequestBody DownloadRequestDTO request) {
 
         request.setId(UUID.randomUUID().toString());
 
+        request.setDownloadType(downloadType);
         request = this.downloadService.download(request);
 
         return ResponseEntity.ok(request);  // Devuelve un JSON con el ID
@@ -43,11 +45,11 @@ public class DownloadController {
      * almacene y devolveremos en enlace de donde se almacena en nextcloud. Si el usuario lo solicito
      * en local, el servidor se limitara a enviar el enlace FTP
      *
-     * @param header (opcional) Token de autorización + DownloadType
+     * @param header (opcional) Token de autorización
      * @return Enlace de descarga
      */
     @RequestMapping("/{id}")
-    public ResponseEntity<InputStreamResource> uploadFile(@RequestHeader(value = "Authorization", required = false) String header, @RequestHeader(value = "DownloadType", required = false, defaultValue = "Local") DownloadType downloadType, @PathVariable String id) {
+    public ResponseEntity<InputStreamResource> uploadFile(@RequestHeader(value = "Authorization", required = false) String header, @RequestParam(value = "DownloadType", required = false, defaultValue = "Local") DownloadType downloadType, @PathVariable String id) {
 
         LocalUploadDTO resource = this.downloadService.upload(id);
 
