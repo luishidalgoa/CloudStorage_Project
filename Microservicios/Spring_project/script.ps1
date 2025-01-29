@@ -2,7 +2,8 @@
 mvn clean package
 
 # Construir los contenedores Docker para cada servicio
-docker build -f ./music/Dockerfile -t music .
-docker build -f ./Gateway/Dockerfile -t gateway .
-docker build -f ./Eureka/Dockerfile -t eureka .
-docker build -f ./Config/Dockerfile -t config .
+docker buildx build --platform linux/amd64,linux/arm64 -t luishidalgoa/hidalgo-music:latest --push ./music/
+
+#docker build -f ./Gateway/Dockerfile -t gateway .
+#docker build -f ./Eureka/Dockerfile -t eureka .
+#docker build -f ./Config/Dockerfile -t config .
