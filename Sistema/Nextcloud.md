@@ -81,7 +81,7 @@ sudo nano /etc/apache2/sites-available/nextcloud.conf
 Una vez hayamos creado el fichero, lo editamos
 ```apache
 <VirtualHost *:80>
-    ServerName tu-dominio-o-ip
+    ServerName levelcloud.luishidalgoa.ddns-ip.net
     DocumentRoot /var/www/nextcloud
 
     <Directory /var/www/nextcloud/>
@@ -103,7 +103,7 @@ sudo systemctl restart apache2
 ## Comprobamos que todo funciona
 Vamos a acceder a la web de NextCloud
 ```bash
-http://tu-dominio-o-ip
+http://levelcloud.luishidalgoa.ddns-ip.net
 ```
 
 ## Configuracion de certificado SSL
@@ -130,7 +130,7 @@ Sigue las intrucciones que aparecen en la consola. te apareceran las siguientes 
 1. introduce el correo electronico que usaras para registrarte
 2. acepta los terminos de servicio
 3. acepta compartir tu correo electronico con el servicio
-4. Introduce el dns por ejemplo `luishidalgoa.ddns.net`
+4. Introduce el dns por ejemplo [`levelcloud.luishidalgoa.ddns-ip.net`](https://levelcloud.luishidalgoa.ddns-ip.net)
 
 una vez completados los pasos anteriores, deberiamos tener un certificado SSL en nuestro dominio. para ello desde el navegador accedemos a `https://luishidalgoa.ddns.net`
 
