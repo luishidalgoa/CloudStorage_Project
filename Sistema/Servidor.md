@@ -234,7 +234,7 @@ cd /home/luish/server
 nano docker-compose.yml
 ```
 En el docker-compose.yml
-```
+```yml
 services:
   minio:
     image: minio/minio:latest
@@ -256,7 +256,7 @@ Ahora configuramos el dominio
 ```sh
 nano /etc/apache2/sites-available/minio.conf
 ```
-```
+```sh
 <VirtualHost *:80>
     ServerName minio.luishidalgoa.ddns-ip.net
 
