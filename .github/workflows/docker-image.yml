@@ -3,14 +3,15 @@ name: Docker Build and Push
 on:
   push:
     branches:
-      - main # O la rama que desees
+      - master # O la rama que desees
   pull_request:
     branches:
-      - main # O la rama que desees
+      - master # O la rama que desees
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: production
 
     steps:
     - name: Checkout code
@@ -27,4 +28,4 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        docker buildx build --platform linux/amd64,linux/arm64 -t luishidalgoa/hidalgo-music:latest --push ./music/
+        docker buildx build --platform linux/amd64,linux/arm64 -t luishidalgoa/hidalgo-music:latest --push /CloudStorage_Project/Microservicios/Spring_project/music
