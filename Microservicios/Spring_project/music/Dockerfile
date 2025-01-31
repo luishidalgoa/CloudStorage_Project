@@ -12,6 +12,8 @@ RUN apt update && apt install -y --no-install-recommends \
     python3-venv \
     python3-mutagen \
     curl \
+    git \
+    maven \
     && rm -rf /var/lib/apt/lists/*
 
 # Descargar yt-dlp en una sola capa
@@ -49,7 +51,13 @@ RUN ARCH=$(uname -m) && \
 ENV PATH="/usr/lib/jvm/jdk-21/bin:$PATH"
 
 # Copiar el archivo JAR
-COPY ./target/*.jar /app.jar
+RUN git clone https://github.com/luishidalgoa/CloudStorage_Project.git && \
+    cd ./CloudStorage_Project/Microservicios/Spring_project/music && \
+    mvn clean package
+    
+RUN mv /CloudStorage_Project/Microservicios/Spring_project/music/target/*.jar /app.jar
+
+RUN apt-get remove -y maven git wget curl && apt-get autoremove -y && apt-get clean && rm -rf /CloudStorage_Project
 
 # Comando de arranque
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+CMD ["java", "-jar", "/app.jar"]

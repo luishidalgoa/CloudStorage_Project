@@ -9,6 +9,7 @@
 1. [Requisitos](#requisitos)
     1. [Sistema](#sistema)
     1. [NEXTCLOUD](#nextcloud)
+1. [Minio](#minio)
 1. [Monitoreo](#monitoreo)
 1. [Estrategia de datos](#estrategia-de-datos)
     1. [Ventajas y desventajas de usar RAID 5](#ventajas-y-desventajas-de-usar-raid-5)
@@ -225,6 +226,53 @@ sudo apt install unzip ufw
 - PHP7.4
 - MySQL
 
+## Minio:
+El objetivo es tener nuestro propio servidor bucket para imagenes.
+```sh
+mkdir /home/luish/server
+cd /home/luish/server
+nano docker-compose.yml
+```
+En el docker-compose.yml
+```yml
+services:
+  minio:
+    image: minio/minio:latest
+    restart: unless-stopped
+    container_name: minio
+    ports:
+      - "9000:9000"  # Puerto para la API de MinIO
+      - "9001:9001"  # Puerto para la consola de MinIO
+    environment:
+      MINIO_ROOT_USER: usuario  # Usuario root
+      MINIO_ROOT_PASSWORD: contraseñaEjemplo  # Contraseña root
+    volumes:
+      - /mnt/nextcloud_hdd_1/minio_data:/data  # Volumen para almacenar los datos de MinIO
+    command: server /data --console-address ":9001"
+```
+
+Ahora configuramos el dominio
+
+```sh
+nano /etc/apache2/sites-available/minio.conf
+```
+```sh
+<VirtualHost *:80>
+    ServerName minio.luishidalgoa.ddns-ip.net
+
+    ProxyPreserveHost On
+    ProxyPass / http://127.0.0.1:9001/
+    ProxyPassReverse / http://127.0.0.1:9001/
+
+    ErrorLog ${APACHE_LOG_DIR}/minio_error.log
+    CustomLog ${APACHE_LOG_DIR}/minio_access.log combined
+</VirtualHost>
+```
+```sh
+sudo a2ensite minio.conf
+sudo systemctl restart apache2
+```
+Testeamos que podemos conectarnos [minio.luishidalgoa.ddns-ip.net](http://minio.luishidalgoa.ddns-ip.net)
 
 ## Monitoreo:
 > **Temperatura del sistema**
@@ -381,7 +429,7 @@ services:
     expose:
       - 9205
     environment:
-      - NEXTCLOUD_SERVER=https://luishidalgoa.ddns.net # ejemp  https://luishidalgoa.ddns.net
+      - NEXTCLOUD_SERVER=https://levelcloud.luishidalgoa.ddns-ip.net # ejemp  https://luishidalgoa.ddns-ip.net
       - NEXTCLOUD_USERNAME=${NEXTCLOUD_USERNAME} # ejemp admin
       - NEXTCLOUD_PASSWORD=${NEXTCLOUD_PASSWORD} # ejemp admin
     depends_on:
@@ -519,7 +567,7 @@ Agregamos la siguiente linea de código
 ```bash
 <IP PUBLICA> <DNS>
 # Ejemplo
-85.136.249.122 luishidalgoa.ddns.net
+85.136.249.122 luishidalgoa.ddns-ip.net
 ```
 ### Desactivar Firewall del puerto 3306 y activar redireccionamiento del router
 Puede ser que el corta fuegos este bloqueando el acceso al servicio mysql/mariadb. Es por eso que estableceremos una regla al firewall para que permita el acceso
