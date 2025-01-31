@@ -4,11 +4,11 @@ on:
   push:
     branches: [ "master" ]
     paths:
-      - '**/pom.xml' # Solo ejecuta el build si cambia algún pom.xml
+      - './Microservicios/Spring_project/pom.xml' # Solo ejecuta el build si cambia algún pom.xml
   pull_request:
     branches: [ "master" ]
     paths:
-      - '**/pom.xml'
+      - './Microservicios/Spring_project/pom.xml'
 
 jobs:
   build:
