@@ -28,9 +28,6 @@ jobs:
     - name: Build selected microservices
       run: |
         cd Microservicios/Spring_project
-        mvn versions:set -DnewVersion=${{ secrets.MAVEN_ROOT_VERSION }} -DgenerateBackupPoms=false
-        mvn versions:update-parent -DparentVersion=${{ secrets.MAVEN_ROOT_VERSION }} -DallowSnapshots=true -DgenerateBackupPoms=false
-        mvn versions:commit
         mvn -B package
 
 
