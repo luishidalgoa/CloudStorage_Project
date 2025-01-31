@@ -1,5 +1,5 @@
 server:
-  port: ${GATEWAY_SERVER_PORT:8080}
+  port: ${GATEWAY_SERVER_PORT}
 
 spring:
   cloud:
@@ -9,9 +9,13 @@ spring:
           enabled: true
       routes:
         - id: monitoring
-          uri: 'lb://auth:8081'
+          uri: 'lb://auth'
           predicates:
             - Path=/api/auth/**
+        - id: music
+          uri: 'lb://music'
+          predicates:
+            - Path=/api/music/**
 
 eureka:
   client:
