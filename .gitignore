@@ -1,8 +1,10 @@
 Microservicios/WorkSpace/cloud-storage-dev-container
 Microservicios/WorkSpace/Debian/ext4.vhdx
 .env
-.env.*
+*/.env
 *.env
 Microservicios/Spring_project/Monitoring/
-*.idea/
+Microservicios/Spring_project/pom_version.sh
+*/.idea/
+Microservicios/Spring_project/.idea/*
 Microservicios/Spring_project/.idea/workspace.xml

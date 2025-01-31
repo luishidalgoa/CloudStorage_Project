@@ -1,0 +1,43 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "master" ]
+    paths:
+      - 'Microservicios/Spring_project/pom.xml' # Solo ejecuta el build si cambia algún pom.xml
+  pull_request:
+    branches: [ "master" ]
+    paths:
+      - 'Microservicios/Spring_project/pom.xml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'oracle'
+        cache: maven
+
+    - name: Build selected microservices
+      run: |
+        cd Microservicios/Spring_project
+        mvn -B package
+
+
+    - name: Upload JAR artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: built-jars
+        path: Microservicios/Spring_project/**/target/*.jar
+
+    - name: Update dependency graph
+      run: |
+        cd Microservicios/Spring_project
+        mvn com.github.ferstl:depgraph-maven-plugin:4.0.1:graph

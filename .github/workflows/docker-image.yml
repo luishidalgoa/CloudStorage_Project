@@ -2,8 +2,9 @@ name: Docker Build and Push
 
 on:
   push:
-    branches:
-      - master # O la rama que desees
+    branches: [ "master" ]
+    paths:
+      - 'Microservicios/Spring_project/pom.xml' # Solo ejecuta el build si cambia algún pom.xml
   pull_request:
     branches:
       - master # O la rama que desees
