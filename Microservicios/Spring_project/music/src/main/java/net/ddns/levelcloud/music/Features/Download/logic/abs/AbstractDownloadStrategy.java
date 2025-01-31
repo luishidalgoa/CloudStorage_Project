@@ -105,8 +105,7 @@ public abstract class AbstractDownloadStrategy<T> {
                     }
                     //significa que el progreso del fichero actual ha empezado o continua);
                 }
-                if (progressFile>=100 && !process.isAlive()){
-                    System.out.println("Download process stopped");
+                if (progressFile>=100){
                     lastComplete=true;
                     progressFile=0;
                 }
