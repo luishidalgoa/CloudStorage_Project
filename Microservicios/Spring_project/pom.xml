@@ -9,7 +9,7 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.3.7</version>
         <relativePath/>
-    </parent>
+    </parent> 
 
     <groupId>net.ddns.levelcloud</groupId>
     <artifactId>LevelCloud</artifactId>
