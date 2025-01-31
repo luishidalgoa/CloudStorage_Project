@@ -28,6 +28,7 @@ jobs:
     - name: Build selected microservices
       run: |
         cd Microservicios/Spring_project
+        mvn versions:set versions:commit -DnewVersion=${{ secrets.MAVEN_ROOT_VERSION }}
         mvn -B package
 
     - name: Upload JAR artifacts
