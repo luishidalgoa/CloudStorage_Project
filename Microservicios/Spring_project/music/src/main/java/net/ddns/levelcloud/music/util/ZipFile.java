@@ -45,6 +45,11 @@ public class ZipFile {
         return new InputStreamResource(new ByteArrayInputStream(baos.toByteArray()));
     }
 
+    /**
+     * Esta función sirve para eliminar todos los archivos que no sean el zip
+     * @param directoryFile
+     * @return
+     */
     public static boolean deleteOtherFilesDirectory(File directoryFile) {
         File[] filesToDelete = directoryFile.listFiles();
         if (filesToDelete != null) {
