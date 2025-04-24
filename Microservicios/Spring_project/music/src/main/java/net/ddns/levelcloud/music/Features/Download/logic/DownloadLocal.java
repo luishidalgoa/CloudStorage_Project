@@ -33,10 +33,14 @@ public class DownloadLocal extends AbstractDownloadStrategy<LocalUploadDTO> {
 
             if (children.length == 1) {
                 // Si hay un único archivo, devuelve el archivo directamente
-                return this.getOnlyFile(root, children[0]);
+                LocalUploadDTO dto= this.getOnlyFile(root, children[0]);
+                this.cleanMemory(root);
+                return dto;
             } else {
                 // Si hay varios archivos, devuelve un archivo ZIP comprimido
-                return this.getZipFile(root);
+                LocalUploadDTO dto = this.getZipFile(root);
+                this.cleanMemory(root);
+                return dto;
             }
         } catch (NullPointerException e) {
             throw new NullPointerException("No se encontraron archivos en el directorio de descarga.");

@@ -27,7 +27,9 @@ public class DownloadRequestDTO {
         public Long downloadSyze;
         private int totalFiles;
 
-
+        public void setTotalFiles(int totalFiles) {
+            this.totalFiles = totalFiles == 0 ? 1 : totalFiles;
+        }
         public DownloadRequestMusicData(@JsonProperty("externalUrl") String externalUrl, @JsonProperty("DirectoryPath") String DirectoryPath,Long downloadSyze,int totalFiles) {
             this.externalUrl = externalUrl;
             this.directoryPath = DirectoryPath;

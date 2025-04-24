@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 @RestController
@@ -63,7 +65,8 @@ public class DownloadController {
             );
 
             HttpHeaders headers = new HttpHeaders();
-            headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + resource.getFileChildrenName());
+            String safeFileName = URLEncoder.encode(resource.getFileChildrenName(), StandardCharsets.UTF_8).replace("+", "%20");
+            headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename*="+safeFileName);
             headers.set(HttpHeaders.CONTENT_TYPE, "application/x-rar-compressed");
             headers.set(HttpHeaders.ACCEPT_RANGES, "bytes");
             headers.set(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, HttpHeaders.CONTENT_DISPOSITION);

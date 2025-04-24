@@ -51,9 +51,9 @@ public class DownloadProgressController {
                     }
                     Thread.sleep(500);
                 }
+                object.getProcess().waitFor();
                 emitter.send(SseEmitter.event().name("progress").data(100));
                 emitter.send(SseEmitter.event().name("total").data(object.getCurrentIndex()+" / "+object.getRequest().getData().getTotalFiles()));
-                object.getProcess().waitFor();
                 emitter.complete();
             } catch (Exception e) {
                 emitter.completeWithError(e);

@@ -28,3 +28,7 @@ test:
         uri: ${NEXTCLOUD_URI}
         username: ${TEST_NEXTCLOUD_USERNAME}
         password: ${TEST_NEXTCLOUD_PASSWORD}
+
+upload:
+  throttle:
+    speed: ${UPLOAD_THROTTLE_SPEED:1.5}
