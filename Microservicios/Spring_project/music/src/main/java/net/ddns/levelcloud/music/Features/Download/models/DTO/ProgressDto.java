@@ -22,7 +22,7 @@ public class ProgressDto{
     public double calculateProgress(double progressFile) {
         double totalFiles= request.getData().getTotalFiles();
 
-        double progressPerFile = 100 / totalFiles; // Porcentaje maximo por archivo
+        double progressPerFile = 100 / (totalFiles); // Porcentaje maximo por archivo
         this.progress = (progressPerFile * currentIndex) + (progressPerFile * progressFile / 100);
         return this.progress;
     }

@@ -79,9 +79,9 @@ public abstract class AbstractDownloadStrategy<T> {
     private void handleDownloadProcess(Process process,DownloadRequestDTO request,String directoryPath){
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
             String line;
-            double progressFile = 0;
-            boolean isStarted=false;
-            boolean lastComplete=false;
+            double progressFile = 0; //guarda el progreso actual del archivo que se está descargando
+            boolean isStarted=false; //indica si ya empezó la descarga de un archivo.
+            boolean lastComplete=false; //es un flag para detectar si acabó un archivo completamente.
             ProgressDto progressDto = downloadProgressController.getProgress(request.getId());
             while ((line = reader.readLine()) != null && progressDto.getProgress()<100) {
                 double tempProgress=extractProgressFromLine(line); //nos aseguraremos de que despues del ultimo 100% tengamos un -1
@@ -95,8 +95,8 @@ public abstract class AbstractDownloadStrategy<T> {
                     }
                     //si el proceso ya existia pero ahora devuelve -1, significa que ha terminado 1 de los ficheros
                 }else {
-                    if (tempProgress ==-1) {
-                        if (progressFile>0)
+                    if (tempProgress ==-1) { //el cmd no ha entrado en el proceso de descarga
+                        if (progressFile>0) // si no se detecta progreso y
                             progressDto.setCurrentIndex(progressDto.getCurrentIndex()+1);
                         progressFile = 0;
                     }else {
@@ -158,9 +158,13 @@ public abstract class AbstractDownloadStrategy<T> {
             if (matcher.find()) { // Si hay una coincidencia
                 String match = matcher.group(); // Obtiene el valor con %
                 double progress = Double.parseDouble(match.replace("%", ""));
-                return progress; // Retorna el valor como entero
+                return progress * 0.9; // Retorna el valor como entero
             }
         }
+        if (line.contains("[FixupM4a]")) return 91.0;
+        if (line.contains("[Metadata]")) return 93.0;
+        if (line.contains("[ThumbnailsConvertor]")) return 96.0;
+        if (line.contains("[EmbedThumbnail]")) return 100.0;
         return -1; // Retorna 0 si no se cumple la condición
     }
 
