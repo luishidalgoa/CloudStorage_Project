@@ -5,24 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f5055963-3d3d-4c7b-ac45-a0bcea5e0acb" name="Changes" comment="Restructuracion directorios microservicio para mayor claridad">
-      <change afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/logic/DownloadLevelCloud.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/logic/DownloadLocal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/logic/abs/AbstractDownloadStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/util/ZipFile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/Features/Download/interceptors/InterceptorConfigTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/Features/Download/models/DTO/ProgressDtoTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/Spring_project.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/controllers/DownloadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/controllers/DownloadController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/controllers/DownloadProgressController.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/controllers/DownloadProgressController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/controllers/DownloadService.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/Services/DownloadService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/models/DTO/DownloadRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/models/DTO/DownloadRequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/models/DTO/FileDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/models/DTO/LocalUploadDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/models/DTO/ProgressDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/models/DTO/ProgressDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Security/Interceptors/InterceptorConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Security/Interceptors/InterceptorConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/music/Interceptors/InterceptorConfigTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/music/controllers/download/DownloadControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/Features/Download/controllers/DownloadControllerTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/music/controllers/download/DownloadProgressControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/Features/Download/controllers/DownloadProgressControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/music/models/DTO/DownloadRequestDTOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/test/java/net/ddns/levelcloud/music/Features/Download/models/DTO/DownloadRequestDTOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom_version.sh" beforeDir="false" afterPath="$PROJECT_DIR$/pom_version.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,41 +60,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DownloadRequestDTOTest.testDeserializeDownloadRequestDTO.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProgressDtoTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ProgressDtoTest.testProgressMaximum.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ProgressDtoTest.testProgressMinimum.executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;Spring Boot.ConfigApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.EurekaApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.MusicApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;#8 on 1-musicdownloaderservice&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/WorkSpace/CloudStorage_Project/Microservicios/Spring_project/music/src/main/java/net/ddns/levelcloud/music/Features/Download/Logic/abstract&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.12798874&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
+    "JUnit.DownloadRequestDTOTest.testDeserializeDownloadRequestDTO.executor": "Debug",
+    "JUnit.ProgressDtoTest.executor": "Run",
+    "JUnit.ProgressDtoTest.testProgressMaximum.executor": "Run",
+    "JUnit.ProgressDtoTest.testProgressMinimum.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "SHELLCHECK.PATH": "/root/.local/share/JetBrains/IntelliJIdea2025.1/Shell Script/shellcheck",
+    "Spring Boot.ConfigApplication.executor": "Run",
+    "Spring Boot.EurekaApplication.executor": "Run",
+    "Spring Boot.MusicApplication.executor": "Run",
+    "com.codeium.enabled": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/WorkSpace/CloudStorage_Project/Microservicios/Spring_project/Config",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.12798874",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RdControllerToolWindowsLayoutState" isNewUi="true">
     <layout>
       <window_info id="Bookmarks" side_tool="true" />
@@ -129,12 +116,12 @@
       <window_info anchor="bottom" id="Version Control" order="0" weight="0.3034709" />
       <window_info anchor="bottom" id="Problems" order="1" />
       <window_info anchor="bottom" id="Problems View" order="2" weight="0.3034709" />
-      <window_info anchor="bottom" id="Terminal" order="3" weight="0.28283304" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="3" visible="true" weight="0.32973734" />
       <window_info anchor="bottom" id="Build" order="4" weight="0.3034709" />
       <window_info anchor="bottom" id="Run" order="5" weight="0.3034709" />
       <window_info anchor="bottom" id="Debug" order="6" weight="0.3034709" />
       <window_info anchor="bottom" id="Find" order="7" weight="0.3034709" />
-      <window_info active="true" anchor="bottom" id="Services" order="8" visible="true" weight="0.3034709" />
+      <window_info anchor="bottom" id="Services" order="8" />
       <window_info anchor="right" id="Endpoints" />
       <window_info anchor="right" id="Coverage" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Notifications" order="0" weight="0.25" />
@@ -146,6 +133,7 @@
       <window_info anchor="right" id="GitHub Copilot Chat" order="6" />
       <window_info anchor="right" id="documentation.v2" order="7" side_tool="true" weight="0.3301062" />
       <window_info anchor="right" id="Beans" order="8" weight="0.32994792" />
+      <window_info anchor="right" id="Codeium Chat" order="9" />
     </layout>
   </component>
   <component name="ReactorSettings">
@@ -153,9 +141,10 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/Gateway" />
-      <recent name="$PROJECT_DIR$/Eureka" />
       <recent name="$PROJECT_DIR$/Config" />
+      <recent name="$PROJECT_DIR$/Eureka" />
+      <recent name="$PROJECT_DIR$/Gateway" />
+      <recent name="$PROJECT_DIR$/music" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\luish\Nextcloud2\Documentos\WorkSpace\CloudStorage_Project\Microservicios\Spring_project\Monitoring\Prometheus" />
@@ -275,6 +264,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="GatewayApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="Gateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="net.ddns.levelcloud.gateway.GatewayApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="GatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="Gateway" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="net.ddns.levelcloud.Gateway.GatewayApplication" />
@@ -312,10 +308,11 @@
     </configuration>
     <list>
       <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
+      <item itemvalue="JUnit.DownloadRequestDTOTest.testDeserializeDownloadRequestDTO" />
       <item itemvalue="JUnit.ProgressDtoTest" />
       <item itemvalue="JUnit.ProgressDtoTest.testProgressMaximum" />
       <item itemvalue="JUnit.ProgressDtoTest.testProgressMinimum" />
-      <item itemvalue="JUnit.DownloadRequestDTOTest.testDeserializeDownloadRequestDTO" />
+      <item itemvalue="Spring Boot.GatewayApplication (1)" />
       <item itemvalue="Spring Boot.ConfigApplication" />
       <item itemvalue="Spring Boot.EurekaApplication" />
       <item itemvalue="Spring Boot.GatewayApplication" />
@@ -334,8 +331,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.59" />
-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.59" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.318" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.318" />
       </set>
     </attachedChunks>
   </component>
@@ -361,6 +358,8 @@
       <workItem from="1735859546139" duration="10765000" />
       <workItem from="1735896891141" duration="29541000" />
       <workItem from="1735987630457" duration="8187000" />
+      <workItem from="1745444697739" duration="936000" />
+      <workItem from="1745487098283" duration="2121000" />
     </task>
     <task id="LOCAL-00001" summary="Version previa, Permite descargar en local pero aun falta refactorizar para hacerlo mas generico y reutilizable.&#10;&#10;El proximo paso es permitir la descarga en la nube y la descarga de playlists de youtube">
       <option name="closed" value="true" />
