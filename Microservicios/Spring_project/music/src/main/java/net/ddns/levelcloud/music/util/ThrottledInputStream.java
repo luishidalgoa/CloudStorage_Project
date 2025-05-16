@@ -21,19 +21,26 @@ public class ThrottledInputStream extends FilterInputStream {
 
     @Override
     public int read(byte[] b, int off, int len) throws IOException {
-        long elapsed = System.currentTimeMillis() - startTime;
-        if (elapsed > 0 && bytesRead >= maxBytesPerSecond * elapsed / 1000) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                throw new IOException("Thread interrupted during throttling", e);
-            }
-        }
         int bytesReadNow = super.read(b, off, len);
         if (bytesReadNow > 0) {
             bytesRead += bytesReadNow;
+
+            long elapsed = System.currentTimeMillis() - startTime;
+            double expectedBytes = maxBytesPerSecond * (elapsed / 1000.0);
+
+            if (bytesRead > expectedBytes) {
+                long sleepTime = (long) (((bytesRead - expectedBytes) / maxBytesPerSecond) * 1000);
+                if (sleepTime > 0) {
+                    try {
+                        Thread.sleep(sleepTime);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        throw new IOException("Thread interrupted during throttling", e);
+                    }
+                }
+            }
         }
         return bytesReadNow;
     }
+
 }

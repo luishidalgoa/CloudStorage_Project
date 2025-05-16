@@ -55,14 +55,9 @@ public class DownloadController {
 
         LocalUploadDTO resource = this.downloadService.upload(id);
 
-        ThrottledInputStream throttledStream;
         try {
             if (!resource.getResource().exists())
                 return ResponseEntity.notFound().build();
-
-            throttledStream = new ThrottledInputStream(
-                    resource.getResource().getInputStream()
-            );
 
             HttpHeaders headers = new HttpHeaders();
             String safeFileName = URLEncoder.encode(resource.getFileChildrenName(), StandardCharsets.UTF_8).replace("+", "%20");
@@ -76,14 +71,13 @@ public class DownloadController {
                 long start = range.getRangeStart(0);
                 long end = range.getRangeEnd(resource.getResource().contentLength() - 1);
 
-                throttledStream.skip(start);
                 headers.set("Content-Range", "bytes " + start + "-" + end + "/" + resource.getResource().getFile().length());
             }
 
             return ResponseEntity.ok()
                     .headers(headers)
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                    .body(new InputStreamResource(throttledStream));
+                    .body(new InputStreamResource(resource.getResource().getInputStream()));
 
         } catch (IOException e) {
             e.printStackTrace();
