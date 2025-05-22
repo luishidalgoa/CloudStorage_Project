@@ -1,5 +1,7 @@
 package net.ddns.levelcloud.music.Features.Download.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import net.ddns.levelcloud.music.Features.Download.Exceptions.DownloadIdNotFoundException;
 import net.ddns.levelcloud.music.Features.Download.models.DTO.DownloadRequestDTO;
 import net.ddns.levelcloud.music.Features.Download.models.DTO.ProgressDto;
@@ -23,7 +25,10 @@ public class DownloadProgressController {
      * @param downloadType Tipo de descarga
      * @return
      */
-    @RequestMapping(value = "/progress/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "/progress/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @Operation(summary = "Inicia una conexión SSE para recibir el progreso de la descarga",
+            description = "Crea una conexión unidireccional SSE que devuelve continuamente el estado del progreso al cliente que lo consume. Devolviendo el progress y el total de archivos descargados")
+    @ApiResponse(responseCode = "200", description = "Conexión SSE iniciada")
     public SseEmitter progress(@RequestHeader(value = "Authorization", required = false) String auth,
                                @RequestParam(value = "DownloadType", required = false, defaultValue = "Local") DownloadType downloadType,
                                @PathVariable("id") String id) {

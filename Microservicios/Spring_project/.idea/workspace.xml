@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f5055963-3d3d-4c7b-ac45-a0bcea5e0acb" name="Changes" comment="Launch 0.2 Fixed Music bugs">
+    <list default="true" id="f5055963-3d3d-4c7b-ac45-a0bcea5e0acb" name="Changes" comment="JVM Heap Exceded resolved. Se ha eliminado el thrrotlelimit debido a que lo que provocaba era relentizar el envio de la respuesta http">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/music/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/controllers/DownloadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/controllers/DownloadController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/logic/DownloadLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/logic/DownloadLocal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/util/ThrottledInputStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/util/ThrottledInputStream.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/util/ZipFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/util/ZipFile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/controllers/DownloadProgressController.java" beforeDir="false" afterPath="$PROJECT_DIR$/music/src/main/java/net/ddns/levelcloud/music/Features/Download/controllers/DownloadProgressController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,12 +40,12 @@
     &quot;assignee&quot;: &quot;luishidalgoa&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/luishidalgoa/CloudStorage_Project.git",
-    "accountId": "970b0729-7caf-4810-877c-030b105d35c1"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/luishidalgoa/CloudStorage_Project.git&quot;,
+    &quot;accountId&quot;: &quot;970b0729-7caf-4810-877c-030b105d35c1&quot;
   }
-}]]></component>
+}</component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -83,7 +82,7 @@
     "com.codeium.enabled": "true",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "Dev/HEAP__SPACE",
+    "git-widget-placeholder": "swagger",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/WorkSpace/CloudStorage_Project/Microservicios/Spring_project/music",
     "node.js.detected.package.eslint": "true",
@@ -107,7 +106,7 @@
       <window_info id="Pull Requests" />
       <window_info id="Learn" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.34946907" />
-      <window_info id="Commit" order="1" weight="0.18332294" />
+      <window_info id="Commit" order="1" weight="0.34946907" />
       <window_info id="Welcome to GitHub Copilot" order="2" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Database Changes" />
@@ -117,12 +116,12 @@
       <window_info anchor="bottom" id="Version Control" order="0" weight="0.3034709" />
       <window_info anchor="bottom" id="Problems" order="1" />
       <window_info anchor="bottom" id="Problems View" order="2" weight="0.3034709" />
-      <window_info anchor="bottom" id="Terminal" order="3" weight="0.37476546" />
+      <window_info anchor="bottom" id="Terminal" order="3" weight="0.32973734" />
       <window_info anchor="bottom" id="Build" order="4" weight="0.3034709" />
       <window_info anchor="bottom" id="Run" order="5" weight="0.3034709" />
       <window_info anchor="bottom" id="Debug" order="6" weight="0.3034709" />
       <window_info anchor="bottom" id="Find" order="7" weight="0.3034709" />
-      <window_info active="true" anchor="bottom" id="Services" order="8" visible="true" weight="0.3034709" />
+      <window_info active="true" anchor="bottom" id="Services" order="8" visible="true" />
       <window_info anchor="bottom" id="Windsurf Console" order="9" weight="0.32973734" />
       <window_info anchor="bottom" id="Profiler" order="10" weight="0.40196997" />
       <window_info anchor="right" id="Endpoints" />
@@ -131,13 +130,14 @@
       <window_info anchor="right" id="AIAssistant" order="1" weight="0.25" />
       <window_info anchor="right" id="Database" order="2" weight="0.25015616" />
       <window_info anchor="right" id="Gradle" order="3" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="4" weight="0.32994792" />
-      <window_info anchor="right" id="github.copilotToolWindow" order="5" />
+      <window_info anchor="right" id="Maven" order="4" weight="0.3301062" />
+      <window_info anchor="right" id="github.copilotToolWindow" order="5" weight="0.3301062" />
       <window_info anchor="right" id="GitHub Copilot Chat" order="6" />
       <window_info anchor="right" id="documentation.v2" order="7" side_tool="true" weight="0.3301062" />
       <window_info anchor="right" id="Beans" order="8" weight="0.32994792" />
       <window_info anchor="right" id="Codeium Chat" order="9" />
       <window_info anchor="right" id="Cascade" order="10" weight="0.3301062" />
+      <window_info anchor="right" id="ElectroJunToolWindow" order="11" />
     </layout>
   </component>
   <component name="ReactorSettings">
@@ -363,7 +363,8 @@
       <workItem from="1735896891141" duration="29541000" />
       <workItem from="1735987630457" duration="8187000" />
       <workItem from="1738412332506" duration="13962000" />
-      <workItem from="1747402290848" duration="5407000" />
+      <workItem from="1747402290848" duration="5673000" />
+      <workItem from="1747928463781" duration="5036000" />
     </task>
     <task id="LOCAL-00001" summary="Version previa, Permite descargar en local pero aun falta refactorizar para hacerlo mas generico y reutilizable.&#10;&#10;El proximo paso es permitir la descarga en la nube y la descarga de playlists de youtube">
       <option name="closed" value="true" />
@@ -389,7 +390,23 @@
       <option name="project" value="LOCAL" />
       <updated>1745530080802</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="JVM Heap Exceded resolved. Se ha eliminado el thrrotlelimit debido a que lo que provocaba era relentizar el envio de la respuesta http">
+      <option name="closed" value="true" />
+      <created>1747408099548</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1747408099548</updated>
+    </task>
+    <task id="LOCAL-00005" summary="JVM Heap Exceded resolved. Se ha eliminado el thrrotlelimit debido a que lo que provocaba era relentizar el envio de la respuesta http">
+      <option name="closed" value="true" />
+      <created>1747408145984</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1747408145984</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -414,7 +431,8 @@
     <MESSAGE value="Version previa, Permite descargar en local pero aun falta refactorizar para hacerlo mas generico y reutilizable.&#10;&#10;El proximo paso es permitir la descarga en la nube y la descarga de playlists de youtube" />
     <MESSAGE value="Restructuracion directorios microservicio para mayor claridad" />
     <MESSAGE value="Launch 0.2 Fixed Music bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Launch 0.2 Fixed Music bugs" />
+    <MESSAGE value="JVM Heap Exceded resolved. Se ha eliminado el thrrotlelimit debido a que lo que provocaba era relentizar el envio de la respuesta http" />
+    <option name="LAST_COMMIT_MESSAGE" value="JVM Heap Exceded resolved. Se ha eliminado el thrrotlelimit debido a que lo que provocaba era relentizar el envio de la respuesta http" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

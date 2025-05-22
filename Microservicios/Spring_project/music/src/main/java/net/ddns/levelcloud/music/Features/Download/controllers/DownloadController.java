@@ -1,12 +1,14 @@
 package net.ddns.levelcloud.music.Features.Download.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.AllArgsConstructor;
 import net.ddns.levelcloud.music.Features.Download.Services.DownloadService;
 import net.ddns.levelcloud.music.Features.Download.models.DTO.DownloadRequestDTO;
 import net.ddns.levelcloud.music.Features.Download.models.DTO.LocalUploadDTO;
 import net.ddns.levelcloud.music.Features.Download.models.Enum.DownloadType;
-import net.ddns.levelcloud.music.util.ThrottledInputStream;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRange;
@@ -14,8 +16,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -29,6 +29,12 @@ public class DownloadController {
     private DownloadService downloadService;
 
     @PostMapping("/request")
+    @Operation(summary = "Inciar proceso de descargar", description = "Genera un proceso de descarga internamente en el servidor. Devuelve un identificador del seguimiento de la consulta",responses = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Devuelve el identificador de seguimiento del proceso abierto internamente en el servidor"
+            )
+    })
     public ResponseEntity<DownloadRequestDTO> download(@RequestHeader(value = "Authorization", required = false) String auth,
                                                        @RequestParam(value = "DownloadType", required = false, defaultValue = "Local") DownloadType downloadType,
                                                        @RequestBody DownloadRequestDTO request) {
@@ -50,7 +56,16 @@ public class DownloadController {
      * @param header (opcional) Token de autorización
      * @return Enlace de descarga
      */
-    @RequestMapping("/{id}")
+    @GetMapping("/{id}")
+    @Operation(summary = "Enviar recursos al cliente", description = "")
+    @ApiResponse(
+            responseCode = "200",
+            description = "Devuelve un fichero o inicia la compresión de un directorio, devolviendo los recursos al cliente",
+            content = {
+                    @Content(mediaType = "application/x-rar-compressed", schema = @Schema(implementation = InputStreamResource.class)),
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = DownloadRequestDTO.class))
+            }
+    )
     public ResponseEntity<InputStreamResource> uploadFile(@RequestHeader(value = "Authorization", required = false) String header, @RequestParam(value = "DownloadType", required = false, defaultValue = "Local") DownloadType downloadType, @PathVariable String id) {
 
         LocalUploadDTO resource = this.downloadService.upload(id);
@@ -85,7 +100,12 @@ public class DownloadController {
         }
     }
 
-    @RequestMapping("/cancel/{id}")
+    @Operation(summary = "Cancelar descarga", description = "Cancela la descarga de un recurso")
+    @ApiResponse(
+            responseCode = "200",
+            description = "Cancela la descarga de un recurso"
+    )
+    @GetMapping("/cancel/{id}")
     public ResponseEntity<?> cancel(@PathVariable String id) {
         if (this.downloadService.cancel(id))
             return ResponseEntity.ok().build();
