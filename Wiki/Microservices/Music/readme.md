@@ -98,11 +98,11 @@ Software de terceros:
 
 ## Sprint 1: Downloader
 
-Endpoint /download/request
+Endpoint `/download/request`
 
-Endpoint /download/progress/{id} con SSE
+Endpoint `/download/progress/{id}` con SSE
 
-Endpoint /download/{id} para entrega
+Endpoint `/download/{id}` para entrega
 
 Validaciones en Nextcloud
 
