@@ -40,7 +40,7 @@
 18. [Integración con herramientas externas](#integración-con-herramientas-externas)  
 19. [Despliegue](#despliegue)  
 
-# DescripciÓn del problema
+# Descripción del problema
 
 En la actualidad, los usuarios no cuentan con una forma centralizada y
 eficiente para gestionar su música personal. Tampoco existe una solución
