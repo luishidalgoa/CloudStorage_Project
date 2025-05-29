@@ -78,15 +78,15 @@ fácilmente, representa una necesidad latente.
 
 # Recursos
 
-Lenguajes: Java 21, Python
+**Lenguajes**: Java 21, Python
 
-Frameworkds: Spring Boot
+**Frameworks**: Spring Boot
 
-Herramientas: Docker, Maven, Postman, IntelliJ IDEA
+**Herramientas**: Docker, Maven, Postman, IntelliJ IDEA
 
-Plugins: Github Copilot, Prettier, Maven
+**Plugins**: Github Copilot, Prettier, Maven
 
-Software de terceros:
+**Software de terceros**:
 
 - YT-DLP: [yt-dlp/yt-dlp: A feature-rich command-line audio/video
   downloader](https://github.com/yt-dlp/yt-dlp)
