@@ -243,7 +243,7 @@ Este contenedor tendrá algunas dependencias importantes:
 
 - Java jdk 21
 
-#### dESCRIPCIÓN DE LA IMAGEN
+#### Descripción de la imagen
 
 Este Dockerfile construye una imagen basada en una distribución mínima
 de Debian, optimizada para ejecutar una aplicación Java. Instala
@@ -451,7 +451,7 @@ los detalles de:
 - Descargas en la nube (**DownloadLevelCloud**) -- Los ficheros son
   subidos a la nube privada del usuario
 
-## REPORTE DE Progreso con server-sent-events (sse)
+## Reporte de progreso con server-sent-events (sse)
 
 Una funcionalidad clave del microservicio Music, es el seguimiento de
 progreso en tiepo real a través de SSE. Con el objetivo de notificar al
