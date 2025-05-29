@@ -1,282 +1,548 @@
-# Microservicio Music
 
-## Diagramas
-### Diagrama arquitectura microservicios
+# Tabla de contenido {#tabla-de-contenido .TOC-Heading}
+1. [Introducción](#introducción)
+2. [Descripción del problema](#descripción-del-problema)
+3. [Objetivos del proyecto](#objetivos-del-proyecto)
+4. [Recursos](#recursos)
+5. [Planificación temporal](#planificación-temporal)  
+   5.1 [Sprint 1: Downloader](#sprint-1-downloader)  
+   5.2 [Sprint 2: Compresión](#sprint-2-compresión)
+6. [Diagramas](#diagramas)  
+   6.1 [Diagrama de arquitectura de microservicios](#diagrama-de-arquitectura-de-microservicios)  
+   6.2 [Descripción de microservicios](#descripción-microservicios)  
+   6.3 [Diagrama de secuencia](#diagrama-de-secuencia)
+7. [Enlaces](#enlaces)
+8. [Método de trabajo](#método-de-trabajo)  
+   8.1 [GitHub Projects](#github-projects)  
+   8.2 [Docker](#docker)  
+   &nbsp;&nbsp;&nbsp;&nbsp;8.2.1 [Contenedor de desarrollo](#contenedor-desarrollo)  
+   &nbsp;&nbsp;&nbsp;&nbsp;8.2.2 [Imagen del microservicio](#imagen-del-microservicio)  
+   8.3 [GitHub Actions](#github-actions)  
+   &nbsp;&nbsp;&nbsp;&nbsp;8.3.1 [Maven Build Process](#maven-build-process)  
+   &nbsp;&nbsp;&nbsp;&nbsp;8.3.2 [Dockerización](#dockerización)  
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.3.2.1 [Multi-platform Docker Builds](#multi-platform-docker-builds)  
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.3.2.2 [Procesos internos del Dockerfile](#procesos-internos-del-dockerfile)  
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8.3.2.3 [Secuencia de despliegue](#secuencia-de-despliegue)
+9. [Clonar y arrancar proyecto](#clonar-y-arrancar-proyecto)  
+10. [Variables de entorno del microservicio Music](#variables-de-entorno-del-microservicio-music)  
+11. [Swagger](#swagger)  
+12. [Propósito y características](#propósito-y-características)  
+13. [Arquitectura](#arquitectura)  
+&nbsp;&nbsp;&nbsp;&nbsp;13.1 [Arquitectura conceptual](#arquitectura-conceptual)  
+&nbsp;&nbsp;&nbsp;&nbsp;13.2 [Características del servicio música](#características-del-servicio-música)  
+&nbsp;&nbsp;&nbsp;&nbsp;13.3 [Workflow descarga](#workflow-descarga)  
+14. [Estrategia de herencia](#estrategia-de-herencia)  
+15. [Reporte de progreso con Server-Sent-Events (SSE)](#reporte-de-progreso-con-server-sent-events-sse)  
+&nbsp;&nbsp;&nbsp;&nbsp;15.1 [Características](#características)  
+&nbsp;&nbsp;&nbsp;&nbsp;15.2 [Ejemplo de mensajes SSE](#ejemplo-de-mensajes-sse)  
+16. [Manejo y procesamiento de archivos](#manejo-y-procesamiento-de-archivos)  
+17. [Modelos DTO](#modelos-dto)  
+18. [Integración con herramientas externas](#integración-con-herramientas-externas)  
+19. [Despliegue](#despliegue)  
 
-![Diagrama](../../Arquitectura/Diagrama_Microservicios.png)
+# DescripciÓn del problema
+
+En la actualidad, los usuarios no cuentan con una forma centralizada y
+eficiente para gestionar su música personal. Tampoco existe una solución
+unificada que permita descargar, almacenar y reproducir música de manera
+sencilla y desde distintas fuentes como YouTube.
+
+Además, gestionar estas canciones entre almacenamiento local y en la
+nube, así como visualizar progreso de descarga o reproducirlas
+fácilmente, representa una necesidad latente.
+
+# Objetivos del proyecto
+
+- Crear un microservicio accesible desde diferentes aplicaciones que
+  actúe como galería de música personalizada.
+
+- Permitir a los usuarios:
+
+  - Crear playlists.
+
+  - Visualizar artistas y álbumes.
+
+  - Reproducir canciones.
+
+  - Guardar el progreso de reproducción
+
+- Descargar canciones desde YouTube.
+
+- Almacenar las canciones en la nube (Nextcloud) y localmente.
+
+- Proporcionar seguimiento de descarga mediante SSE.
+
+- Limpiar archivos temporales automáticamente
+
+- Descargar playlists completas.
+
+# Recursos
+
+Lenguajes: Java 21, Python
+
+Frameworkds: Spring Boot
+
+Herramientas: Docker, Maven, Postman, IntelliJ IDEA
+
+Plugins: Github Copilot, Prettier, Maven
+
+Software de terceros:
+
+- YT-DLP: [yt-dlp/yt-dlp: A feature-rich command-line audio/video
+  downloader](https://github.com/yt-dlp/yt-dlp)
+
+- Ffmpeg: [Download
+  FFmpeg](https://ffmpeg.org/download.html#build-windows)
+
+# Planificacioón temporal
+
+## Sprint 1: Downloader
+
+Endpoint /download/request
+
+Endpoint /download/progress/{id} con SSE
+
+Endpoint /download/{id} para entrega
+
+Validaciones en Nextcloud
+
+Limpieza automática
+
+Soporte para playlists
+
+## Sprint 2: Compresión
+
+- Compresión .rar para playlists
+
+- Enviar al cliente
+
+- Optimizar tiempos internos de procesos de la aplicación
+
+# Diagramas
+
+## Diagrama de arquitectura de microservicios
+
+![image](https://github.com/user-attachments/assets/bbb8f7c3-5f21-4d68-88e1-6f122c6ba15a)
+
+### Descripción microservicios:
+
+**Eureka**: Descubrimiento de servicios
+
+**Config**: Configuración centralizada.
+
+**Gateway**: Comunicación entre microservicios.
+
+**Actuator**: Métricas y monitoreo
 
 ### Diagrama de secuencia
-![Diagrama](./Diagrama_secuencia.png)
 
-### Diagrama de clases
-![Diagrama](./Diagrama_UML.png)
+![image](https://github.com/user-attachments/assets/9cfbf9e2-3e58-4222-8cbb-25984d99b68b)
 
-## Propósito del microservicio
 
-El objetivo es desarrollar un microservicio que en principio sería consumido por múltiples aplicaciones con propósitos distintos. La función principal de esta API es ofrecer herramientas para crear aplicaciones que sean **Galerías de música** con la música propiedad de los usuarios. De modo que puedan:
+# Introducción 
 
-- **Crear playlists**.
-- **Ver los artistas que tienen y sus álbumes**.
-- **Reproducir la música**.
-- **Guardar el estado de progreso de la misma**.
+El microservicio "Music" es un componente especializado perteneciente al
+proyecto CloudStorage que maneja la descarga de música, procesado,
+compresión y almacenamiento del mismo. En el índice encontraras
+información relevante a cerca de como la arquitectura del proyecto y
+Microservicios
 
-Además, esta API permitirá a los usuarios:
+# Enlaces 
 
-- **Descargar canciones de YouTube de forma más rápida y sencilla**.
-- **Almacenar estas mismas canciones** con distintas soluciones:
-  - **Almacenamiento en la nube** de nuestro usuario en el servicio cloud que ofrecemos.
-  - **Guardar en el dispositivo local** del usuario.
+Github:
+[luishidalgoa/CloudStorage_Project](https://github.com/luishidalgoa/CloudStorage_Project)
 
+Docker Hub: [luishidalgoa/hidalgo-music \| Docker
+Hub](https://hub.docker.com/repository/docker/luishidalgoa/hidalgo-music/general)
 
+Página web desplegada:
+[DownloadMusicClient](https://levelcloud-music.vercel.app/)
 
-# Sprint 1
-## Music downloader
-### Restricciones
-Esta funcionalidad tendra en principio 2 tipos de opciones para el usuario:
-1. Descarga local:
-> Esta opción no requiere de ningun tipo de validación previa
-2. Descarga en el servicio en la nube:
-> Esta opción si requiere de validaciones previas como que el usuario este autenticado cuando solicita tal acción
-### Desarrollo
-Este microservicio va a **consumir un microservicio (_"MS"_)** `Nextcloud MS`
+# Metodo de trabajo
 
-Cuando un usuario desee descargar una canción, se llamará al endpoint `/download` del microservicio `Music`.
-En el caso de que el endpoint haya recibido en el body que la descarga sera de tipo , el servicio no realizara ningun tipo de validación.
+## GITHUB PROJECTS
 
-Sin embargo si es de tipo nextcloud. El servicio realizará algunas validaciones previas a la ejecución de la lógica del microservicio. Algunas de las validaciones son:
+La herramienta github Project me ha permitido registrar las tareas
+pendientes para mejorar o desarrollar la aplicación. De tal modo que si
+encontraba un bug, se me ocurría una idea de mejora o tenia pendiente
+documentar algunas cosas... Lo dejaba todo a puntado para que en la
+siguiente sesión de trabajo tener el contexto suficiente de trabajo y
+conocer el progreso de la tarea en cuestión
 
-- El usuario debe estar autenticado.
-- El usuario debe tener un plan de suscripción activo. `Servicio nextcloud`[[^1]](#1)
-- El usuario debe tener suficiente espacio en su almacenamiento para descargar las canciones. `Servicio nextcloud`
-- La ruta de descarga debe ser correcta. `Servicio nextcloud`
----
-#### [[^1]]() 
->Servicio Nextcloud : quiere decir que esa validación no le corresponde a Music. Si no al microservicio nextcloud
----
-Una vez todos los requisitos previos se cumplan, se realizará la descarga de la canción utilizando la herramienta `yt-dlp`, que se encargará de descargar la canción y almacenarla en la ruta temporal del sistema operativo[[^2]](#2) y posteriormente en base a la opcion de almacenamiento elegida se realizaran distintas acciones [[^3]](#3). [Ver issue](https://github.com/luishidalgoa/CloudStorage_Project/issues/1)
+## DOCKER
 
-
----
-#### [[^2]]() 
->En spring usaremos `System.getProperty("java.io.tmpdir");` esto devuelve la ruta temporal del sistema
----
-#### [[^3]]()
-- Nextcloud: 
-Llamaremos al endpoint `{{url}}/api/nextcloud/upload/` y le indicaremos la ruta del fichero temporal y la ruta donde se almacenara el fichero del usuario
-- Local: Devolveremos en la respuesta http el fichero
-### Requisitos obligatoriosruta donde se descargo en el servidor
-- [ ✅ ] **Descarga con streaming**: Utilizamos `InputStreamingResource` para enviar el contenido descargado en fragmentos al cliente.
+### CONTENEDOR DESARROLLO
 
-- [ ❌ ] **Descarga en nextcloud**: Enviaremos a nextcloud la cancion descargada.
+El proyecto cuenta con un contenedor de desarrollo , para de este modo
+mantener una consistencia de dependencias con el equipo de trabajo.
 
-- [ ✅ ] **Progreso con SSE**: Utilizamos un canal SSE vinculado a un ID único para informar el progreso al cliente.
+En 2 sencillos pasos tendrás el proyecto arrancado y listo para seguir
+desarrollando donde quieras y como quieras.
 
-- [ ✅ ] **Limpieza automática**: Borramos los archivos temporales cuando la descarga finaliza o si expiran.
+1.  Arrancar el contenedor
 
-- [ ✅ ] **Descarga de Playlists**: El servicio debe ser capaz de descargar playlists enteras
----
-## Endpoints
+![image](https://github.com/user-attachments/assets/984eec9d-2f2f-4d88-ab8b-ac484ab8cf6d)
 
-### `/download/request` (POST) [[Example]](#urlapimusicdownloadrequest)
-- **Descripción**: El cliente solicita la descarga de un archivo.
-- **Flujo**:
-  1. El servidor genera un ID único para la descarga.
-  1. El servidor devuelve ese ID
-  1. El servidor crea un hilo para procesar la descarga solicitada en segundo plano
+2.  Desde el IDE localizar la opción Remote Development y conectarte por
+    SSH al contenedor
 
----
+![image](https://github.com/user-attachments/assets/ec328e9d-974b-4d02-88e7-38a6443c9a39)
 
-### `/download/progress/{id}` (SSE) [[Example]](#urlapimusicdownloadprogressid)
-- **Descripción**: El cliente escucha el progreso de la descarga utilizando Server-Sent Events (SSE).
-- **Flujo**:
-  1. El servidor envía eventos en tiempo real con información sobre el progreso de la descarga.
-  2. El cliente puede actualizar su interfaz según los datos recibidos.
+3.  Como se visualiza en la captura, estarías ya conectado por SSH y
+    tendrías acceso completo a los directorios del proyecto
 
----
+![image](https://github.com/user-attachments/assets/1ba237ac-5aef-4146-80ed-a8a1d455268b)
 
-### /download/{id} (GET) [[Example]](#urlapimusicdownloadid)
-- **Descripción**: Una vez que la descarga ha sido completada, el cliente puede solicitar el archivo utilizando el ID único.
-- **Flujo**:
-  1. El servidor verifica el estado de la descarga.
-  2. Si la descarga está completa, entrega el archivo al cliente.
+***NOTA***
 
-## Endpoints consumidos
+Los ficheros de despliegue en Docker se ubican individualmente por cada
+microservicio
 
-### `/api/nextcloud/upload/status`
+#### Ventaja
 
-### `/api/nextcloud/upload`
+Gracias a esta técnica, puedo despreocuparme de en un futuro destruir el
+contenedor en mi equipo local. Por que, si en un futuro deseo volver a
+trabajar en este proyecto o trabajar con mas gente, no tendré que volver
+a instalar las múltiples dependencias que necesita como Python, YT-DLP,
+etc.. si no que simplemente tendré que descargarme la imagen y
+conectarme por SSH.
 
-# Ejemplos de los endpoints
+Además, también permite tener un control mas exacto de las dependencias
+utilizadas por el proyecto, lo cual aun que este contenedor no tiene
+responsabilidad ninguna sobre el despliegue, puede ser una pieza
+importante entender esta técnica para facilitar el despliegue del mismo
 
-### `{{url}}/api/music/download/request?DownloadType=Local` 
+### IMAGEN DEL MICROSERVICIO
 
-> Inicia el proceso de descarga en el servidor con yt-dlp y devuelve un ID
+Mediante un fichero DockerFile, se genera un contenedor basado en
+***[Debian12-slim]{.underline}***
 
-**Type**
+Este contenedor tendrá algunas dependencias importantes:
 
-`POST`
+- Ffmpeg
 
-**Header:**
-> Solo si se ha usado la opción del servicio cloud
-```json
-"Authorization": "Basic {{base64_username:password}}"
-```
-**Params:**
-`DownloadType` : Local | LevelCloud
+- Wget
 
-**Body:**
+- Locales
 
-```json
-{
-  "data": {
-    "externalUrl": "https://www.youtube.com/watch?v=Dh0SuNtMtYk", // Url de la canción
-    "directoryPath": "/new%folder" // Opcional, si el usuario elige el servicio cloud
-  }
-}
-```
-**Response:**
+- ca-certificates
 
-```json
-{
-    "id": "f63229b4-07b0-4632-8b6c-f6eca8d02b48",
-    "data": {
-        "externalUrl": "https://www.youtube.com/watch?v=Dh0SuNtMtYk",
-        "directoryPath": "/new%folder",
-        "totalFiles": 0
-    },
-    "downloadSyze": 3418357,
-    "downloadType": "Local"
-}
-```
+- python3
 
-**Errores:**
+- python3-pip
 
-- **401**: Credenciales inválidas.
-- **404**: El enlace de descarga no existe.
-- **1001**: El usuario no tiene un plan activo.
-- **1002**: El usuario no tiene suficiente espacio en su almacenamiento para descargar la canción.
-- **1003**: La ruta de descarga no existe.
+- python3-venv
 
-### `{{url}}/api/music/download/progress/{id}?DownloadType=Local` 
+- python3-mutagen
 
-> Crea una conexion unidireccional `SSE` que devuelve continuamente el estado del progreso al cliente que lo consume
+- git
 
-**Type**
+- yt-dlp
 
-`GET`
+- Maven
 
-**Header:**
-> Solo si se ha usado la opción del servicio cloud
-```json
-"Authorization": "Basic {{base64_username:password}}"
-```
-**Params:**
-`DownloadType` : Local | LevelCloud
+- Java jdk 21
 
-**Response:**
-La respuesta es un flujo continuo de eventos `SSE` (Server-Sent Events) que envía actualizaciones del progreso hasta alcanzar el 100%. Cada evento tiene el siguiente formato:
+#### dESCRIPCIÓN DE LA IMAGEN
 
-````text
-event: progress
-data: <progreso>%
-````
+Este Dockerfile construye una imagen basada en una distribución mínima
+de Debian, optimizada para ejecutar una aplicación Java. Instala
+únicamente las dependencias necesarias, configura el entorno con
+localización en inglés británico y ajusta variables de entorno para la
+integración con otros servicios. Detecta la arquitectura del sistema
+para descargar e instalar el JDK apropiado y compila automáticamente el
+proyecto desde un repositorio remoto, empaquetándolo en un archivo
+ejecutable. Finalmente, elimina herramientas de desarrollo innecesarias
+para reducir el tamaño de la imagen y define el arranque del contenedor
+mediante la ejecución del JAR generado
 
-Ejemplo de eventos enviados:
+#### Repositorio docker hub
 
-```text
-event:progress
-data:0.0
+El repositorio para descargar este contenedor de desarrollo se encuentra
+en el siguiente enlace:
 
-event:total
-data:0 / 3
+[luishidalgoa/levelcloud-dev-container \| Docker
+Hub](https://hub.docker.com/repository/docker/luishidalgoa/levelcloud-dev-container/general)
 
-event:progress
-data:10.100000000000001
+## GITHUB ACTIONS
 
-event:progress
-data:33.333333333333336
+El proyecto CloudStorage utiliza GitHub Actions para la integración y la
+implementación continuas. Las Acciones están diseñadas para compilar,
+probar, empaquetar, y desplegar el proyecto en procesos que
 
-event:total
-data:1 / 3
+![image](https://github.com/user-attachments/assets/d8f33b71-afc1-4349-b679-b44aa2553892)
 
-event:progress
-data:59.96666666666667
+Los flujos se desencadena exclusivamente por los cambios en los archivos
+pom.xml, lo que garantiza que solo los cambios significativos en la
+dependencia o la estructura inicien el proceso de despliegue.
 
-event:total
-data:2 / 3
+### Maven Build Process
+![image](https://github.com/user-attachments/assets/9b951ba8-4071-4ffd-aad7-7406f8f9d163)
+1.  Utiliza Oracle JDK 21
 
-event:progress
-data:100
+2.  Ejecuta el comando de paquete Maven en el directorio del proyecto
+    Spring
 
-event:total
-data:3 / 3
+3.  Archiva los archivos JAR compilados como artefactos
 
-event: progress
-data: 100%
-```
+4.  Genera un gráfico de dependencias para supervisar las dependencias
+    del proyecto
 
-La conexión se cerrará automáticamente cuando el progreso llegue al 100%.
+### Dockerización
 
----
+La conterizacion es una parte crucial para la estrategia de despliegue,
+provee consistencia entre distintos entornos y permite despliegues
+escalables
 
-**Errores:**
+#### Multi-platform Docker Builds
 
-- **401**: Credenciales inválidas.
-- **404**: El ID de descarga no existe.
+El flujo genera dos imágenes para sistemas con arquitectura **\[AMD
+X64\]** y **\[ARM X64\]**. Asegurando la compatibilidad entre varios
+tipos de arquitecturas de servidores, incluyendo las plataformas que hoy
+en día son cada vez más relevantes como servidores **ARM.**
 
-### `{{url}}/api/music/download/{id}?DownloadType=Local` 
+![image](https://github.com/user-attachments/assets/274fd37a-fe7f-4df3-b683-80f48dc1c0a7)
 
-> Si la descarga el usuario la solicito mediante el servicio cloud. El metodo le creara una conexion streaming con el microservicio nextcloud, enviando de este modo el fichero, para que el servicio Nextcloud lo almacene y devolveremos en enlace de donde se almacena en nextcloud. Si el usuario lo solicito en local, el servidor creara una conexion con el cliente y le enviara el fichero
+#### PROCESOS INTERNOS DEL DOCKERFILE
 
-**Type**
+El contenedor del servicio de música se ha creado con un enfoque en
+minimizar el tamaño e incluir todos los componentes necesarios:
 
-`GET`
+![image](https://github.com/user-attachments/assets/79511671-aa85-4462-9320-26495a7079f7)
 
-**Header:**
-> Solo si se ha usado la opción del servicio cloud
-```json
-"Authorization": "Basic {{base64_username:password}}"
-```
-**Params:**
-`DownloadType` : Local | LevelCloud
-**Response:**
+La imagen resultante de la dockerización tiene algunas características
+importantes como:
 
-```http
-HTTP/1.1 206 Partial Content
-Content-Disposition: attachment; filename="archivo.rar"
-Content-Type: application/x-rar-compressed
-Accept-Ranges: bytes
-Access-Control-Expose-Headers: Content-Disposition
-Content-Range: bytes 0-1572863/4096000
+- Incluye solo las dependencias necesarias
 
-<contenido_binario>
-```
+- Detecta el tipo de arquitectura (x64 o ARM) he instala la version del
+  JDK de java correspondiente
 
-**Errores:**
+- Minimiza el tamaño final de la imagen gracias a que limpia todas las
+  dependencias y ficheros innecesarios de la imagen y almacenando solo
+  el la app de java resultado de la compilación
 
-- **500**: No existe el ID de descarga en el servidor.
-- **500**: No se pudo eliminar el directorio temporal en el servidor.
+#### Secuencia de despliegue
 
-### `{{url}}/api/music/download/cancel/{id} 
+Después del proceso de creación de la imagen Docker, el proceso de
+despliegue esta totalmente automatizado
 
-> Cancela la descarga en curso y elimina los archivos temporales
+![image](https://github.com/user-attachments/assets/0332491a-f38c-43f4-ba9c-9a4ab9549d35)
 
-**Type**
 
-`GET`
+Pasos del proceso de despliegue:
 
-**Header:**
-> Solo si se ha usado la opción del servicio cloud
-```json
-"Authorization": "Basic {{base64_username:password}}"
-```
+1.  Espera a que la imagen de docker se publique en Docker hub
 
-**Response:**
+2.  Se conecta al servidor de producción mediante credenciales SSH
+    almacenadas como secretos de GitHub
 
-```http
-1 // Cancelado o 0 No cancelado
-```
+3.  Ejecuta un script de implementación (**deploy.sh**) que organiza el
+    proceso de actualización
 
+4.  Actualiza los contenedores en ejecución con un tiempo de inactividad
+    mínimo o nulo
 
-# Sprint 2
-Hacer que el sistema de descarga, si descarga una playlist lo comprima en un rar para enviarlo comprimido
+# clonar y arrancar Proyecto
+
+En esta sección se mostrará una guía rápida para poder arrancar el
+proyecto en modo desarrollo de manera sencilla y poder interactuar
+localmente con el
+
+## variable de entorno del microservicio music
+
+Es fundamental que el microservicio Music tenga un fichero .env en su
+ruta relativa con la siguiente información:
+
+![image](https://github.com/user-attachments/assets/360b19d3-81b0-49ee-9fc5-5812a87fdfee)
+
+## swagger
+
+Podrás ver la lista de endpoints disponible en el microservicio a través
+del servicio Swagger implementado, mediante el siguiente enlace:
+
+<http://localhost:8084/swagger-ui/index.html#/>
+
+NOTA:
+
+Asegurase de tener el proyecto arrancado y en el puerto 8084 o el
+indicado en el .env
+
+# Propósito y características
+
+El microservicio ofrece una variedad de funcionalidades activas en el
+servicio, como:
+
+- Descarga de música provenientes de fuentes externas (Youtube,
+  twitter...)
+
+- Almacenar la música de distintas formas:
+
+  - Dispositivo local del cliente
+
+  - En la nube privada del usuario en levelcloud
+
+- Seguimiento del progreso de descarga en el servidor en tiempo real
+
+- Descarga de metadatos en los videos
+
+- Compresión de múltiples ficheros en un ZIP
+
+# Arquitectura
+
+El microservicio de música opera como parte del ecosistema de
+microservicios CloudStorage, trabajando estrechamente con otros
+servicios especializados
+
+**(Arquitectura conceptual)**
+
+![image](https://github.com/user-attachments/assets/a234eba3-4c58-4717-a481-3cd4a28a2646)
+
+**características del servicio música:**
+
+- Esta registrado dentro del servicio de descubrimiento de otros
+  servicios (Eureka)
+
+- Obtiene la configuración desde el Config-Server (o de manera local
+  según el entorno)
+
+- Se comunica con el microservicio "Nextcloud" para el almacenamiento en
+  la nube
+
+- Es accesible desde el microservicio "Gateway", aunque también lo es
+  desde su puerto publico
+
+## Workflow descarga
+
+The download process follows a well-defined sequence that varies based
+on the download type
+
+El proceso de descarga, sigue una secuencia bien definida que varia en
+base al tipo de descarga
+
+![image](https://github.com/user-attachments/assets/67952727-8959-43b3-8759-c085e6a588b2)
+
+**El flujo demuestra, las capacidades del servicio para**:
+
+1.  Aceptar solicitudes de descarga a través de identificadores únicos
+    de sesión
+
+2.  Proceso de descarga a través del tipo de estrategia indicada
+
+3.  Reporte de progreso en tiempo real
+
+4.  Entregar contenido en función del tipo de descarga solicitado
+
+## Estrategia de herencia
+
+El microservicio implementa una estrategia de herencia clave para poder
+tener varios tipos de descargas con distintos funcionamientos.
+
+![image](https://github.com/user-attachments/assets/d1744901-e408-428f-ab0d-c0cb6772b981)
+
+**AbstractDownloadStrategy** define la plantilla para todas las
+estrategias de descarga con las implementaciones concretas que manejan
+los detalles de:
+
+- Descargas locales (**DownloadLocal**) -- Los ficheros son almacenados
+  temporalmente en el servidor, y finalmente los devuelve a través de la
+  respuesta http
+
+- Descargas en la nube (**DownloadLevelCloud**) -- Los ficheros son
+  subidos a la nube privada del usuario
+
+## REPORTE DE Progreso con server-sent-events (sse)
+
+Una funcionalidad clave del microservicio Music, es el seguimiento de
+progreso en tiepo real a través de SSE. Con el objetivo de notificar al
+cliente, como va el progreso de descarga en el servidor, y poder tener
+una referencia para estimar cuanto tiempo puede llevar la descarga.
+
+![image](https://github.com/user-attachments/assets/e1d6a474-706b-427d-beef-a1bbb78bd70a)
+
+### Caracteristicas
+
+Algunas de las características de esta implementación son:
+
+1.  Monitoreo del progreso capturando las salidas por consola de la
+    herramienta externa (yt-dlp)
+
+2.  Abre una sesión SSE y emite eventos a través de un controlador
+    dedicado
+
+3.  Envía actualizaciones en tiempo real al cliente via SSE
+
+4.  Supports multiple concurrent downloads through ID-based tracking.
+    Soporta multiples descargas simultaneas a traves del ID de
+    seguimiento
+
+#### Ejemplo de Mensajes SSE
+
+![image](https://github.com/user-attachments/assets/c900327e-a4ea-4410-9ad7-175b0476614a)
+
+## Manejo y procesamiento de archivos
+
+Tras la descarga de los ficheros de música y sus metadatos a través de
+la herramienta YT-DLP.
+
+El manejo de estos ficheros puede ser:
+
+1.  **Descarga de un fichero individual**:
+
+    - Files are directly streamed to the client or uploaded to Nextcloud
+
+    - Los ficheros son directamente enviados al cliente o subidos a
+      nextcloud
+
+2.  **Multiples ficheros (e.g., Playlists)**:
+
+    - Los ficheros son comprimidos en un ZIP antes de enviarlos
+
+    - La utilidad **ZipFile** se encarga de la compresión de varios
+      archivos
+
+![image](https://github.com/user-attachments/assets/0600ca41-f96d-47bf-a13f-75506f192cee)
+
+## Modelos dto
+
+![image](https://github.com/user-attachments/assets/7346c4d5-6b75-49cb-b96e-24f2dbf876d9)
+
+Estos modelos faclitan:
+
+- Manejo de solicitudes **DownloadRequestDTO** y **DownloadDataDTO**
+
+- Transferencia de archivos con **FileDTO** y sus implementaciones
+
+- Seguimiento de progreso con **ProgressDto**
+
+- Identificación del tipo de descarga a traves de la enumeración
+  **DownloadType** 
+
+# Intragración herramientas externas
+
+El microservicio musica tiene algunas integraciones con herramientas
+externas durante el manejo y procesamiento de archivos
+
+![image](https://github.com/user-attachments/assets/dbae4f49-7183-4a85-95a1-4be289a5865f)
+
+Algunas herramientas integradas:
+
+- **yt-dlp**: Es una herramienta basada en python, usada para la
+  descarga de videos de youtube y otras plataformas
+
+- **FFmpeg**: Usado para el formato de conversion de archivos multimedia
+
+El servicio ejecuta estas herramientas externas para el procesamiento,
+monitoreo de sus outputs de información de progreso y el manejo extra de
+los ficheros resultantes.
+
+# Despliegue
+El back lo tengo actualmente desplegado en un servidor administrado por
+mí, como ya se mencionó en la sección [GITHUB ACTIONS](#github-actions).
+El proyecto se despliega de forma automática por lo que la única tarea
+que debo realizar para el despliegue automático es actualizar la versión
+del POM del microservicio y actualizar el repositorio.
+
+El microservicio esta esta desplegado con el protocolo https, de modo
+que es perfectamente consumible por otras aplicaciones web basadas en el
+mismo protocolo.
