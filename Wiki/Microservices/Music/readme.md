@@ -1,5 +1,5 @@
 
-# Tabla de contenido {#tabla-de-contenido .TOC-Heading}
+# Tabla de contenido
 1. [Introducción](#introducción)
 2. [Descripción del problema](#descripción-del-problema)
 3. [Objetivos del proyecto](#objetivos-del-proyecto)
