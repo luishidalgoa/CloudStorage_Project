@@ -1,130 +1,197 @@
+# 📑 Índice
+
+I. [Hardware](#-hardware)  
+II. [Discos](#-discos)  
+III. [Configuración de almacenamiento](#-configuración-de-almacenamiento)  
+IV. [Capacidad estimada](#-capacidad-estimada)  
+V. [Configuración ZFS](#-configuración-zfs)  
+VI. [Red](#-red)  
+VII. [Usuarios](#-usuarios)  
+VIII. [Servicios](#-servicios)  
+IX. [Seguridad](#-seguridad)  
+X. [Riesgos conocidos](#-riesgos-conocidos)  
+XI. [Uso recomendado](#-uso-recomendado)  
+XII. [Notas futuras](#-notas-futuras)  
+XIII. [Resumen](#-resumen)  
+XIV. [Comparativa real (6 usuarios)](#-comparativa-real-6-usuarios)  
+XV. [Espacio por usuario](#-espacio-por-usuario-6-personas)
+
 # 🧱 NAS Home Server - Documentación
+
+---
 
 ## 📦 Hardware
 
-- **NAS**: Asustor Lockerstor 6 AS6706T
-- **Precio NAS**: 874€
-- **RAM**: De serie
-- **SSD NVMe**: 250GB (para apps / cache)
+| Componente | Detalle |
+|--|--|
+| NAS | Asustor Lockerstor 6 AS6706T |
+| Precio NAS | 874€ |
+| RAM | De serie |
+| SSD NVMe | 250GB (apps / cache) |
+
+---
 
 ## 💾 Discos
 
-- **Modelo**: Seagate IronWolf 6TB 7200RPM
-- **Cantidad**: 6 discos
-- **Precio unitario**: 229,99€
-- **Total discos**: 1379,94€
+| Concepto | Valor |
+|--|--|
+| Modelo | Seagate IronWolf 6TB 7200RPM |
+| Cantidad | 6 discos |
+| Precio unitario | 229,99€ |
+| Total discos | 1379,94€ |
 
 ---
 
 ## 🧠 Configuración de almacenamiento
 
-- **Sistema de archivos**: ZFS
-- **Tipo RAID**: RAIDZ2
+| Parámetro | Valor |
+|--|--|
+| Sistema de archivos | ZFS |
+| Tipo RAID | RAIDZ2 |
 
-### Características:
-- Se pierden 2 discos en paridad
-- Alta tolerancia a fallos (hasta 2 discos)
-- Protección contra corrupción de datos
+### Características
 
-### Capacidad estimada:
-- Bruto: 36 TB
-- Útil teórico: ~24 TB
-- Útil real seguro: ~18–20 TB (considerando overhead y margen)
+- ✔ Se pierden 2 discos en paridad  
+- ✔ Alta tolerancia a fallos (hasta 2 discos)  
+- ✔ Protección contra corrupción de datos  
+
+---
+
+## 📊 Capacidad estimada
+
+| Tipo | Capacidad |
+|--|--|
+| Bruto | 36 TB |
+| Útil teórico | ~24 TB |
+| Útil real seguro | ~18–20 TB |
 
 ---
 
 ## ⚙️ Configuración ZFS
 
-- **Compresión**: Activada (LZ4 recomendado)
-- **Snapshots**: Pendiente de definir
+| Parámetro | Estado |
+|--|--|
+| Compresión | Activada (LZ4) |
+| Snapshots | Pendiente |
 
-### 📌 Nota sobre compresión:
-ZFS comprime los datos automáticamente:
-- Ahorra espacio (especialmente en texto, fotos, documentos)
-- Mejora rendimiento en muchos casos
-- No afecta negativamente (es prácticamente gratis en CPU moderna)
+### 📌 Nota sobre compresión
+
+- Reduce espacio en datos comprimibles  
+- Mejora rendimiento en muchos casos  
+- Impacto CPU despreciable  
 
 ---
 
 ## 🌐 Red
 
-- **Velocidad**: 1 Gbps
-- **IP local fija**: 192.168.0.24
-- **IP pública**: Dinámica (ISP)
+| Parámetro | Valor |
+|--|--|
+| Velocidad | 1 Gbps |
+| IP local | 192.168.0.24 |
+| IP pública | Dinámica |
 
 ---
 
 ## 👥 Usuarios
 
-- **Usuarios reales**: 4
-- **Usuarios máximos previstos**: 6
+| Concepto | Valor |
+|--|--|
+| Usuarios reales | 4 |
+| Máximo previsto | 6 |
 
-### Distribución:
-- Espacio repartido entre usuarios individuales
+### Distribución
+
+- Espacio individual por usuario  
 - Carpeta compartida:
-  - Tamaño: 380 GB
-  - Compartida entre varios usuarios
-  - El espacio se descuenta proporcionalmente de 4 usuarios
+  - Tamaño: 380 GB  
+  - Compartida entre varios usuarios  
+  - Descuento proporcional en 4 usuarios  
 
 ---
 
 ## 🧩 Servicios
 
-- Nextcloud → almacenamiento y sincronización
-- Docker → contenedores
-- Jellyfin → multimedia
-- Navidrome → música
+| Servicio | Uso |
+|--|--|
+| Nextcloud | Almacenamiento y sincronización |
+| Docker | Contenedores |
+| Jellyfin | Multimedia |
+| Navidrome | Música |
 
 ---
 
 ## 🔐 Seguridad
 
-- **Dominio**: CloudDNS
-- **Acceso externo**: Sí
+| Elemento | Estado |
+|--|--|
+| Dominio | CloudDNS |
+| Acceso externo | Sí |
 
-### ⚠️ Pendiente:
-- Configurar port forwarding en router
-- Revisar exposición de servicios
-- Considerar uso de HTTPS obligatorio
+### ⚠️ Pendiente
+
+- Configurar port forwarding  
+- Revisar exposición  
+- Forzar HTTPS  
 
 ---
 
 ## ⚠️ Riesgos conocidos
 
 ### ❌ Sin backups externos
-- Si hay fallo grave → pérdida total de datos
-- RAID ≠ backup
+- Posible pérdida total de datos  
+- RAID ≠ backup  
 
 ### ❌ Sin SAI (UPS)
-- Corte de luz → posible corrupción del sistema
-- Riesgo real en ZFS durante escritura
+- Riesgo de corrupción en cortes de luz  
 
 ---
 
 ## 📊 Uso recomendado
 
-- No superar el 80% del almacenamiento
-- Monitorizar estado SMART de discos
-- Revisar salud del pool periódicamente
+- No superar 80% de uso  
+- Monitorizar SMART  
+- Revisar estado del pool  
 
 ---
 
 ## 🔧 Notas futuras
 
-- Evaluar snapshots automáticos
-- Evaluar backup externo (USB o nube)
-- Posible ampliación de RAM
-- Evaluar red 2.5GbE en el futuro
+- Snapshots automáticos  
+- Backup externo  
+- Ampliación de RAM  
+- Red 2.5GbE  
 
 ---
 
 ## 🧨 Resumen
 
 Sistema NAS con:
-- 6 discos en RAIDZ2
-- Alta tolerancia a fallos
-- Servicios multimedia y cloud personal
+- 6 discos en RAIDZ2  
+- Alta tolerancia a fallos  
+- Servicios multimedia y cloud  
 
-Configuración potente pero con riesgos por:
-- ausencia de backup
-- ausencia de protección eléctrica
+⚠️ Riesgos:
+- Sin backup  
+- Sin protección eléctrica
+
+
+
+## 📊 Comparativa real (6 usuarios)
+
+| Concepto | 24 TB (6×4TB) | 32 TB (ej: 8×4TB) |
+|--|--|--|
+| Bruto (marketing) | 24 TB | 32 TB |
+| Real en TiB | ~21.8 TiB | ~29.1 TiB |
+| RAIDZ2 útil | ~14.5 TiB | ~21.8 TiB |
+| Tras overhead (~8%) | ~13.3 TiB | ~20.0 TiB |
+| Uso seguro (~80%) | ~10.6 TiB | ~16.0 TiB |
+| − sistema (50GB) | ~10.55 TiB | ~15.95 TiB |
+
+---
+
+## 👥 Espacio por usuario (6 personas)
+
+| Configuración | Espacio por persona |
+|--|--|
+| 24 TB total | ~1.75 TB (~1750 GB) |
+| 32 TB total | ~2.65 TB (~2650 GB) |
