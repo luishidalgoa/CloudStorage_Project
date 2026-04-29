@@ -4,8 +4,8 @@
 
 ### 1. Instalar Samba
 ````sh
-sudo apt update
-sudo apt install samba
+sudo apt update && sudo apt upgrade -y
+sudo apt install samba -y
 ````
 ---
 
@@ -14,15 +14,16 @@ sudo apt install samba
 Editar el archivo de configuración:
 
 ```
+sudo nano /etc/samba/smb.conf
 ```
 
 Añadir al final:
 
 -----
-[nextcloud-hdd-1]
-   path = /mnt/nextcloud-hdd-1/
+[nextcloud_hdd_1]
+   path = /mnt/nextcloud_hdd_1/
    browseable = yes
-   read only = yes
+   read only = no
    guest ok = no
    valid users = luish
 -----
@@ -43,12 +44,17 @@ sudo smbpasswd -a luish
 sudo systemctl restart smbd
 ```
 
+### 5. Habilitar el Firewall
+````
+sudo ufw allow samba
+````
+
 ---
 
-### 5. Probar conexión
+### 6. Probar conexión
 
 ```
-smbclient //192.168.0.24/music -U luish
+smbclient //192.168.0.24/nextcloud_hdd_1 -U luish
 ```
 
 ---
