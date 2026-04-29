@@ -14,13 +14,12 @@ sudo apt install samba
 Editar el archivo de configuración:
 
 ```
-sudo nano /etc/samba/smb.conf
 ```
 
 Añadir al final:
 
 -----
-[music]
+[nextcloud-hdd-1]
    path = /mnt/nextcloud-hdd-1/
    browseable = yes
    read only = yes
