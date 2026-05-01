@@ -1,27 +1,34 @@
-# 📑 Índice
+# 📑 Índice de Contenidos - NAS Home Server
 
-### 🏗️ I. Infraestructura y Hardware
-* 1. [Hardware Base](#-hardware)
-* 2. [Unidades de Almacenamiento](#-discos)
-* 3. [Configuración de Red](#-red)
+---
 
-### ⚙️ II. Configuración del Almacenamiento
-* 1. [Arquitectura ZFS (RAIDZ2)](#-configuración-de-almacenamiento)
-* 2. [Capacidad y Rendimiento](#-capacidad-estimada)
-* 3. [Optimización ZFS (Compresión)](#-configuración-zfs)
-
-### 👥 III. Usuarios y Servicios
-* 1. [Ecosistema de Aplicaciones](#-servicios)
-* 2. [Gestión de Usuarios y Cuotas](#-usuarios)
-* 3. [Análisis de Espacio Real](#-comparativa-real-6-usuarios)
-* 4. [Distribución por Persona](#-espacio-por-usuario-6-personas)
-
-### 🛡️ IV. Seguridad y Escalabilidad
-* 1. [Protocolos de Seguridad](#-seguridad)
-* 2. [Análisis de Riesgos (⚠️ Crítico)](#-riesgos-conocidos)
-* 3. [Plan de Escalabilidad Horizontal](#-escalabilidad)
-* 4. [Mantenimiento y Uso Recomendado](#-uso-recomendado)
-* 5. [Notas de Futuro y Resumen](#-resumen)
+- [1. 🧱 Hardware y Componentes](#1-hardware-y-componentes)
+- [2. 💾 Gestión de Unidades de Disco](#2-gestión-de-unidades-de-disco)
+- [3. 🧠 Arquitectura de Almacenamiento](#3-arquitectura-de-almacenamiento)
+    - [3.1. Configuración de almacenamiento](#31-configuración-de-almacenamiento)
+    - [3.2. Implementación y Configuración ZFS](#32-configuración-zfs)
+    - [3.3. Análisis de Capacidad Estimada](#33-capacidad-estimada)
+- [4. 🌐 Configuración de Red y Conectividad](#4-configuración-de-red)
+- [5. 👥 Gestión de Accesos y Usuarios](#5-gestión-de-accesos-y-usuarios)
+    - [5.1. Administración de Usuarios](#5-usuarios)
+    - [5.2. Espacio asignado por usuario (Cuotas)](#52-espacio-por-usuario-6-personas)
+- [6. 🧩 Ecosistema de Servicios](#6-servicios)
+- [7. 🔐 Seguridad y Mitigación de Riesgos](#7-seguridad)
+    - [7.1. Riesgos Críticos Conocidos](#71-riesgos-conocidos)
+        - [7.1.1. ❌ Ausencia de backups externos](#711-sin-backups-externos)
+        - [7.1.2. ❌ Ausencia de SAI (UPS)](#712-sin-sai-ups)
+- [8. 📈 Escalabilidad y Crecimiento](#8-escalabilidad)
+    - [8.1. Estrategia general de crecimiento](#81-estrategia-general-de-crecimiento)
+    - [8.2. Modelo de expansión principal (Recomendado)](#82-modelo-de-expansión-principal-recomendado)
+    - [8.3. La Regla de Crecimiento](#83-regla-de-crecimiento)
+    - [8.4. Flujo de arquitectura actual y futura](#84-flujo-de-arquitectura-actual)
+    - [8.5. Impacto en servicios (Nextcloud)](#85-impacto-en-nextcloud)
+    - [8.6. 🔥 Principios fundamentales de escalabilidad](#86-principios-de-escalabilidad)
+- [9. 📊 Análisis de Rendimiento y Uso](#9-análisis-de-rendimiento-y-uso)
+    - [9.1. Uso recomendado del sistema](#91-uso-recomendado)
+    - [9.2. Comparativa de carga real (6 usuarios)](#92-comparativa-real-6-usuarios)
+- [10. 🔧 Mantenimiento y Notas Futuras](#10-notas-futuras)
+- [11. 🧨 Resumen Ejecutivo](#11-resumen)
 
 # 🧱 NAS Home Server - Documentación
 
