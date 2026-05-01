@@ -33,36 +33,6 @@
 
 ---
 
-## 📦 Hardware
-## 💾 Discos
-## 🧠 Configuración de almacenamiento
-## 📊 Capacidad estimada
-## ⚙️ Configuración ZFS
-## 🌐 Red
-## 👥 Usuarios
-## 🧩 Servicios
-## 🔐 Seguridad
-## ⚠️ Riesgos conocidos
-
-### ❌ Sin backups externos
-### ❌ Sin SAI (UPS)
-
-## 📊 Uso recomendado
-## 🔧 Notas futuras
-## 🧨 Resumen
-## 📊 Comparativa real (6 usuarios)
-## 👥 Espacio por usuario (6 personas)
-
-# Escalabilidad
-
-### 🧱 Estrategia general de crecimiento
-### ⚙️ Modelo de expansión principal (recomendado)
-### 📦 Regla de crecimiento
-### 🧠 Flujo de arquitectura actual
-### 📈 Expansión futura
-### 🌐 Impacto en Nextcloud
-### 🔥 Principios de escalabilidad
-
 # 🧱 NAS Home Server - Documentación
 
 ---
