@@ -1,20 +1,27 @@
 # 📑 Índice
 
-I. [Hardware](#-hardware)  
-II. [Discos](#-discos)  
-III. [Configuración de almacenamiento](#-configuración-de-almacenamiento)  
-IV. [Capacidad estimada](#-capacidad-estimada)  
-V. [Configuración ZFS](#-configuración-zfs)  
-VI. [Red](#-red)  
-VII. [Usuarios](#-usuarios)  
-VIII. [Servicios](#-servicios)  
-IX. [Seguridad](#-seguridad)  
-X. [Riesgos conocidos](#-riesgos-conocidos)  
-XI. [Uso recomendado](#-uso-recomendado)  
-XII. [Notas futuras](#-notas-futuras)  
-XIII. [Resumen](#-resumen)  
-XIV. [Comparativa real (6 usuarios)](#-comparativa-real-6-usuarios)  
-XV. [Espacio por usuario](#-espacio-por-usuario-6-personas)
+### 🏗️ I. Infraestructura y Hardware
+* 1. [Hardware Base](#-hardware)
+* 2. [Unidades de Almacenamiento](#-discos)
+* 3. [Configuración de Red](#-red)
+
+### ⚙️ II. Configuración del Almacenamiento
+* 1. [Arquitectura ZFS (RAIDZ2)](#-configuración-de-almacenamiento)
+* 2. [Capacidad y Rendimiento](#-capacidad-estimada)
+* 3. [Optimización ZFS (Compresión)](#-configuración-zfs)
+
+### 👥 III. Usuarios y Servicios
+* 1. [Ecosistema de Aplicaciones](#-servicios)
+* 2. [Gestión de Usuarios y Cuotas](#-usuarios)
+* 3. [Análisis de Espacio Real](#-comparativa-real-6-usuarios)
+* 4. [Distribución por Persona](#-espacio-por-usuario-6-personas)
+
+### 🛡️ IV. Seguridad y Escalabilidad
+* 1. [Protocolos de Seguridad](#-seguridad)
+* 2. [Análisis de Riesgos (⚠️ Crítico)](#-riesgos-conocidos)
+* 3. [Plan de Escalabilidad Horizontal](#-escalabilidad)
+* 4. [Mantenimiento y Uso Recomendado](#-uso-recomendado)
+* 5. [Notas de Futuro y Resumen](#-resumen)
 
 # 🧱 NAS Home Server - Documentación
 
@@ -195,3 +202,85 @@ Sistema NAS con:
 |--|--|
 | 24 TB total | ~1.75 TB (~1750 GB) |
 | 32 TB total | ~2.65 TB (~2650 GB) |
+
+
+## Escalabilidad
+
+### 🧱 Estrategia general de crecimiento
+
+El sistema está diseñado para crecer de forma **horizontal mediante vdevs ZFS**, manteniendo un único pool lógico accesible por los servicios (Nextcloud y demás).
+
+---
+
+### ⚙️ Modelo de expansión principal (recomendado)
+
+- El almacenamiento se estructura en bloques de discos (vdevs)
+- Cada bloque puede ser:
+  - 6 discos internos
+  - 6 discos en DAS externo
+
+👉 Todos los bloques se añaden al mismo pool ZFS
+
+---
+
+### 📦 Regla de crecimiento
+
+- Crecer siempre en **módulos completos (RAIDZ2 de 6 discos)**
+- No mezclar configuraciones distintas dentro del mismo pool
+- Mantener homogeneidad de rendimiento y fiabilidad
+
+---
+
+### 🧠 Flujo de arquitectura actual
+
+*
+Hogares (clientes)
+        │
+     VPN / HTTPS
+        │
+[Servidor en tu casa]
+   ├── ZFS Pool
+   │    ├── 6 discos internos (RAIDZ2)
+   │    └── DAS 6 discos (RAIDZ2)
+   ├── Nextcloud
+   └── servicios
+*
+
+---
+
+### 📈 Expansión futura
+
+#### ➕ Escenario 1: añadir nuevo bloque de discos
+- Se añade un tercer RAIDZ2 (6 discos)
+- Se integra como nuevo vdev en el pool existente
+- Nextcloud no requiere cambios
+
+✔ expansión transparente  
+✔ sin migraciones de datos  
+❌ no se puede revertir  
+
+---
+
+#### ⚠️ Escenario 2: crecimiento desordenado (no recomendado)
+- Mezcla de USB, DAS inestable o redes lentas
+- vdevs heterogéneos
+
+❌ riesgo de degradación del pool completo  
+❌ rendimiento inconsistente  
+
+---
+
+### 🌐 Impacto en Nextcloud
+
+- Nextcloud solo ve `/data`
+- No conoce la estructura interna del pool
+- La expansión es completamente transparente
+
+---
+
+### 🔥 Principios de escalabilidad
+
+- Escalar por **bloques completos de discos**
+- Evitar dependencias en red dentro del pool
+- Mantener consistencia de hardware
+- Priorizar fiabilidad sobre flexibilidad extrema
