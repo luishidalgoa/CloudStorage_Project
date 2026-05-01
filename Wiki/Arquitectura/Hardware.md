@@ -30,7 +30,15 @@
     - [9.2. Comparativa real (6 usuarios)](#-comparativa-real-6-usuarios)
 - [10. 🔧 Notas futuras](#-notas-futuras)
 - [11. 🧨 Resumen](#-resumen)
-
+- [16. 📈 Escalabilidad](#-escalabilidad)
+    - [16.1. 🧱 Estrategia general de crecimiento](#-estrategia-general-de-crecimiento)
+    - [16.2. ⚙️ Modelo de expansión principal (recomendado)](#️-modelo-de-expansión-principal-recomendado)
+    - [16.3. 📦 Regla de crecimiento](#-regla-de-crecimiento)
+    - [16.4. 🧠 Flujo de arquitectura actual](#-flujo-de-arquitectura-actual)
+    - [16.5. 📈 Expansión futura](#-expansión-futura)
+    - [16.6. 🌐 Impacto en Nextcloud](#-impacto-en-nextcloud)
+    - [16.7. 🔥 Principios de escalabilidad](#-principios-de-escalabilidad)
+      
 ---
 
 # 🧱 NAS Home Server - Documentación
@@ -243,7 +251,7 @@ El sistema está diseñado para crecer de forma **horizontal mediante vdevs ZFS*
 
 ### 🧠 Flujo de arquitectura actual
 
-*
+```
 Hogares (clientes)
         │
      VPN / HTTPS
@@ -254,7 +262,7 @@ Hogares (clientes)
    │    └── DAS 6 discos (RAIDZ2)
    ├── Nextcloud
    └── servicios
-*
+```
 
 ---
 
