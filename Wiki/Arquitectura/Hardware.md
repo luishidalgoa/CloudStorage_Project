@@ -2,33 +2,66 @@
 
 ---
 
-- [1. 🧱 Hardware y Componentes](#-hardware-y-componentes)
-- [2. 💾 Gestión de Unidades de Disco](#-gestión-de-unidades-de-disco)
+- [1. 🧱 Hardware](#-hardware)
+- [2. 💾 Discos](#-discos)
 - [3. 🧠 Arquitectura de Almacenamiento](#-arquitectura-de-almacenamiento)
     - [3.1. Configuración de almacenamiento](#-configuración-de-almacenamiento)
-    - [3.2. Implementación y Configuración ZFS](#-configuración-zfs)
-    - [3.3. Análisis de Capacidad Estimada](#-capacidad-estimada)
-- [4. 🌐 Configuración de Red y Conectividad](#-configuración-de-red)
-- [5. 👥 Gestión de Accesos y Usuarios](#-gestión-de-accesos-y-usuarios)
-    - [5.1. Administración de Usuarios](#-usuarios)
-    - [5.2. Espacio asignado por usuario (Cuotas)](#-espacio-por-usuario-6-personas)
-- [6. 🧩 Ecosistema de Servicios](#-servicios)
-- [7. 🔐 Seguridad y Mitigación de Riesgos](#-seguridad)
-    - [7.1. Riesgos Críticos Conocidos](#-riesgos-conocidos)
-        - [7.1.1. ❌ Ausencia de backups externos](#-sin-backups-externos)
-        - [7.1.2. ❌ Ausencia de SAI (UPS)](#-sin-sai-ups)
-- [8. 📈 Escalabilidad y Crecimiento](#-escalabilidad)
+    - [3.2. Capacidad estimada](#-capacidad-estimada)
+    - [3.3. Configuración ZFS](#-configuración-zfs)
+- [4. 🌐 Red](#-red)
+- [5. 👥 Usuarios](#-usuarios)
+    - [5.1. Gestión de usuarios](#-usuarios)
+    - [5.2. Espacio por usuario (6 personas)](#-espacio-por-usuario-6-personas)
+- [6. 🧩 Servicios](#-servicios)
+- [7. 🔐 Seguridad](#-seguridad)
+    - [7.1. Riesgos conocidos](#-riesgos-conocidos)
+        - [7.1.1. ❌ Sin backups externos](#-sin-backups-externos)
+        - [7.1.2. ❌ Sin SAI (UPS)](#-sin-sai-ups)
+- [8. 📈 Escalabilidad](#escalabilidad)
     - [8.1. Estrategia general de crecimiento](#-estrategia-general-de-crecimiento)
-    - [8.2. Modelo de expansión principal (Recomendado)](#-modelo-de-expansión-principal-recomendado)
-    - [8.3. La Regla de Crecimiento](#-regla-de-crecimiento)
-    - [8.4. Flujo de arquitectura actual y futura](#-flujo-de-arquitectura-actual)
-    - [8.5. Impacto en servicios (Nextcloud)](#-impacto-en-nextcloud)
-    - [8.6. 🔥 Principios fundamentales de escalabilidad](#-principios-de-escalabilidad)
-- [9. 📊 Análisis de Rendimiento y Uso](#-análisis-de-rendimiento-y-uso)
-    - [9.1. Uso recomendado del sistema](#-uso-recomendado)
-    - [9.2. Comparativa de carga real (6 usuarios)](#-comparativa-real-6-usuarios)
-- [10. 🔧 Mantenimiento y Notas Futuras](#-notas-futuras)
-- [11. 🧨 Resumen Ejecutivo](#-resumen)
+    - [8.2. Modelo de expansión principal](#-modelo-de-expansión-principal-recomendado)
+    - [8.3. Regla de crecimiento](#-regla-de-crecimiento)
+    - [8.4. Flujo de arquitectura actual](#-flujo-de-arquitectura-actual)
+    - [8.5. Expansión futura](#-expansión-futura)
+    - [8.6. Impacto en Nextcloud](#-impacto-en-nextcloud)
+    - [8.7. 🔥 Principios de escalabilidad](#-principios-de-escalabilidad)
+- [9. 📊 Uso y Comparativa](#-uso-recomendado)
+    - [9.1. Uso recomendado](#-uso-recomendado)
+    - [9.2. Comparativa real (6 usuarios)](#-comparativa-real-6-usuarios)
+- [10. 🔧 Notas futuras](#-notas-futuras)
+- [11. 🧨 Resumen](#-resumen)
+
+---
+
+## 📦 Hardware
+## 💾 Discos
+## 🧠 Configuración de almacenamiento
+## 📊 Capacidad estimada
+## ⚙️ Configuración ZFS
+## 🌐 Red
+## 👥 Usuarios
+## 🧩 Servicios
+## 🔐 Seguridad
+## ⚠️ Riesgos conocidos
+
+### ❌ Sin backups externos
+### ❌ Sin SAI (UPS)
+
+## 📊 Uso recomendado
+## 🔧 Notas futuras
+## 🧨 Resumen
+## 📊 Comparativa real (6 usuarios)
+## 👥 Espacio por usuario (6 personas)
+
+# Escalabilidad
+
+### 🧱 Estrategia general de crecimiento
+### ⚙️ Modelo de expansión principal (recomendado)
+### 📦 Regla de crecimiento
+### 🧠 Flujo de arquitectura actual
+### 📈 Expansión futura
+### 🌐 Impacto en Nextcloud
+### 🔥 Principios de escalabilidad
 
 # 🧱 NAS Home Server - Documentación
 
