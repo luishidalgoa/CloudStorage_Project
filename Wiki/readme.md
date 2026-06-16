@@ -1,57 +1,39 @@
-# Objetivo
-El principal objetivo de este proyecto es <u>desarrollar la logica del negocio</u> del servicio de almacenamiento de datos en la nube. Donde nuestros usuarios a traves de ``Nextcloud`` podran subir sus ``fotos``, ``canciones``, ``documentos``, etc...
+# CloudStorage Project — Nube privada del hogar
 
-## Propuesta de valor agregado:
-Un enfoque que deseamos darle a este proyecto es ofrecerla la comodidad al usuario de descargar playlists enteras de canciones de youtube u otras plataformas de una manera <u>sencilla y rapida</u>. de modo que desde una futura aplicación de escritorio y movil, puedan reproducir su musica sin tener que descargarla, a la maxima calidad y sin anuncios.
+## Objetivo
+Montar y mantener una **nube privada de hogar, autoalojada y escalable**, sobre **Nextcloud**, donde la familia pueda subir y sincronizar sus fotos, documentos, música, etc., y donde además se alojen las bibliotecas de almacenamiento masivo del propietario (preservación de videojuegos, películas, series, música) y sus entornos de desarrollo.
 
-# Diagramas
-## Diagrama arquitectura microservicios
+No es un producto comercial. Es infraestructura personal/familiar diseñada para crecer de forma ordenada durante 5–10 años y, eventualmente, **descentralizarse en varios hogares** con redundancia parcial entre servidores.
 
-![Diagrama](./Arquitectura/Diagrama_Microservicios.png)
+> ℹ️ Si en el futuro sobrara capacidad y se quisiera comercializar, se valoraría una capa de pagos/suscripciones (Stripe) sobre la gestión de usuarios de Nextcloud. **Hoy no es prioridad y no condiciona el diseño.**
 
-# Arquitectura del proyecto
-### Reglas de trabajo:
-- Usar variables de entorno siempre que se pueda
-- Usar un dockerfile para cada microservicio
+## Usuarios y cargas
+- **Usuarios:** ~5 hoy (familia, incluido el propietario), hasta ~8 a futuro.
+- **Cargas de datos** (ver [tiers en almacenamiento](Arquitectura/02-Almacenamiento.md)):
+  - Nextcloud familiar (fotos, documentos) — *crítico, irremplazable*.
+  - Preservación de videojuegos (incl. biblioteca Switch) — *semi-crítico*.
+  - Películas y series — *bulk, recuperable*.
+  - Música — *pequeño, crece despacio*.
+  - Proyectos y entornos de desarrollo del propietario (SSH, Docker).
 
-### Seguridad:
-- Solicitar las credenciales en todos los endpoints excepto los que se indiquen en la documentación.
-- Utilizar el microservicio Auth para validar las credenciales.
+## Stack
+- **SO:** Debian + **Cockpit** (panel web de gestión).
+- **Almacenamiento:** **ZFS** (RAIDZ2).
+- **Servicios:** Nextcloud, Jellyfin (multimedia, con transcodificación por hardware QuickSync), Navidrome (música), Docker, monitorización con Grafana/Prometheus.
+- **Sin backup:** la única protección de datos es el **RAIDZ2** (riesgo asumido: no cubre borrados, ransomware, robo ni incendio).
+- **Red futura (opcional):** 2º servidor por **subdominios** (`levelcloud.hdglabs.com` / `casa-b.levelcloud.hdglabs.com`), islas independientes. Ver [03](Arquitectura/03-Red-y-Geodistribucion.md).
 
-### Backend:
-- Todos los servicios creados seran REST
-- usar variables de entorno :
-    - Mockups // para pruebas en las que no hay backend
-    - Development // pruebas reales con otros microservicios
-    - Production // pruebas en el despliegue
-- Manejo de errores
-- Usaremos ``application.yml`` en lugar de ``application.properties``
-- Usaremos DTOs para los datos que recibimos de otros microservicios
-- Usaremos propiedades como estas, para los modelos
-    - ``@Data`` // para crear getters y setters
-    - ``@AllArgsConstructor`` // para crear constructores con parametros
-    - ``@NoArgsConstructor`` // para crear constructores sin parametros
-    - ``@Builder`` // para crear constructores con parametros opcionales
+## Documentación de arquitectura
+1. [00 — Visión y alcance](Arquitectura/00-Vision.md)
+2. [01 — Hardware](Arquitectura/01-Hardware.md)
+3. [02 — Almacenamiento (ZFS / RAIDZ2)](Arquitectura/02-Almacenamiento.md)
+4. [03 — Red y geo-distribución](Arquitectura/03-Red-y-Geodistribucion.md)
+5. [04 — Servicios y operación](Arquitectura/04-Servicios-y-Operacion.md)
 
-# Tecnologías
-- Docker
-- Spring Boot
-- Java 21
-- Python
-- maven
-- Git
-- Postman
+## Servicios y operación
+- [04 — Servicios y operación](Arquitectura/04-Servicios-y-Operacion.md) — dependencias del sistema, servicios del host, contenedores, migración y firewall.
 
-## Software de 3º
-- [yt-dlp](https://github.com/yt-dlp/yt-dlp)
-- [ffmpeg](https://ffmpeg.org/download.html#build-windows)
+> El runbook operativo completo **con secretos** (claves, tokens, configs) vive en un sitio **privado** (OneDrive), **no** en este repositorio público.
 
-## Tools
-
-- IntelliJ
-
-## Plugins intellij
-
-- CodeIUM
-- Prettier
-- maven
+---
+> **Nota histórica:** el proyecto arrancó como una arquitectura de microservicios (Spring Boot: Auth, Gateway, Eureka, Config, Music). **Esa parte está cancelada** y se está eliminando del repositorio. El servicio de descarga de música desde YouTube (microservicio *Music*) queda **descartado**.

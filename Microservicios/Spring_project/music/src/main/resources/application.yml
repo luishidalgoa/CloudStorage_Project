@@ -1,7 +1,0 @@
-spring:
-    profiles:
-        active: ${DEPLOY:local}
-    application:
-        name: music
-    config:
-        import: optional:configserver:${CONFIG_SERVER_URI},optional:application.local.yml
