@@ -26,14 +26,6 @@
     1. [SLOW QUERY Mysql/Mariadb](#slow-query-mysqlmariadb)
     1. [Resolucion DNS](#resolucion-dns)
     1. [Desactivar Firewall del puerto 3306 y activar redireccionamiento del router](#desactivar-firewall-del-puerto-3306-y-activar-redireccionamiento-del-router)
-1. [Restic Backup y Restauración de Datos](#restic-backup-y-restauración-de-datos)
-    1. [Instalacion](#instalar-restic)
-    1. [Inicializar el directorio](#inicializar-el-directorio)
-    1. [Crear script de backup](#crear-script-de-backup)
-    1. [Prueba de ejecución del script](#prueba-de-ejecución-del-script)
-    1. [Programar la frecuencia de ejecución](#programar-la-frecuencia-de-ejecución)
-    1. [Restauración](#restauración)
-    1. [Ventajas](#ventajas-de-restic)
 1. [Tareas programadas Cron](#tareas-programadas-cron)
     1. [Programar apagado del equipo](#apagar-el-equipo)
 
@@ -576,99 +568,6 @@ sudo ufw 3306/tcp
 ```
 > Nota Ahora redirigiremos el puerto desde el router hacia nuestra maquina local para permitir conexiones externas a la red.
 Para ello dirigete a tu router y garantiza que estas redireccionando
-
-## Restic Backup y Restauración de Datos
-Restic es una herramienta avanzada de backup que prioriza la simplicidad y la seguridad. Funciona con deduplicación y encriptación, y permite guardar backups locales o remotos.
-
-Ventajas:
-- Compatible con almacenamiento remoto como S3, FTP, etc.
-- Fácil de configurar.
-- Alta velocidad y seguridad.
-### Instalar Restic
-```bash
-sudo apt update
-sudo apt install restic
-restic version
-```
-
-### Inicializar el directorio
-En este directorio se guardarán los backups
-> **NOTA**: Se solicitara una contraseña, asegurate de no olvidarla porque sera necesaria para restaurar los backups
-```bash
-restic init --repo /mnt/nextcloud_hdd_1/restic_repo
-```
-
-### Crear script de backup
-Crea un script para automatizar el proceso de backup y limpieza de versiones antiguas.
-```bash
-sudo nano /usr/local/bin/restic_backup.sh
-```
-Introduzca el siguiente contenido:
-```bash
-#!/bin/bash
-
-# Variables
-REPO="/mnt/nextcloud_hdd_1/restic_repo"
-PASSWORD="your_secure_password"  # Cambia esto por tu contraseña segura o usa un archivo seguro
-EXCLUDES=(
-  "--exclude=/proc"
-  "--exclude=/sys"
-  "--exclude=/dev"
-  "--exclude=/tmp"
-  "--exclude=/run"
-  "--exclude=/media"
-  "--exclude=/mnt"
-)
-
-# Exportar la contraseña como variable de entorno
-export RESTIC_PASSWORD=$PASSWORD
-
-# Realizar el backup
-restic -r $REPO backup / "${EXCLUDES[@]}"
-
-# Limpiar backups antiguos
-restic -r $REPO forget --keep-daily 7 --keep-weekly 4 --keep-monthly 6
-
-# Verificar la integridad del repositorio (opcional, descomentar si deseas verificar)
-# restic -r $REPO check
-```
-Le damos permisos de ejecución al script
-```bash
-sudo chmod +x /usr/local/bin/restic_backup.sh
-```
-### Prueba de ejecución del script
-Antes de programarlo, prueba el script manualmente para asegurarte de que funciona correctamente:
-```bash
-sudo /usr/local/bin/restic_backup.sh
-```
-Revisa el contenido del repositorio de backup para confirmar que los datos se están guardando:
-```bash
-restic -r /mnt/nextcloud_hdd_1/restic_repo snapshots
-```
-### Programar la frecuencia de ejecución
-Con `cron` vamos a programar todos los sabados a las 1:00 am
-```bash
-sudo crontab -e
-```
-```bash
-0 1 * * 6 /usr/local/bin/restic_backup.sh
-```
-
-### Restauración
-- Para restaurar los backups, ejecutar el siguiente comando:
-    ```bash	
-    restic -r /mnt/nextcloud_hdd_1/restic_repo snapshots
-    ```
-- Restaura un snapshot específico (cambia `SNAPSHOT_ID` por el ID del snapshot que quieras restaurar):
-    ```bash	
-    restic -r /mnt/nextcloud_hdd_1/restic_repo restore SNAPSHOT_ID --target /
-    ```
-
-### Ventajas de Restic
-| Herramienta | Deduplicación | Compresión | Cifrado | Retención automática | Fácil restauración |
-|-------------|---------------|------------|---------|----------------------|--------------------|
-| Restic      | ✅             | ✅          | ✅       | ✅                    | ✅                  |
-
 
 # Tareas programadas Cron
 

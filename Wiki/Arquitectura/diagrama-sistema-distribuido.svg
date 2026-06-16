@@ -1,0 +1,42 @@
+<svg width="100%" viewBox="0 0 680 345" role="img" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, -apple-system, sans-serif">
+<title>Estrategia de sistema distribuido — subdominios bajo una zona DNS común (futuro/opcional)</title>
+<desc>Ambas casas comparten una única zona DNS (hdglabs.com en CloudDNS): ese es el único punto común, un puente de nombres, no de datos. El DNS resuelve levelcloud.hdglabs.com a la IP de la casa A y casa-b.levelcloud.hdglabs.com a la IP de la casa B. Cada familia se conecta directamente a su servidor; los servidores no se comunican entre sí. Sin réplica, sin VPN, sin backup.</desc>
+<defs>
+<marker id="arr" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto"><path d="M0,0 L6.5,3 L0,6 Z" fill="#6b7280"/></marker>
+<marker id="arrg" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto"><path d="M0,0 L6.5,3 L0,6 Z" fill="#9aa3af"/></marker>
+</defs>
+
+<rect x="270" y="8" width="140" height="22" rx="11" fill="#fdebc8" stroke="#c98a16"/>
+<text x="340" y="23" text-anchor="middle" font-size="11" font-weight="700" fill="#7a4f0a">FUTURO / OPCIONAL</text>
+
+<rect x="190" y="38" width="300" height="46" rx="8" fill="#eef1f5" stroke="#9aa3af"/>
+<text x="340" y="59" text-anchor="middle" font-size="12" font-weight="700" fill="#374151">🌐 hdglabs.com — DNS único (CloudDNS)</text>
+<text x="340" y="75" text-anchor="middle" font-size="9" fill="#4b5563">el «puente» es el dominio (nombres), NO los servidores</text>
+
+<line x1="340" y1="84" x2="179" y2="154" stroke="#9aa3af" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#arrg)"/>
+<line x1="340" y1="84" x2="501" y2="154" stroke="#9aa3af" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#arrg)"/>
+<text x="247" y="116" text-anchor="middle" font-size="8.5" fill="#94a3b8">resuelve → IP A</text>
+<text x="433" y="116" text-anchor="middle" font-size="8.5" fill="#94a3b8">resuelve → IP B</text>
+
+<text x="58" y="150" font-size="11.5" font-weight="700" fill="#6b7280">🏠 Hogar A</text>
+<rect x="58" y="156" width="242" height="70" rx="8" fill="#e6f1fb" stroke="#2f6fb3"/>
+<text x="179" y="176" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0c447c">Nextcloud A</text>
+<text x="179" y="195" text-anchor="middle" font-size="10" fill="#2f6fb3">🌐 levelcloud.hdglabs.com</text>
+<text x="179" y="213" text-anchor="middle" font-size="9.5" fill="#2f6fb3">datos de A</text>
+<rect x="58" y="240" width="242" height="36" rx="6" fill="#e6f1fb" stroke="#2f6fb3"/>
+<text x="179" y="262" text-anchor="middle" font-size="12" font-weight="700" fill="#0c447c">Familia A</text>
+
+<text x="380" y="150" font-size="11.5" font-weight="700" fill="#6b7280">🏠 Hogar B</text>
+<rect x="380" y="156" width="242" height="70" rx="8" fill="#dcf2f0" stroke="#2a8a86"/>
+<text x="501" y="176" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0b5d59">Nextcloud B</text>
+<text x="501" y="195" text-anchor="middle" font-size="9" fill="#2a8a86">🌐 casa-b.levelcloud.hdglabs.com</text>
+<text x="501" y="213" text-anchor="middle" font-size="9.5" fill="#2a8a86">datos de B</text>
+<rect x="380" y="240" width="242" height="36" rx="6" fill="#dcf2f0" stroke="#2a8a86"/>
+<text x="501" y="262" text-anchor="middle" font-size="12" font-weight="700" fill="#0b5d59">Familia B</text>
+
+<line x1="179" y1="240" x2="179" y2="228" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arr)"/>
+<line x1="501" y1="240" x2="501" y2="228" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arr)"/>
+
+<text x="340" y="300" text-anchor="middle" font-size="9.5" fill="#6b7280">Comparten la MISMA zona DNS, pero los servidores NO se comunican entre sí (sin réplica · sin VPN · sin backup).</text>
+<text x="340" y="317" text-anchor="middle" font-size="9.5" fill="#6b7280">El DNS solo resuelve cada nombre a la IP de su casa; el tráfico va directo familia ↔ su servidor.</text>
+</svg>
