@@ -8,6 +8,7 @@ Documentación de arquitectura de la nube privada del hogar. Lee en orden:
 | 01 | [Hardware](01-Hardware.md) | Servidor actual, lista de compra definitiva, ampliaciones |
 | 02 | [Almacenamiento](02-Almacenamiento.md) | ZFS, RAIDZ2, capacidad real, crecimiento por vdevs, datasets/tiering |
 | 03 | [Red y geo-distribución](03-Red-y-Geodistribucion.md) | Red actual, acceso externo, descentralización en 2 hogares |
+| 04 | [Servicios y operación](04-Servicios-y-Operacion.md) | Dependencias del sistema, servicios del host, contenedores, migración, firewall |
 
 ## Resumen ejecutivo
 

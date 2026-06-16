@@ -28,12 +28,12 @@ No es un producto comercial. Es infraestructura personal/familiar diseñada para
 2. [01 — Hardware](Arquitectura/01-Hardware.md)
 3. [02 — Almacenamiento (ZFS / RAIDZ2)](Arquitectura/02-Almacenamiento.md)
 4. [03 — Red y geo-distribución](Arquitectura/03-Red-y-Geodistribucion.md)
+5. [04 — Servicios y operación](Arquitectura/04-Servicios-y-Operacion.md)
 
-## Operación del sistema
-Guías de instalación y operación del servidor (estado real montado):
-- [Servidor (firmware, MySQL, monitorización, cron)](../Sistema/Servidor.md)
-- [Nextcloud](../Sistema/Nextcloud.md)
-- [SMB / Samba](../Sistema/SMB%20(Samba).md)
+## Servicios y operación
+- [04 — Servicios y operación](Arquitectura/04-Servicios-y-Operacion.md) — dependencias del sistema, servicios del host, contenedores, migración y firewall.
+
+> El runbook operativo completo **con secretos** (claves, tokens, configs) vive en un sitio **privado** (OneDrive), **no** en este repositorio público.
 
 ---
 > **Nota histórica:** el proyecto arrancó como una arquitectura de microservicios (Spring Boot: Auth, Gateway, Eureka, Config, Music). **Esa parte está cancelada** y se está eliminando del repositorio. El servicio de descarga de música desde YouTube (microservicio *Music*) queda **descartado**.
